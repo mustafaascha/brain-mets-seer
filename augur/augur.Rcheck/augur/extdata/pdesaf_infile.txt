@@ -1,0 +1,80 @@
+/*Published: 12/1/2016*/
+/**********************   COMMENTS   ***********************************/
+/*                                                                     */
+/* For cancer files, Patient Identifier is @01 REGCASE $char10.        */
+/* For non-cancer files, Patient Identifier is @01 HICBIC $char11.     */
+/*                                                                     */
+/***********************************************************************/
+/*                                                                     */
+/* Please Note: If you are using PC SAS to read in these files you     */
+/* will have to un-zip the files first and use the un-zipped filename  */
+/* statement, rather than using the zipped files and statement.        */
+/*                                                                     */
+/***********************************************************************/
+
+*filename pdein '/directory/pdesaf14.txt';                      /*reading in an un-zipped file*/
+filename pdein pipe 'gunzip -c /directory/pdesaf14.txt.gz';     /*reading in a zipped file*/
+*filename pdein pipe 'gunzip -c /directory/pdesaf*.txt.gz';     /*using wildcard to match multiple files */
+
+options nocenter validvarname=upcase;
+
+data pdesaf;
+  infile pdein lrecl=212 missover pad;
+  input  @001  patient_id             $char11.
+         /*@001  REGCASE              $char10.*/ /*ID for Cancer Patients*/
+         /*@001  HICBIC               $char11.*/ /*ID for Non Cancer Patients*/
+         @012 PDE_ID                  $CHAR15.
+         @027 srvc_mon                $char2.
+         @029 srvc_day                $char2.
+         @031 srvc_yr                 $char4.
+         @035 PROD_SRVC_ID            $CHAR19.
+         @054 QTY_DSPNSD_NUM          12.3
+         @066 DAYS_SUPLY_NUM          3.
+         @069 CTSTRPHC_CVRG_CD        $CHAR1.
+         @070 PTNT_PAY_AMT            10.2
+         @080 TOT_RX_CST_AMT          10.2
+         @090 BN                      $CHAR30.
+         @120 GCDF                    $CHAR2.
+         @122 GCDF_DESC               $CHAR40.
+         @162 STR                     $CHAR10.
+         @172 GNN                     $CHAR30.
+         @202 BENEFIT_PHASE           $CHAR2.
+         @204 TIER_ID                 $CHAR2.
+         @206 STEP                    $CHAR2.
+         @208 QUANTITY_LIMIT_YN       $CHAR2.
+         @210 PRIOR_AUTHORIZATION_YN  $CHAR2.
+         ;
+
+
+  * Labels *;
+  label
+        patient_id                       = "Patient ID"
+        /*regcase                        = "SEER Registry Case Number"*/
+        /*HICBIC                         = "Non Cancer Patient ID"*/
+        PDE_ID                           = "Encrypted PDE ID"
+        SRVC_mon                         = "RX Service Month"
+        SRVC_day                         = "RX Service Day"
+        SRVC_yr                          = "RX Service Year"
+        PROD_SRVC_ID                     = "Product Service ID"
+        QTY_DSPNSD_NUM                   = "Quantity Dispensed"
+        DAYS_SUPLY_NUM                   = "Days Supply"
+        CTSTRPHC_CVRG_CD                 = "Catastrophic Coverage Code"
+        PTNT_PAY_AMT                     = "Patient Pay Amount"
+        TOT_RX_CST_AMT                   = "Gross Drug Cost"
+        BN                               = "Brand Name"
+        GCDF                             = "Dosage Form Code"
+        GCDF_DESC                        = "Dosage Form Code Description"
+        STR                              = "Drug Strength Description"
+        GNN                              = "Generic Name - Short Version"
+        BENEFIT_PHASE                    = "The benefit phase of the Part D Event"
+        TIER_ID                          = "Medicare Part D formulary tier identifier"
+        STEP                             = "Maximum Step Number"
+        QUANTITY_LIMIT_YN                = "Whether or Not the Drug has Quantity Limits"
+        PRIOR_AUTHORIZATION_YN           = "Whether or Not the Drug Requires Prior Authorization"
+        ;
+
+run;
+
+proc contents data=pdesaf position;
+run;
+

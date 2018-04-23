@@ -1,0 +1,795 @@
+COL,FIELD,LENGTH
+1,Patient ID,10
+"",(patient_id),
+1,SEER Cases - Registry,2
+3,Case Number,8
+11,Five Pct Indicator,1
+"",(fivepct),
+12,Match Type (mat_type),1
+13,Match Flag 1,1
+"",(yobflg1),
+14,Match Flag 2 (dobflg2),1
+15,Match Flag 3 (yodflg3),1
+17,Match Flag 5 (lstflg5),1
+18,Match Flag 6 (fstflg6),1
+19,Match Flag 7 (mobflg7),1
+20,Match Flag 8 (midflg8),1
+21,Number of digits in,1
+"",SSN that matched,
+"",(numdigit),
+22,Date of Death Flag,1
+"",(dod_flg),
+23,Date of Birth Flag,1
+"",(dob_flg),
+24,Linkage Flag,1
+"",(linkflag),
+25,Medicare Date of Death,8
+"","(med_dodm,",
+"","med_dodd,",
+"",med_dody),
+33,Medicare Month of Birth,2
+"",(birthm),
+37,Medicare Year of Birth,4
+"",(birthyr),
+41,Sex,1
+"",(m_sex),
+42,Race,1
+"",(race),
+43,Original Reason for,1
+"",Entitlement (rsncd1),
+44,Current Reason for,1
+"",Entitlement (cur_ent),
+45,Current Reason for,4
+"",Entitlement Year,
+"",(cur_yr),
+49,Chronic Renal Disease,1
+"",(chr_esrd),
+50,Chronic Renal Disease,4
+"",Year,
+"",(chr_esrd_yr),
+54,First Chronic Renal,4
+"",Disease Year,
+"",(first_esrd_yr),
+58,Medicare Status Code,2
+"",(med_stcd),
+60,Medicare Status Code,4
+"",Year,
+"",(medst_yr),
+64,Valid Date of Death,1
+"",(vrfydth),
+65,State (state),2
+67,County (county),3
+70,Zip Code (zip5),5
+75,Zip Code (zip4),4
+79,Census Track Flag,1
+"",(code_sys),
+80,Census Tract,6
+"",(tract1990),
+86,Census Tract 2000,6
+"",(tract2000),
+92,Census Tract 2010,6
+"",(tract2010),
+98,HSA,3
+"",(hsa),
+101,Urban/Rural recode,1
+"",(urbrur),
+COL,FIELD,LENGTH
+102,Urban/Rural code,2
+"",(urban),
+104,Sex (s_sex),1
+105,Race Recode B,2
+"",(rac_recb),
+107,Race Recode Y,1
+"",(rac_recy),
+108,Race Recode A,1
+"",(rac_reca),
+109,ICD Code – Cause of,1
+"",Death (icd_code),
+110,Cause of Death ICD -8,4
+"",or 9 (cod89v),
+114,Cause of Death ICD-10,4
+"",(cod10v),
+118,Cause of Death to site,5
+"",recode KM (codkm),
+123,Cause of Death to site,5
+"",recode (codpub),
+128,NHIA Derived Hispanic,1
+"",Origin (nhiade),
+129,SEER Month of Death,2
+"",(ser_dodm),
+131,SEER Year of Death,4
+"",(ser_dody),
+135,Date Flag for Follow Up,2
+"",(deathflag),
+137,SEER,2
+"",Race/Ethnicity (srace),
+139,SEER Hispanic,1
+"",Surname (origin),
+140,Origin recode NHIA,1
+"","(Hispanic, Non-Hisp)",
+"",(origrecb),
+141,Filler,1
+142,Vital Status Recode,1
+"",(stat_rec),
+143,Census Tract Certainty,1
+"",(cen_cert),
+144,Census Tract Certainty,1
+"",2000 (ctcer2k),
+145,Census Tract Certainty,1
+"",2010 (ctcer2010),
+146,Census Tract Poverty,1
+"",Indicator,
+"",(census_pov_,
+"",ind),
+"",,
+147,SEER Year of Birth,4
+"",(yr_brth),
+151,Date of Birth Flag,2
+"",(dbrflag),
+153,Number of SEER 2
+"",records (count)
+157,Diagnosis indicator 1
+"",(resnrec)
+164,Old Encrypted 8
+"",Casenum (oshufcase)
+172,Filler 53
+"",Repeated Part D Denominator I
+"",These variables (columns 225-26
+"","2014.  (YY = the year of the file,"
+225,Plan-Value Indicators  12*1
+"",(Jan. – Dec.)
+"",(planYY_01-
+"",planYY_12)
+237,State Reported Dual 12*2
+"",Eligible Status Code
+"",(Jan. – Dec.)
+"",(dualYY_01-
+"",dualYY_12)
+261,Plan Coverage Months 2
+"",(ptdYY)
+263,Medicaid Dual Eligible 2
+"",Months
+"",(dualcntYY)
+"",Repeated Entitlement Informati
+"",These variables (columns 590-63
+"",2015.
+590,Entitlement Indicators 12*1
+"",(mon1-mon300)
+602,HMO Indicators (gho1-,12*1
+"",gho300),
+614,State Buy-in Indicator,12*1
+"",(allflag1-allflag300),
+626,Part A Months,2
+"",(ptacnt1991-,
+"",ptacnt2015),
+628,Part B Months,2
+"",(ptbcnt1991-,
+"",ptbcnt2015),
+630,HMO Months,2
+"",(hmocnt1991-,
+"",hmocnt2015),
+632,State Buy-in Months,2
+"",(stbuyin1991-,
+"",stbuyin2015),
+1734,Zip Codes (5),5
+"",(zip5_1991-zip5_2015),
+1739,Zip Codes (4),4
+"",(zip4_1991-zip4_2015),
+1743,Registry Code,2
+"",(registry1991-,
+"",registry2015),
+1745,Registry Code #2,2
+"",(reg2cd1991-,
+"",reg2cd2015),
+1747,State (state1991-,2
+"",state2015),
+1749,County (cnty1991-,3
+"",cnty2015),
+2202,SEER Registry Code at,2
+"",Diagnosis,
+"",(reg1-reg10) (reg),
+2204,Marital Status at,1
+"",Diagnosis,
+"",(marst1-marst10),
+"",(mar_stat),
+2205,Age at Diagnosis,3
+"",(agedx1-agedx10),
+"",(age_dx),
+2208,Sequence Number,2
+"",(seq1-seq10),
+"",(seq_num),
+2210,Month of Diagnosis,2
+"",(modx1-modx10),
+"",(date_mo),
+2212,Year of Diagnosis,4
+"",(yrdx1-yrdx10),
+"",(date_yr),
+2216,Primary Site,3
+"",(site1-site10),
+"",(site02v),
+2219,Laterality,1
+"",(lat1-lat10),
+"",(lateral),
+2220,Histology ICD-O-2,4
+"",(1992-2000),
+"",(hist2_1-hist2_10),
+"",(hist02v),
+2224,Behavior code,1
+"",ICD-O-2 (1992-2000),
+"",(beh2_1-beh2_10),
+"",(beh02v),
+2225,Histology ICD-O-3,4
+"",(hist1-hist10),
+"",(hist03v),
+2229,Behavior code,1
+"",ICD-O-3,
+"",(beh1-beh10),
+"",(beh03v),
+2230,Grade,1
+"",(grade1-grade10),
+"",(grade),
+2231,Diagnostic Confirmation,1
+"",(dxconf1-dxconf10),
+"",(dx_conf),
+2232,Type of Reporting,1
+"",Source,
+"",(src1-src10),
+"",(rept_src),
+2233,EOD 10 - Tumor Size,3
+"",(1988-2003),
+"",(e10sz1-e10sz10),
+"",(eod10_sz),
+2236,EOD 10 – Tumor Extent,2
+"",(1988-2003),
+"",(e10ex1-e10ex10),
+"",(eod10_ex),
+2238,EOD 10 – Prostate,2
+"",pathology ext,
+"",(1995-2003),
+"",(e10pe1-e10pe10),
+"",(eod10_pe),
+2240,EOD 10 - Nodes,1
+"",(1988-2003),
+"",(e10nd1-e10nd10),
+"",(eod10_nd),
+2241,EOD 10 - # positive,2
+"",Nodes (1988+),
+"",(e10pn1-e10pn10),
+"",(eod10_pn),
+2243,EOD 10 - # Nodes,2
+"",Examined (1988+),
+"",(e10ne1-e10ne10),
+"",(eod10_ne),
+2245,EOD – OLD 13 Digit,13
+"",(1973-1982),
+"",(eod13_1-eod13_10),
+"",(eod13),
+2258,EOD – OLD 2 Digit,2
+"",(1973-1982),
+"",(eod2_1-eod2_10),
+"",(eod2),
+2260,EOD 4 –size,2
+"",(1983-1987),
+"",(e4siz1-e4siz10),
+"",(eod4),
+2262,EOD 4 – extent,1
+"",(1983-1987),
+"",(e4ext1-e4ext10),
+"",(eod4),
+2263,EOD 4 – nodes,1
+"",(1983-1987),
+"",(e4nod1-e4nod10),
+"",(eod4),
+2264,Coding system – extent,1
+"",of disease,
+"",(1973-2003),
+"",(eod_cd1-eod_cd10),
+"",(eodcode),
+2265,Tumor Marker 1,1
+"",(1990-2003),
+"",(tumor1_1-tumor1_10),
+"",(tumor_1v),
+2266,Tumor Marker 2,1
+"",(1990-2003),
+"",(tumor2_1-tumor2_10),
+"",(tumor_2v),
+2267,Tumor Marker 3,1
+"",(1998-2003),
+"",(tumor3_1-tumor3_10),
+"",(tumor_3v),
+2268,CS Tumor Size,3
+"",(2004+),
+"",(cstum1-cstum10),
+"",(cs_size),
+2271,CS Extension,3
+"",(2004+),
+"",(csex1-csex10),
+"",(cs_ext),
+2274,CS Lymph Nodes,3
+"",(2004+),
+"",(cslym1-cslym10),
+"",(cs_node),
+2277,CS Mets at Dx,2
+"",(2004+),
+"",(csmet1-csmet10),
+"",(cs_mets),
+2279,CS Site-Specific Factor,3
+"",1 (2004+),
+"",(cs1st1-cs1st10),
+"",(cs_ssf1),
+2282,CS Site-Specific Factor,3
+"",2 (2004+),
+"",(cs2st1-cs2st10),
+"",(cs_ssf2),
+2285,CS Site-Specific Factor,3
+"",3 (2004+),
+"",(cs3st1-cs3st10),
+"",(cs_ssf3),
+2288,CS Site-Specific Factor,3
+"",4 (2004+),
+"",(cs4st1-cs4st10),
+"",(cs_ssf4),
+2291,CS Site-Specific Factor,3
+"",5 (2004+),
+"",(cs5st1-cs5st10),
+"",(cs_ssf5),
+2294,CS Site-Specific Factor,3
+"",6 (2004+),
+"",(cs6st1-cs6st10),
+"",(cs_ssf6),
+2297,CS Site-Specific Factor,3
+"",25 (2004+),
+"",(cs25st1-cs25st10),
+"",(cs_ssf25),
+2300,"Derived AJCC T, 6th",2
+"",edition (2004+),
+"",(dajcct1-dajcct10),
+"",(d_ajcc_t),
+2302,"Derived AJCC N, 6th",2
+"",edition (2004+),
+"",(dajccn1-dajccn10),
+"",(d_ajcc_n),
+2304,"Derived AJCC M, 6th",2
+"",edition (2004+),
+"",(dajccm1-dajccm10),
+"",(d_ajcc_m),
+2306,Derived AJCC Stage,2
+"","Group, 6th edition",
+"",(2004+),
+"",(dajccstg1-,
+"",dajccstg10),
+"",(d_ajcc_s),
+2308,Derived SS1977,1
+"",(2004+),
+"",(dss77s1-dss77s10),
+"",(d_ssg77),
+2309,Derived SS2000,1
+"",(2004+),
+"",(dss00s1-dss00s10),
+"",(d_ssg00),
+2310,Derived AJCC-Flag,1
+"",(dajcflg1-dajcflg10),
+"",(d_ajcc_f),
+2311,Derived SS1977 - Flag,1
+"",(dss77f1-dss77f10),
+"",(d_ssg77f),
+2312,Derived SS2000 – Flag,1
+"",(dss00f1-dss00f10),
+"",(d_ssg00f),
+2313,CS Version 1st,6
+"",(2004+),
+"",(csvf1-csvf10),
+"",(csv_org),
+2319,CS Version Latest,6
+"",(2004+),
+"",(csvl1-csvl10),
+"",(csv_der),
+2325,CS version input,6
+"",current (2004+),
+"",(cscurrent1-,
+"",cscurrent10),
+"",(csv_cur),
+2331,RX Summ – Surgery of,2
+"",Primary Site (1998+),
+"",(sxprif1-sxprif10),
+"",(surgprim),
+2333,RX –Summ Scope Reg,1
+"",LN Sur (2003+),
+"",(sxscof1-sxscof10),
+"",(scope),
+2334,RX Summ--Surg Oth,1
+"",Reg/Dis (2003+),
+"",(sxsitf1-sxsitf10),
+"",(surgoth),
+2335,Number of regional,2
+"",lymph nd exam,
+"",(1998-2002),
+"",(numnd1-numnd10),
+"",(surgnode),
+2337,First course of,1
+"",reconstruction,
+"",(1998-2002),
+"",(recstr1-recstr10),
+"",(reconst),
+2338,Reason no cancer-,1
+"",directed surgery,
+"",(nosrg1-nosrg10),
+"",(no_surg),
+2339,Radiation,1
+"",(rad1-rad10),
+"",(radiatn),
+2340,Radiation to Brain and,1
+"",/or CNS,
+"",(radbrn1-radbrn10),
+"",(rad_brn),
+2341,Radiation sequence,1
+"",with surgery,
+"",(radsurg1-radsurg10),
+"",(rad_surg),
+2342,Site Specific Surgery,2
+"",(1983 – 1997),
+"",(sssurg1-sssurg10),
+"",(ss_surg),
+2344,Scope of regional,1
+"",lymph node surgery,
+"",(1998-2002),
+"",(sxscop1-sxscop10),
+"",(scope02),
+2345,Surgery of other,1
+"",reg/dist sites,
+"",(1998-2002),
+"",(sxsite1-sxsite10),
+"",(srgoth02),
+2346,Record Number,2
+"",(recnum1-recnum10),
+2348,Age-site edit override,1
+"",(ositage1-ositage10),
+"",(o_sitage),
+2349,Sequence number-dx,1
+"",conf override,
+"",(oseqcon1-,
+"",oseqcon10),
+"",(o_seqcon),
+2350,Site-type-lat-seq,1
+"",override,
+"",(oseqlat1-oseqlat10),
+"",(o_seqlat),
+2351,Surgery-diagnostic conf,1
+"",override,
+"",(osurcon1-osurcon10),
+"",(o_surcon),
+2352,Site-type edit override,1
+"",(osittyp1-osittyp10),
+"",(o_sittyp),
+2353,Histology edit override,1
+"",(hbenign1-hbenign10),
+"",(h_benign),
+2354,Report source,1
+"",sequence override,
+"",(orptsrc1-orptsrc10),
+"",(o_rptsrc),
+2355,Seq-ill-defined site,1
+"",override,
+"",(odfsite1-odfsite10),
+"",(o_dfsite),
+2356,Leuk-Lymph dx,1
+"",confirmation override,
+"",(oleukdx1-oleukdx10),
+"",(o_leukdx),
+2357,Site-behavior override,1
+"",(ositbeh1-ositbeh10),
+"",(o_sitbeh),
+2358,Site-EOD-dx date,1
+"",override,
+"",(oeoddt1-oeoddt10),
+"",(o_eoddt),
+2359,Site-laterality-EOD,1
+"",override,
+"",(ositeod1-ositeod10),
+"",(o_siteod),
+2360,Site-laterality-morph,1
+"",override,
+"",(ositmor1-ositmor10),
+"",(o_sitmor),
+2361,Type of follow-up,1
+"",expected,
+"",(typefu1-typefu10),
+"",(typefup),
+2362,Age at Diagnosis,2
+"",recode (ager1-ager10),
+"",(age_rec),
+2364,Site Recode ICD-O-3/,5
+"",WHO 2008 (siterwho1-,
+"",siterwho10) (siterwho),
+2369,Filler,4
+2373,Recode ICD-O-2 to 9,4
+"",(icdot09_1-,
+"",icdot09_10),
+"",(icdot09v),
+2377,Recode ICD-O-2 to 10,4
+"",(icdot10_1-,
+"",icdot10_10),
+"",(icdot10v),
+2381,ICCC site recode,3
+"",ICD-O-3/WHO 2008,
+"",(ICCC3WHO1-,
+"",ICCC3WHO10),
+"",(ICCC3WHO),
+2384,ICCC site recode,3
+"",extended ICD-O-3/,
+"",WHO 2008,
+"",(ICC3XWHO1-,
+"",ICC3XWHO10),
+"",(ICCC3XWHO),
+2387,Behavior recode for,1
+"",analysis (behtrend1-,
+"",behtrend10),
+"",(behanal),
+2388,Histology recode -,2
+"",broad groupings,
+"",(histrec1-histrec10),
+"",(histrec),
+2390,Histology recode –,2
+"",Brain groupings,
+"",(hisrcb1-hisrcb10),
+"",(brainrec),
+2392,CS Schema – v 0204,3
+"",(cs04sch1-cs04sch10),
+"",(cs0204schema),
+2395,SEER Historic Stage A,1
+"",(hstst1-hstst10),
+"",(hst_stga),
+2396,AJCC Stage 3rd Edition,2
+"",(1988-2003),
+"",(ajccstg1-ajccstg10),
+"",(ajcc_stg),
+2398,SEER Modified AJCC,2
+"",Stage 3rd edition,
+"",(1988-2003),
+"",(aj3sr1-aj3sr10),
+"",(aj_3seer),
+2400,SEER Summary Stage,1
+"",1977 (1995-2000),
+"",(sss77v1-sss77v10),
+"",(ssg77),
+2401,SEER summary stage,1
+"",2000 (2001-2003),
+"",(sssm2Z1-sssm2Z10),
+"",(ssg2000),
+2402,First Malignant Primary,1
+"",Indicator,
+"",(frstprm1-frstprm10),
+"",(firstprm),
+2403,FIPS State Code,2
+"",(statecd1-statecd10),
+"",(stcounty),
+2405,FIPS County Code,3
+"",(cnty1-cnty10),
+"",(stcounty),
+2408,IHS Code,1
+"",(ihscd1-ihscd10),
+2409,Summary Stage 2000,1
+"",(1998+),
+"",(summ2k1-,
+"",summ2k10),
+"",(hist_ssg_2000),
+2410,AYA site recode/WHO,2
+"",2008,
+"",(ayawho1-ayawho10),
+"",(aya_recode),
+2412,Lymphoma subtype,2
+"",recode/WHO 2008,
+"",(lymwho1-lymwho10),
+"",(lymphoma_recode),
+2414,SEER cause-specific,1
+"",death classification,
+"",(vsrtdx1-vsrtdx10),
+"",(dth_class),
+2415,SEER other cause of,1
+"",death classification,
+"",(odthclass1-,
+"",odthclass10),
+"",(o_dth_class),
+2416,CS Tumor Size/Ext,1
+"",Eval (2004+),
+"",(csts1-csts10),
+"",(exteval),
+2417,CS Reg Nodes Eval,1
+"",(2004+),
+"",(csrg1-csrg10),
+"",(nodeeval),
+2418,CS Mets Eval (2004+),1
+"",(csmt1-csmt10),
+"",(metseval),
+2419,Primary by International,1
+"",Rules,
+"",(intprim1-intprim10),
+"",(intprim),
+2420,ER Status Recode,1
+"",Breast Cancer (1990+),
+"",(erstat1-erstat10),
+"",(erstatus),
+2421,PR Status Recode,1
+"",Breast Cancer (1990+),
+"",(prstat1-prstat10),
+"",(prstatus),
+2422,CS Schema,2
+"",(cssch1-cssch10),
+"",(csschema),
+2424,CS Site-Specific Factor,3
+"",8 (2004+),
+"",(cs8st1-cs8st10),
+"",(cs_ssf8),
+2427,CS Site-Specific Factor,3
+"",10 (2004+),
+"",(cs10st1-cs10st10),
+"",(cs_ssf10),
+2430,CS Site-Specific Factor,3
+"",11 (2004+),
+"",(cs11st1-cs11st10),
+"",(cs_ssf11),
+2433,CS Site-Specific Factor,3
+"",13 (2004+),
+"",(cs13st1-cs13st10),
+"",(cs_ssf13),
+2436,CS Site-Specific Factor,3
+"",15 (2004+),
+"",(cs15st1-cs15st10),
+"",(cs_ssf15),
+2439,CS Site-Specific Factor,3
+"",16 (2004+),
+"",(cs16st1-cs16st10),
+"",(cs_ssf16),
+2442,Lymph-vascular,1
+"",Invasion (2004+),
+"",(vasinv1-vasinv10),
+"",(vasinv),
+2443,Survival Months,4
+"",(srvm1-srvm10),
+"",(srv_time_mon),
+2447,Survival Months Flag,1
+"",(srvmflag1-,
+"",srvmflag10),
+"",(srv_time_mon_flag),
+2448,Filler,5
+2453,Insurance Recode,1
+"",(2007+),
+"",(insrecpb1-,
+"",insrecpb10),
+"",(insrec_pub),
+2454,Derived AJCC T 7th ed,3
+"",(dajcc7t1-dajcc7t10),
+"",(dajcc7t),
+2457,Derived AJCC N 7th ed,3
+"",(dajcc7n1-dajcc7n10),
+"",(dajcc7n),
+2460,Derived AJCC M 7th ed,3
+"",(dajcc7m1-dajcc7m10),
+"",(dajcc7m),
+2463,Derived AJCC 7 Stage,3
+"",Group,
+"",(dajcc7_01-dajcc7_10),
+"",(dajcc7stg),
+2466,Breast Adjusted AJCC,2
+"",6th T (1988+),
+"",(adjajc6t1-adjajc6t10),
+"",(adjtm_6value),
+2468,Breast Adjusted AJCC,2
+"",6th N (1988+),
+"",(adjajc6n1-adjajc6n10),
+"",(adjnm_6value),
+2470,Breast Adjusted AJCC,2
+"",6th M (1988+),
+"",(adjajc6m1-,
+"",adjajc6m10),
+"",(adjm_6value),
+2472,Breast Adjusted AJCC,2
+"",6th Stage (1988+),
+"",(adjajc6_01-,
+"",adjajc6_10),
+"",(adjajccstg),
+2474,CS Site-Specific Factor,3
+"",7 (cs7st1-cs7st10),
+"",(cs7site),
+2477,CS Site-Specific Factor,3
+"",9 (cs9st1-cs9st10),
+"",(cs9site),
+2480,CS Site-Specific Factor,3
+"",12 (cs12st1-cs12st10),
+"",(cs12site),
+2483,Derived HER2 Recode,1
+"",(2010+),
+"",(her2rec1-her2rec10),
+"",(her2),
+2484,Breast Subtype (2010+),1
+"",(brstsub1-brstsub10),
+"",(brst_sub),
+2485,Lymphoma – Ann Arbor,1
+"",Stage (1983+),
+"",(annarbor1-,
+"",annarbor10),
+"",(annarbor),
+2486,CS Mets at DX-Bone,1
+"",(2010+),
+"",(csmetsdxb_pub1-,
+"",csmetsdxb_pub10),
+"",(csmetsdxb_pub),
+2487,CS Mets at DX-Brain,1
+"",(2010+),
+"",(csmetsdxbr_pub1-,
+"",csmetsdxbr_pub10),
+"",(csmetsdxbr_pub),
+2488,CS Mets at DX-Liver,1
+"",(2010+),
+"",(csmetsdxliv_pub1-,
+"",csmetsdxliv_pub10),
+"",(csmetsdxliv_pub),
+2489,CS Mets at DX-Lung,1
+"",(2010+),
+"",(csmetsdxlung_pub1-,
+"",csmetsdxlung_pub10),
+"",(csmetsdxlung_pub),
+2490,T value-based on AJCC,2
+"",3rd (1988-2003),
+"",(t_value1-t_value10),
+"",(t_value),
+2492,N value-based on,2
+"",AJCC 3rd (1988-2003),
+"",(n_value1-n_value10),
+"",(n_value),
+2494,M value-based on,2
+"",AJCC 3rd (1988-2003),
+"",(m_value1-m_value10),
+"",(m_value),
+2496,Diagnosis Date Flag,2
+"",(ddxflag1-ddxflag10),
+2498,Therapy date flag,2
+"",(dthflag1-dthflag10),
+2500,Month Therapy Started,2
+"",(monrx1-monrx10),
+"",(monthrx),
+2502,Year Therapy Started,4
+"",(yearrx1-yearrx10),
+"",(year_rx),
+2506,Other Therapy,1
+"",(other_tx1-other_tx10),
+"",(othr_rx),
+2507,ICD-O coding scheme,1
+"",(icdo1-icdo10),
+"",(icdover),
+2508,NAPIIA Derived API,2
+"",Race,
+"",(napiia1-napiia10),
+"",(napiia),
+2510,Primary Payer at DX,2
+"",(payer_dx1-,
+"",payer_dx10),
+"",(payerdx),
+2512,OncoType DX,3
+"",recurrence score,
+"",(onco_score1-,
+"",onco_score10),
+"",(oncotype_score),
+2515,OncoType DX risk,1
+"",group,
+"",(onco_rg1-onco_rg10),
+"",(oncotype_rg),
+2516,OncoType DX reason,1
+"",no score,
+"",(onco_rns1-,
+"",onco_rns10),
+"",(oncotype_rns),
+2517,OncoType DX delivered,4
+"",year (onco_year1-,
+"",onco_year10),
+"",(oncotype_year),
+2521,OncoType DX delivered,2
+"",month (onco_month1-,
+"",onco_month10),
+"",(oncotype_month),
+2523,OncoType DX months,3
+"",since diagnosis,
+"",(onco_time1-,
+"",onco_time10),
+"",(oncotype_time),
+5442,Filler,1

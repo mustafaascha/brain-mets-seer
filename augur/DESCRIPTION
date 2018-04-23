@@ -1,0 +1,22 @@
+Package: augur 
+Title: augur is a seer for SEER-Medicare data
+Version: 0.0.0.9001
+Date: 2017-10-14
+Authors@R: person("Mustafa", "Ascha", email = "mustafa.ascha@gmail.com", role = c("aut", "cre"))
+Description: Use IMS-provided SAS infiles to read and work with SEER-Medicare fixed-width ASCII files.
+Depends: R (>= 3.3.3)
+License: MIT + file LICENSE 
+Encoding: UTF-8
+LazyData: true
+Imports: readr,
+    dplyr,
+    purrr,
+    rlang,
+    tidyr,
+    lubridate, 
+    pryr
+Suggests: testthat,
+    knitr,
+    rmarkdown
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
