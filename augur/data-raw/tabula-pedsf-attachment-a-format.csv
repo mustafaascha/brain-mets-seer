@@ -1,0 +1,135 @@
+NAACCR Name,NAACCR  Item #,,SAS Variable Name,Applicable Years,,Position,Length
+Patient ID number,20,,PUBCSNUM,,,1-8,8
+Registry ID,40,,REG,,,9-18,10
+Marital Status at DX,150,,MAR_STAT,,,19,1
+Race/Ethnicity,160,,RACE1V,,,20-21,2
+NHIA Derived Hispanic Origin,191,,NHIADE,,,23,1
+Sex,220,,SEX,,,24,1
+Age at diagnosis,230,,AGE_DX,,,25-27,3
+Year of Birth,240,,YR_BRTH,,,28-31,4
+Sequence Number—Central,380,,SEQ_NUM,,,35-36,2
+Month of diagnosis,390,,MDXRECMP,,,37-38,2
+Year of diagnosis,390,,YEAR_DX,,,39-42,4
+Primary Site,400,,PRIMSITE,,,43-46,4
+Laterality,410,,LATERAL,,,47,1
+Histology (92-00) ICD-O-2,420,,HISTO2V,,,48-51,4
+Behavior (92-00) ICD-O-2,430,,BEHO2V,,,52,1
+Histologic Type ICD-O-3,522,,HISTO3V,,,53-56,4
+Behavior Code ICD-O-3,523,,BEHO3V,,,57,1
+Grade,440,,GRADE,,,58,1
+Diagnostic Confirmation,490,,DX_CONF,,,59,1
+Type of Reporting Source,500,,REPT_SRC,,,60,1
+EOD—Tumor Size,780,,EOD10_SZ,1988-2003,,61-63,3
+EOD—Extension,790,,EOD10_EX,1988-2003,,64-65,2
+EOD—Extension Prost Path,800,,EOD10_PE,1985-2003,,66-67,2
+EOD—Lymph Node Involv,810,,EOD10_ND,1988-2003,,68,1
+Regional Nodes Positive,820,,EOD10_PN,1988+,,69-70,2
+Regional Nodes Examined,830,,EOD10_NE,1988+,,71-72,2
+EOD—Old 13 Digit,840,,EOD13,1973-1982,,73-85,13
+EOD—Old 2 Digit,850,,EOD2,1973-1982,,86-87,2
+EOD—Old 4 Digit,860,,EOD4,1983-1987,,88-91,4
+Coding System for EOD,870,,EOD_CODE,1973-2003,,92,1
+Tumor Marker 1,1150,,TUMOR_1V,1990-2003,,93,1
+Tumor Marker 2,1160,,TUMOR_2V,1990-2003,,94,1
+Tumor Marker 3,1170,,TUMOR_3V,1998-2003,,95,1
+CS Tumor Size,2800,,CSTUMSIZ,2004+,,96-98,3
+CS Extension,2810,,CSEXTEN,2004+,,99-101,3
+CS Lymph Nodes,2830,,CSLYMPHN,2004+,,102-104,3
+CS Mets at Dx,2850,,CSMETSDX,2004+,,105-106,2
+CS Site-Specific Factor 1,2880,,CS1SITE,2004+*,,107-109,3
+CS Site-Specific Factor 2,2890,,CS2SITE,2004+*,,110-112,3
+CS Site-Specific Factor 3,2900,,CS3SITE,2004+*,,113-115,3
+CS Site-Specific Factor 4,2910,,CS4SITE,2004+*,,116-118,3
+CS Site-Specific Factor 5,2920,,CS5SITE,2004+*,,119-121,3
+CS Site-Specific Factor 6,2930,,CS6SITE,2004+*,,122-124,3
+CS Site-Specific Factor 25,2879,,CS25SITE,2004+*,,125-127,3
+Derived AJCC T,2940,,DAJCCT,2004+,,128-129,2
+Derived AJCC N,2960,,DAJCCN,2004+,,130-131,2
+Derived AJCC M,2980,,DAJCCM,2004+,,132-133,2
+Derived AJCC Stage Group,3000,,DAJCCSTG,2004+,,134-135,2
+Derived SS1977,3010,,DSS1977S,2004+,,136,1
+Derived SS2000,3020,,DSS2000S,2004+,,137,1
+Derived AJCC—Flag,3030,,DAJCCFL,2004+,,138,1
+CS Version Input Original,2935,,CSVFIRST,2004+,,141-146,6
+CS Version Derived,2936,,CSVLATES,2004+,,147-152,6
+CS Version Input Current,2937,,CSVCURRENT,2004+,,153-158,6
+RX Summ—Surg Prim Site,1290,,SURGPRIF,1998+,,159-160,2
+RX Summ—Scope Reg LN Sur,1292,,SURGSCOF,2003+,,161,1
+RX Summ—Surg Oth Reg/Dis,1294,,SURGSITF,2003+,,162,1
+RX Summ—Reg LN Examined,1296,,NUMNODES,1998-2002,,163-164,2
+Reason for no surgery,1340,,NO_SURG,,,166,1
+RX Summ—Radiation,1360,,RADIATN,,,167,1
+RX Summ—Rad to CNS,1370,,RAD_BRN,1988-1997,,168,1
+RX Summ—Surg / Rad Seq,1380,,RAD_SURG,,,169,1
+RX Summ—Surgery Type,1640,,SS_SURG,1973-1997,,170-171,2
+RX Summ—Scope Reg 98-02,1647,,SURGSCOP,1998-2002,,174,1
+RX Summ—Surg Oth 98-02,1648,,SURGSITE,1998-2002,,175,1
+SEER Record Number,2190,,REC_NO,,,176-177,2
+SEER Type of Follow-up,2180,,TYPE_FU,,,191,1
+Age Recode <1 Year olds,,,AGE_1REC,,,192-193,2
+Site Recode ICD-O-3/WHO 2008,,,SITERWHO,,,199-203,5
+Recode ICD-O-2 to 9,,,ICDOTO9V,,,204-207,4
+Recode ICD-O-2 to 10,,,ICDOT10V,,,208-211,4
+ICCC site recode ICD-O-3/WHO 2008,,,ICCC3WHO,,,218-220,3
+ICCC site rec extended ICD-O-3/WHO 2008,,,ICCC3XWHO,,,221-223,3
+Behavior Recode for Analysis,,,BEHTREND,,,224,1
+Histology Recode—Broad Groupings,,,HISTREC,,,226-227,2
+Histology Recode—Brain Groupings,,,HISTRECB,,,228-229,2
+CS Schema v0204+,,,cs0204schema,,,230-232,3
+"Race recode (White, Black, Other)",,,RAC_RECA,,,233,1
+"Race recode (W, B, AI, API)",,,RAC_RECY,,,234,1
+"Origin recode NHIA (Hispanic, Non-Hisp)",,,ORIGRECB,,,235,1
+SEER historic stage A,,,HST_STGA,,,236,1
+AJCC stage 3rd edition (1988-2003),,,AJCC_STG,,,237-238,2
+SEER modified AJCC Stage 3rd ed (1988-2003),,,AJ_3SEER,,,239-240,2
+SEER Summary Stage 1977 (1995-2000),,,SSS77VZ,1995-2000,,241,1
+SEER Summary Stage 2000 (2001-2003),,,SSSM2KPZ,2001-2003,,242,1
+First malignant primary indicator,,,FIRSTPRM,,,245,1
+State-county recode,,,ST_CNTY,,,246-250,5
+Cause of Death to SEER site recode,,,CODPUB,,,255-259,5
+COD to site rec KM,,,CODPUBKM,,,260-264,5
+Vital Status recode,,,STAT_REC,,,265,1
+IHS Link,192,,IHSLINK,,,266,1
+Summary stage 2000 (1998+),,,SUMM2K,1998+,,267,1
+AYA site recode/WHO 2008,,,AYASITERWHO,,,268-269,2
+Lymphoma subtype recode/WHO 2008,,,LYMSUBRWHO,,,270-271,2
+SEER Cause-Specific Death Classification,,,VSRTSADX,,,272,1
+SEER Other Cause of Death Classification,,,ODTHCLASS,,,273,1
+CS Tumor Size/Ext Eval,2820,,CSTSEVAL,2004+,,274,1
+CS Lymph Nodes Eval,2840,,CSRGEVAL,2004+,,275,1
+CS Mets Eval,2860,,CSMTEVAL,2004+,,276,1
+Primary by international rules,,,Intprim,,,277,1
+ER Status Recode Breast Cancer (1990+),,,Erstatus,1990+,,278,1
+PR Status Recode Breast Cancer (1990+),,,Prstatus,1990+,,279,1
+CS Schema -AJCC 6th ed (previously,,,csschema,,,280-281,2
+CS Site-Specific Factor 8,2862,,CS8SITE,2004+*,,282-284,3
+CS Site-Specific Factor 10,2864,,CS10SITE,2004+*,,285-287,3
+CS Site-Specific Factor 11,2865,,CS11SITE,2004+*,,288-290,3
+CS Site-Specific Factor 13,2867,,CS13SITE,2004+*,,291-293,3
+CS Site-Specific Factor 15,2869,,CS15SITE,2004+*,,294-296,3
+CS Site-Specific Factor 16,2870,,CS16SITE,2004+*,,297-299,3
+Lymph vascular invasion,1182,,VASINV,2004+*,,300,1
+Survival months,,,SRV_TIME_MON,,,301-304,4
+Survival months flag,,,SRV_TIME_MON_FLAG,,,305,1
+Insurance recode (2007+),,,INSREC_PUB,2007+,,311,1
+Derived AJCC-7 T,3400,,DAJCC7T,2010+,,312-314,3
+Derived AJCC-7 N,3410,,DAJCC7N,2010+,,315-317,3
+Derived AJCC-7 M,3420,,DAJCC7M,2010+,,318-320,3
+Derived AJCC-7 Stage Grp,3430,,DAJCC7STG,2010+,,321-323,3
+Breast Adjusted AJCC 6th T (1988+),,,ADJTM_6VALUE,1988+,,324-325,2
+Breast Adjusted AJCC 6th N (1988+),,,ADJNM_6VALUE,1988+,,326-327,2
+Breast Adjusted AJCC 6th M (1988+),,,ADJM_6VALUE,1988+,,328-329,2
+Breast Adjusted AJCC 6th Stage,,,ADJAJCCSTG,1988+,,330-331,2
+CS Site-Specific Factor 7,2861,,CS7SITE,2004+*,,332-334,3
+CS Site-Specific Factor 9,2863,,CS9SITE,2004+*,,335-337,3
+CS Site-Specific Factor 12,2866,,CS12SITE,2004+*,,338-340,3
+Derived HER2 Recode (2010+),,,HER2,2010+,,341,1
+Breast Subtype (2010+),,,BRST_SUB,2010+,,342,1
+Lymphomas: Ann Arbor Staging (1983+),,,ANNARBOR,1983+,,348,1
+CS Mets at Dx-Bone,2851,,CSMETSDXB_PUB,2010+,,349,1
+CS Mets at Dx-Brain,2852,,CSMETSDXBR_PUB,2010+,,350,1
+CS Mets at Dx-Liver,2853,,CSMETSDXLIV_PUB,2010+,,351,1
+CS Mets at Dx-Lung,2854,,CSMETSDXLUNG_PUB,2010+,,352,1
+T value - based on AJCC 3rd (1988-2003),,,T_VALUE,1988-2003,,353,2
+N value - based on AJCC 3rd (1988-,,,N_VALUE,1988-2003,,355,2
+M value - based on AJCC 3rd (1988-,,,M_VALUE,1988-2003,,357,2

@@ -1,0 +1,267 @@
+PX,CODE_TYPE,Rtservice,Rttype,BeamRTtype,Description
+0073T,CPT4,Delivery,Beam,IMRT,Compensator-based beam modulation treatment delivery of inverse planned treatment using 3 or more high resolution (milled or cast) compensator convergent beam modulated fields
+0082T,CPT4,Delivery,Beam,SRS,"Stereotactic body radiation therapy, treatment delivery, one or more treatment areas, per day"
+0083T,CPT4,Management,Beam,SRS,"Stereotactic body radiation therapy, treatment management, per day"
+0182T,CPT4,Delivery,Brachytherapy,,"High dose rate electronic brachytherapy, per fraction"
+0190T,CPT4,Adjunct,Brachytherapy,,Placement of intraocular radiation source applicator
+0197T,CPT4,Adjunct,Beam,NOS,"Intra-fraction localization and tracking of target or patient motion during delivery of radiation therapy (eg, 3D positional tracking, gating, 3D surface tracking), each fraction of treatment"
+19296,CPT4,Adjunct,Brachytherapy,,"Placement of radiotherapy afterloading expandable catheter (single or multichannel) into the breast for interstitial radioelement application following partial mastectomy,"
+19297,CPT4,Adjunct,Brachytherapy,,"Placement of radiotherapy afterloading expandable catheter (single or multichannel) into the breast for interstitial radioelement application concurrent with partial mastectomy,"
+19298,CPT4,Adjunct,Brachytherapy,,"Placement of radiotherapy afterloading brachytherapy catheter (single or multichannel) into the breast for interstitial radioelement application following partial mastectomy,"
+20555,CPT4,Adjunct,Brachytherapy,,Placement of needles or catheters into muscle/soft tissue for subsequent interstitial radioelement application
+20660,CPT4,Adjunct,Beam,SRS,Placement of cranial tongs or stereotactic frame
+31463,CPT4,Adjunct,Brachytherapy,,Bronchoscopy with placement of catheters for intracavitary radioelement application
+32553,CPT4,Adjunct,General,,"Placement of interstitial device(s) for radiation therapy guidance (eg, fiducial markers, dosimeter), percutaneous, intrathoracic, single or multiple"
+333,RV,General,General,,Radiation Therapy
+344,RV,General,Isotopes,,Therapeutic Radiopharmaceuticals
+41019,CPT4,Adjunct,Brachytherapy,,"Placement of needles, catheters, or other devices into hear/neck for subsequent interstitial radioelement application"
+49411,CPT4,Adjunct,General,,"Placement of interstitial device(s) for radiation therapy guidance (eg, fiducial markers, dosimeter), percutaneous, intra-abdominal, intra-pelvic (except prostate), and/or retroperitoneum, single or multiple"
+49412,CPT4,Adjunct,General,,"Placement of interstitial devices for radiation therapy guidance, open"
+52250,CPT4,Delivery,Brachytherapy,,Cystourethroscopy with insertion of radioactive substance
+55859,CPT4,Adjunct,Brachytherapy,,"Transperineal placement of needles or catheters into prostate for interstitial radioelement application, with or without cystoscopy"
+55860,CPT4,Adjunct,Brachytherapy,,"Exposure of prostate, any approach, for insertion of radioactive substance"
+55875,CPT4,Adjunct,Brachytherapy,,Transperineal placement of needles or catheters into prostate for subsequent interstitial radioelement application
+55876,CPT4,Adjunct,General,,"Placement of interstitial device(s) for radiation therapy guidance (eg, fiducial markers, dosimeter), percutaneous, prostate, single or multiple"
+55920,CPT4,Adjunct,Brachytherapy,,Placement of needles or catheters into pelvic organs for subsequent interstitial radioelement application
+57155,CPT4,Delivery,Brachytherapy,,Insertion of uterine tandem/vaginal ovoids for clinical brachytherapy
+57156,CPT4,Delivery,Brachytherapy,,Insertion of vaginal radiation afterloading apparatus for clinical brachytherapy
+58346,CPT4,Delivery,Brachytherapy,,Insertion of Heyman capsule for clinical brachytherapy
+61720,CPT4,Delivery,Beam,SRS,"Creation of lesion by stereotactic method, including burr hole(s) and localizing and recording techniques, single or multiple stages; globus pallidus or thalamus"
+61735,CPT4,Delivery,Beam,SRS,"Creation of lesion by stereotactic method, including burr hole(s) and localizing and recording techniques, single or multiple stages; subcortical structure(s) other than globus pallidus or thalamus"
+61770,CPT4,Adjunct,Beam,SRS,"Stereotactic localization, including burr hole(s), with insertion of catheter(s) or probe(s) for placement of radiation source"
+61781,CPT4,Adjunct,Beam,SRS,"Stereotactic computer-assisted (navigational) procedure; cranial, intradural"
+61782,CPT4,Adjunct,Beam,SRS,"Stereotactic computer-assisted (navigational) procedure; cranial, extradural"
+61783,CPT4,Adjunct,Beam,SRS,Stereotactic computer-assisted (navigational) procedure; spinal
+61793,CPT4,Delivery,Beam,SRS,"Neurosurgery: Stereotactic radiosurgery (particle beam, gamma ray or linear accelerator), one or more sessions"
+61795,CPT4,Adjunct,Beam,SRS,"Stereotactic computer-assisted volumetric (navigational) procedure, intracranial, extracranial, or spinal (List separately in addition to code for primary procedure)"
+61796,CPT4,Delivery,Beam,SRS,"Stereotactic radiosurgery (particle beam, gamma ray, or linear accelerator); 1 simple cranial lesion"
+61797,CPT4,Delivery,Beam,SRS,"Stereotactic radiosurgery (particle beam, gamma ray, or linear accelerator); each additional cranial lesion, simple (List separately in addition to code for primary procedure)"
+61798,CPT4,Delivery,Beam,SRS,"Stereotactic radiosurgery (particle beam, gamma ray, or linear accelerator); 1 complex cranial lesion"
+61799,CPT4,Delivery,Beam,SRS,"Stereotactic radiosurgery (particle beam, gamma ray, or linear accelerator); each additional cranial lesion, complex (List separately in addition to code for primary procedure)"
+61800,CPT4,Adjunct,Beam,SRS,Application of stereotactic headframe for stereotactic radiosurgery (List separately in addition to code for primary procedure)
+63620,CPT4,Delivery,Beam,SRS,STEREOTACTIC RADIOSURGERY 1 SPINAL LESION
+63621,CPT4,Delivery,Beam,SRS,STEREOTACTIC RADIOSURGERY EA ADDL SPINAL LESION
+73670,CPT4,Adjunct,Beam,NOS,Computerized tomography guidance for placement of radiation therapy fields
+76950,CPT4,Adjunct,Beam,NOS,Ultrasonic guidance for placement of radiation therapy fields
+76965,CPT4,Adjunct,Brachytherapy,,Ultrasonic guidance for interstitial radioelement application
+77014,CPT4,Planning,Beam,NOS,Computed tomography guidance for placement of radiation therapy fields
+77261,CPT4,Planning,Beam,NOS,Therapeutic radiology treatment planning; simple
+77262,CPT4,Planning,Beam,NOS,Therapeutic radiology treatment planning; intermediate
+77263,CPT4,Planning,Beam,NOS,Therapeutic radiology treatment planning; complex
+77280,CPT4,Planning,Beam,NOS,Therapeutic radiology simulation-aided field setting; simple
+77285,CPT4,Planning,Beam,NOS,Therapeutic radiology simulation-aided field setting; intermediate
+77290,CPT4,Planning,Beam,NOS,Therapeutic radiology simulation-aided field setting; complex
+77295,CPT4,Planning,Beam,NOS,Therapeutic radiology simulation-aided field setting; three-dimensional
+77299,CPT4,Planning,Beam,NOS,"Unlisted procedure, therapeutic radiology clinical treatment planning"
+77300,CPT4,Planning,Beam,NOS,"Basic radiation dosimetry calculation, central axis depth dose calculation, TDF, NSD, gap calcuation, off axis factor, tissue inhomogenieity factors, calculation of non-ionizing radiation surface and depth dose, as required during course of treatment, only when prescribed by the treating physician"
+77301,CPT4,Planning,Beam,IMRT,"Intensity modulated radiotherapy plan, including dose-volume histograms for target and critical struture partial tolerance specifications: multi-source photon or linear accelerator based stereotactic radiosurgery plan optimization for highly conformal distributions, plan positional accuracey and dose verification, all lesions treated, per course of treatment"
+77305,CPT4,Planning,Beam,NOS,"Teletherapy, isodose plan (whether hand or computer calculated); simple (one or tow parallel opposed unmodified ports directed to a single area of tinterest)"
+77306,CPT4,Planning,Beam,NOS,"Teletherapy isodose plan; simple (1 or 2 unmodified ports directed to a single area of interest), includes basic dosimetry calculation(s)"
+77307,CPT4,Planning,Beam,NOS,"complex (multiple treatment areas, tangential ports, the use of wedges, blocking, rotational beam, or special beam considerations), includes basic dosimetry calculation(s)"
+77310,CPT4,Planning,Beam,NOS,intermediate (three or more treatment pots directed to a single area of interest)
+77315,CPT4,Planning,Beam,NOS,"complex (mantle or inverted Y, tangential ports, the use of wedges, compensators, complex blocking, rotational beam or special beam consideration)"
+77321,CPT4,Planning,Beam,NOS,"Special teletherapy port plan, particles, hemibody, total body."
+77326,CPT4,Planning,Brachytherapy,,"Brachytherapy isodose plan; simple (calculation[s] made from 1 to 4 sources, or remote afterloading brachytherapy, 1 channel), includes basic dosimetry calculation(s)"
+77326,CPT4,Planning,Brachytherapy,,"Brachytherapy isodose plan, simple"
+77327,CPT4,Planning,Brachytherapy,,"intermediate (calculation[s] made from 5 to 10 sources, or remote afterloading brachytherapy, 2-12 channels), includes basic dosimetry calculation(s)"
+77327,CPT4,Planning,Brachytherapy,,"Brachytherapy isodose plan, intermediate"
+77328,CPT4,Planning,Brachytherapy,,"complex (calculation[s] made from over 10 sources, or remote afterloading brachytherapy, over 12 channels), includes basic dosimetry calculation(s)"
+77328,CPT4,Planning,Brachytherapy,,"Brachytherapy isodose plan, complex"
+77331,CPT4,Planning,General,,Special dosimetry
+77332,CPT4,Supplies,General,,"Treatmment devices, simple"
+77333,CPT4,Supplies,General,,"Treatment devies, intermediate"
+77334,CPT4,Supplies,General,,"Treatment devices, complex"
+77336,CPT4,Planning,General,,Continuing medical physics consultation per week of therapy
+77338,CPT4,Supplies,Beam,IMRT,"Multi-leaf collimator (MLC) device(s) for intensity modulated radiation therapy (IMRT), design and construction per IMRT plan"
+77370,CPT4,Adjunct,Beam,NOS,Computed tomography guidance for placement of radiation therapy fields
+77370,CPT4,Planning,General,,Special medical radiation physics consultation
+77371,CPT4,Delivery,Beam,SRS,"Radiation treatment delivery, stereotactic radiosurgery (SRS), complete course of treatment of cerebral lesion(s) consisting of 1 session; multi-source Cobalt 60 based"
+77372,CPT4,Delivery,Beam,SRS,"Radiation treatment delivery, stereotactic radiosurgery (SRS), complete course of treatment of cerebral lesion(s) consisting of 1 session; linear accelerator based"
+77373,CPT4,Delivery,Beam,SRS,"Stereotactic body radiation therapy, treatment delivery, per fraction to 1 or more lesions, including image guidance, entire course not to exceed 5 fraction"
+77380,CPT4,Delivery,Beam,Proton,77380-PROTON BEAM DELIVERY
+77381,CPT4,Delivery,Beam,Proton,77381-PROTON BEAM TREATMENT
+77385,CPT4,Delivery,Beam,IMRT,"IMRT simple (breast, prostate, compensator) (IMRT), includes guidance and tracking, when performed; simple"
+77386,CPT4,Delivery,Beam,IMRT,77386 IMRT complex
+77387,CPT4,Adjunct,Beam,IMRT,"Guidance for localization of target volume for delivery of radiation treatment delivery, includes intrafraction tracking, when performed"
+77399,CPT4,Delivery,General,,"Unlisted procedure, medical radiation physics, dosimetry and treatment devices, special services"
+77400,CPT4,Delivery,Beam,NOS,77400-RADIATION THERAPY SIMPLE
+77401,CPT4,Delivery,Beam,NOS,"Radiation treatment delivery, superficial and/or ortho voltage"
+77402,CPT4,Delivery,Beam,NOS,"Radiation treatment delivery, single treatment area, single port or parallel opposed ports, simple blocks or no blocks; up to 5 MeV"
+77403,CPT4,Delivery,Beam,NOS,"Radiation treatment delivery, single treatment area, single port or parallel opposed ports, simple blocks or no blocks; 6-10 MeV"
+77404,CPT4,Delivery,Beam,NOS,"Radiation treatment delivery, single treatment area, single port or parallel opposed ports, simple blocks or no blocks; 11-19 MeV"
+77405,CPT4,Delivery,Beam,NOS,Daily megavoltage treatment management; simple
+77406,CPT4,Delivery,Beam,NOS,20 MeV or greater
+77407,CPT4,Delivery,Beam,NOS,"Radiation treatment delivery, two separate treatment areas, three or more ports on a single treatment area, use of multiple blocks; up to 5 MeV"
+77408,CPT4,Delivery,Beam,NOS,6-10 MeV
+77409,CPT4,Delivery,Beam,NOS,11-19 MeV
+77410,CPT4,Delivery,Beam,NOS,Daily megavoltage treatment management; complex
+77411,CPT4,Delivery,Beam,NOS,20 MeV or greater
+77412,CPT4,Delivery,Beam,NOS,"Radiation treatment delivery, three or more separate treatment areas, custom blocking, tangential ports, wedges, rotational beam, compensators, special particle beam (eg, electron or neutrons); up to 5 MeV"
+77413,CPT4,Delivery,Beam,NOS,6-10 MeV
+77414,CPT4,Delivery,Beam,NOS,11-19 MeV
+77415,CPT4,Adjunct,Beam,NOS,Therap X-Ray Tx Port Film Int/Verif
+77416,CPT4,Delivery,Beam,NOS,20 MeV or greater
+77417,CPT4,Adjunct,Beam,NOS,Therapeutic Rad. Port Film(s)
+77418,CPT4,Delivery,Beam,IMRT,"Intensity Modulated Treatment Delivery, Single/Multiple Fields/Arcs, Spatially and Temporally Modulated Beams, Per Sess"
+77419,CPT4,Management,General,,Weekly radiation therapy management
+77420,CPT4,Management,General,,Weekly radiation therapy management
+77421,CPT4,Adjunct,General,,Stereoscopic x-ray guidance for localization of target volume for delivery of RT
+77422,CPT4,Delivery,Beam,Neutron,High energy neutron radiation treatment delivery; single treatment area using a single port or parallel-opposed ports with no blocks or simple blocking
+77423,CPT4,Delivery,Beam,Neutron,"1 or more isocenter(s) with coplanar or non-coplanar geometry with blocking and/or wedge, and/or compensator(s)"
+77425,CPT4,Management,General,,Weekly radiation therapy management
+77427,CPT4,Management,General,,Radiation treatment management five treatments
+77430,CPT4,Management,General,,Weekly radiation therapy management
+77431,CPT4,Management,General,,Radiation therapy management with complete course of therapy consisting of one or two fractions only
+77432,CPT4,Management,Beam,SRS,Radiation treatment management: Stereotactic radiation treatment management of cerebral lesion(s) (complete course of treatment consisting of one session)
+77435,CPT4,Management,Beam,SRS,"Stereotactic body radiation therapy, treatment management, per treatment course, to 1 or more lesions, including image guidance, entire course not to exceed 5 fractions"
+77469,CPT4,Management,Beam,NOS,intraoperative RT management
+77470,CPT4,Delivery,Beam,NOS,"Special treatment procedure (eg. Total body irradiation, hemibody radiation , ,per oral, endocavitary or intraoperative cone irradiation"
+77499,CPT4,Management,General,,"Unlisted procedure, therapeutic radiolgy treatment management"
+77520,CPT4,Delivery,Beam,Proton,"Proton treatment delivery; simple, without compensation"
+77522,CPT4,Delivery,Beam,Proton,"Proton treatment delivery; simple, with compensation"
+77523,CPT4,Delivery,Beam,Proton,Proton treatment delivery; intermediate
+77525,CPT4,Delivery,Beam,Proton,Proton treatment delivery; complex
+77750,CPT4,Delivery,Isotopes,,Infusion or instillation of radioelement solution (includes 2 months follow-up care
+77761,CPT4,Delivery,Brachytherapy,,Intracavitary radiation source application; simple
+77762,CPT4,Delivery,Brachytherapy,,Intracavitary radiation source application; intermediate
+77763,CPT4,Delivery,Brachytherapy,,Intracavitary radiation source application; complex
+77776,CPT4,Delivery,Brachytherapy,,"Interstitial radiation source application, simple"
+77777,CPT4,Delivery,Brachytherapy,,"Interstitial radiation source application, intermediate"
+77778,CPT4,Delivery,Brachytherapy,,"Interstitial radiation source application, complex"
+77781,CPT4,Delivery,Brachytherapy,,Remote afterloading high intensity brachytherapy; 1-4 source positions or catheters
+77782,CPT4,Delivery,Brachytherapy,,Remote afterloading high intensity brachytherapy; 5-8 source positions or catheters
+77783,CPT4,Delivery,Brachytherapy,,Remote afterloading high intensity brachytherapy; 9-12 source positions or catheters
+77784,CPT4,Delivery,Brachytherapy,,Remote afterloading high intensity brachytherapy; over 12 source positions or catheters
+77785,CPT4,Delivery,Brachytherapy,,"77785-HDR BRACHYTX, 1 CHANNEL"
+77786,CPT4,Delivery,Brachytherapy,,"77786-HDR BRACHYTX, 2-12 CHANN"
+77787,CPT4,Delivery,Brachytherapy,,77787-HDR BRACHYTX OVER 12 CHA
+77789,CPT4,Delivery,Brachytherapy,,Surface application of radiation source
+77790,CPT4,Adjunct,Brachytherapy,,"Supervision, handling, loading of radiation source"
+77799,CPT4,Delivery,Brachytherapy,,"Unlisted procedure, clinical brachytherapy"
+79005,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, oral"
+79030,CPT4,Delivery,Isotopes,,Radiopharmaceutical ablation of gland for thyroid carcinoma
+79035,CPT4,Delivery,Isotopes,,Radiopharmaceutical therapy for metastases of thyroid carcinoma
+79100,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, polycythemia vera, chronic leukemia, each treatment"
+79101,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, intravenous"
+79200,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, intracavitary"
+79300,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, interstitial colloid"
+79400,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, nonthyroid, nonhematologic"
+79403,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, radiolabeled monoclonal, intravenous"
+79420,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, Intravascular, Particulate"
+79440,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, intra-articular"
+79445,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, intra-arterial"
+79900,CPT4,Supplies,Isotopes,,Radiopharmaceuticals for Therapeutic Nuclear Medicine
+79999,CPT4,Delivery,Isotopes,,"Radiopharmaceutical therapy, unlisted"
+92.2,ICD9,Delivery,Brachytherapy,,"Infusion of liquid brachytherapy radiation; I-125 radioisotope, Intracavitary brachytherapy, Includes: removal of radioisotope"
+92.21,ICD9,Delivery,Beam,NOS,Superficial radiation; contact radiation [up to 150 KVP]
+92.22,ICD9,Delivery,Beam,NOS,Orthovoltage radiation; Deep radiation [200-300 KVP]
+92.23,ICD9,Delivery,Beam,NOS,"Radioisotopic teleradiotherapy; Teleradiotherapy using: cobalt-60, iodine-125, radioactive cesium"
+92.24,ICD9,Delivery,Beam,NOS,"Teleradiotherapy using photons; Megavoltage NOS, Supervoltage NOS, Betatron, linear accelerator"
+92.25,ICD9,Delivery,Beam,Electron,Teleradiotherapy using electrons; Beta particles
+92.26,ICD9,Delivery,Beam,NOS,"Teleradiotherapy of other particulate raditaion; Neutrons, Protons NOS"
+92.27,ICD9,Delivery,Brachytherapy,,Implantation or insertion of radioactive elements; intravascular brachytherapy
+92.28,ICD9,Delivery,Isotopes,,Injection or instillation of radioisotopes
+92.29,ICD9,Delivery,General,,Other radiotherapeutic  procedure
+92.3,ICD9,Delivery,Beam,SRS,"Stereotactic radiosurgery, not otherwise specified;"
+92.31,ICD9,Delivery,Beam,SRS,"Single source photon radiosurgery; High energy x-rays, Linear accelerator (LINAC)"
+92.32,ICD9,Delivery,Beam,SRS,Multi-source photon radiosurgery; Colbalt 60 radiation; Gamma irradiation
+92.33,ICD9,Delivery,Beam,SRS,Particulate radiosurgery; Particle beam radiation (cyclotron); proton accelerator
+92.39,ICD9,Delivery,Beam,SRS,"Stereotactic radiosurgery, not elsewhere classified"
+92.41,ICD9,Delivery,Beam,Electron,Intra-operative electron radiation therapy
+A4650,HCPC,Supplies,General,,IMPLANT RADIATION DOSIMETER
+A9606,HCPC,Supplies,Isotopes,,"Radiopharmaceutical, therapeutic, NOS"
+A9699,HCPC,Supplies,Isotopes,,"Ra-223 dichloride, therapeutic, per microcurie"
+C1715  ,HCPC,Supplies,Brachytherapy,,Brachytherapy needle
+C1716  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, gold-198, per source"
+C1717  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, high dose rate iridium-192, per source"
+C1718  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, iodine 125, per source"
+C1719  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, non-high dose rate iridium-192, per sou..."
+C1720  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, palladium 103, per source"
+C1728  ,HCPC,Supplies,Brachytherapy,,"Catheter, brachytherapy seed administration"
+C2616  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, yttrium-90, per source"
+C2633  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, cesium-131, per source"
+C2634  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, high activity, iodine-125, greater than..."
+C2635  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, high activity, paladium-103, greater th..."
+C2636  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy linear source, non-stranded, paladium-103, per 1 mm"
+C2637  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, ytterbium-169, per source"
+C2638  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, stranded, iodine-125, per source"
+C2639  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, iodine-125, per source"
+C2640  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, stranded, palladium-103, per source"
+C2641  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, palladium-103, per source"
+C2642  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, stranded, cesium-131, per source"
+C2643  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, cesium-131, per source"
+C2698  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, stranded, not otherwise specified, per source"
+C2699  ,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, non-stranded, not otherwise specified, per source"
+C9726,HCPC,Adjunct,Brachytherapy,,PLACEMENT AND REMOVAL (IF PERFORMED) OF APPLICATOR INTO BREAST FOR RADIATION THERAPY
+C9728,HCPC,Adjunct,Brachytherapy,,"PLACEMENT OF INTERSTITIAL DEVICE(S) FOR RADIATION THERAPY/SURGERY GUIDANCE (EG, FIDUCIAL MARKERS, DOSIMETER), FOR OTHER THAN THE FOLLOWING SITES (ANY APPROACH):"
+G0173,HCPC,Delivery,Beam,SRS,"Linear accelerator based stereotactic radiosurgery, complete course of therapy in one session"
+G0174,HCPC,Delivery,Beam,IMRT,IMRT delivery
+G0242,HCPC,Planning,Beam,SRS,Multi-source photon stereotactic radiosurgery plan
+G0243,HCPC,Delivery,Beam,SRS,Multi-source photon stereotactic radiosurgery delivery
+G0251,HCPC,Delivery,Beam,SRS,"Linear accelerator based stereotactic radiosurgery, delivery"
+G0338,HCPC,Planning,Beam,SRS,"Linear accelerator based stereotactic radiosurgery, plan"
+G0339,HCPC,Delivery,Beam,SRS,"IMAGE-GUIDED ROBOTIC LINEAR ACCELERATOR-BASED STEREOTACTIC RADIOSURGERY, COMPLETE COURSE OF THERAPY IN ONE SESSION OR FIRST SESSION OF FRACTIONATED TREATMENT"
+G0340,HCPC,Delivery,Beam,SRS,"IMAGE-GUIDED ROBOTIC LINEAR ACCELERATOR-BASED STEROTACTIC RADIOSURGERY, DELIVERY INCLUDING COLLIMATOR CHANGES AND CUSTOM PLUGGING, FRACTIONATED TREATMENT, ALL LESIONS, PER SESSION, SECOND THROUGH FIFT"
+G6003,HCPC,Delivery,Beam,NOS,"Radiation treatment delivery, single treatment area, single port or parallel opposed ports, simple blocks or no blocks; up to 5 MeV"
+G6004,HCPC,Delivery,Beam,NOS,"Radiation treatment delivery, single treatment area, single port or parallel opposed ports, simple blocks or no blocks; 6-10 MeV"
+G6005,HCPC,Delivery,Beam,NOS,"Radiation treatment delivery, single treatment area, single port or parallel opposed ports, simple blocks or no blocks; 11-19 MeV"
+G6006,HCPC,Delivery,Beam,NOS,20 MeV or greater
+G6007,HCPC,Delivery,Beam,NOS,"Radiation treatment delivery, two separate treatment areas, three or more ports on a single treatment area, use of multiple blocks; up to 5 MeV"
+G6008,HCPC,Delivery,Beam,NOS,6-10 MeV
+G6009,HCPC,Delivery,Beam,NOS,11-19 MeV
+G6010,HCPC,Delivery,Beam,NOS,20 MeV or greater
+G6011,HCPC,Delivery,Beam,NOS,"Radiation treatment delivery,3 or more separate treatment areas, custom blocking, tangential ports, wedges, rotational beam, compensators, electron beam; up to 5mev"
+G6012,HCPC,Delivery,Beam,NOS,6-10 MeV
+G6013,HCPC,Delivery,Beam,NOS,11-19 MeV
+G6014,HCPC,Delivery,Beam,NOS,20 MeV or greater
+G6015,HCPC,Delivery,Beam,IMRT,"IMRT, single or multiple fields/arcs, via narrow spatially and temporally modulated beams, binary, dynamic MLC, per treatment session"
+G6016,HCPC,Delivery,Beam,IMRT,"Compensator-based beam modulation treatment delivery of inverse planned treatment using 3 or more high resolution (milled or cast) compensator, convergent beam modulated fields, per treatment session"
+Q3001  ,HCPC,Supplies,Brachytherapy,,"Radioelements for brachytherapy, any type, each"
+S2270,HCPC,Adjunct,Brachytherapy,,INSERTION OF VAGINAL CYLINDER FOR APPLICATION OF RADIATION SOURCE OR CLINICAL BRACHYTHERAPY (REPORT SEPARATELY IN ADDITION TO RADIATION SOURCE DELIVERY)
+S8049,HCPC,Delivery,Beam,NOS,INTRAOPERATIVE RADIATION THERAPY (SINGLE ADMINISTRATION)
+C1325,HCPC,Supplies,Brachytherapy,,"Brachytherapy solution, iodine-125, per mci "
+C1348,HCPC,Supplies,Isotopes,,"Solution, per initial 1-6 mci supply of radiopharmaceutical therapeutic imaging agent, sodium iodide i-131,"
+C1350,HCPC,Delivery,Brachytherapy,,"Brachytherapy, per source, ProstaSeed I-125"
+C1700 ,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, Authentic Mick TP Brachytherapy Needle, Cook Urological Brachytherapy Needle"
+C1701,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, Medtec MT-BT-5201-25 Brachytherapy Needle , AVID Medical Metal Hub Pre-Load Style Brachytherapy Seeding Insertion Needle, AVID Medical Mick Style Bracytherapy Seeding Insertion Needle"
+C1702,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, WWMT Brachytherapy Needle, Nucletron Pancreas Flexible Brachytherapy Needle"
+C1703,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, Mentor Prostate Brachytherapy Needle"
+C1704,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, Medtec MT-BT-5001-25, MT-BT-5051-25"
+C1705,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, Best Industries Flexi Needle Brachytherapy Seed Implantation (13G, 14G, 15G, 16G, 17G, 18G), Best Industries Prostate Brachytherapy Needle, Nycomed Amersham Mick Applicator Style Brachytherapy Needle, Nycomed Amersham Brachytherapy Needle"
+C1706,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, Indigo Prostate Seeding Needle"
+C1707,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, VariSource Interstitial Implant Needle"
+C1708,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, UroMed Prostate Seeding Needle"
+C1709,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, Remington Medical Brachytherapy Needle"
+C1710,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, US Biopsy Prostate Seeding Needle"
+C1711,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, MD Tech P.S.S. Prostate Seeding Set (needle)"
+C1712,HCPC,Supplies,Brachytherapy,,"Needle, brachytherapy, Imagyn Medical Technologies IsoStar Prostate Brachytherapy Needle"
+C1790 ,HCPC,Supplies,Brachytherapy,,"Brachytherapy Seed, MDS Nordion TheraSphere (Yttrium-90)"
+C1791,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Nycomed Amersham I-125 (OncoSeed, Rapid Strand)"
+C1792,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, UroMed Symmetra I-125"
+C1793,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Bard InterSource-103 Palladium Seed, 1031L, 1031C, International Brachytherapy Intersource-103 (Palladium 103)"
+C1794,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Bard IsoSeed-103 Palladium Seed, Pd3S111L, Pd3S111P"
+C1795,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Bard BrachySource-125 Iodine Seed, 1251L, 1251C, International Brachytherapy InterSource-125"
+C1796,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Source Tech Medical I-125 Seed Model STM 1251"
+C1797,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Draximage I-125 Seed Model LS-1"
+C1798,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Syncor I-125 PharmaSeed Model BT-125-1"
+C1799,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, I-Plant Iodine 125 Model 3500"
+C1800,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Mentor PdGold Pd-103"
+C1801,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Mentor IoGold I-125"
+C1802,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Best Iridium 192, Best Dummy Ribbon Brachytherapy Seed (model 3 DR, 4 DR series, Iridium 192)"
+C1803,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Best Iodine 125"
+C1804,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Best Palladium 103"
+C1805,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, IsoStar Iodine-125 Interstitial Brachytherapy Seed"
+C1806,HCPC,Supplies,Brachytherapy,,"Brachytherapy seed, Best Gold 198"
+C2632,HCPC,Delivery,Brachytherapy,,Therapy following a partial mastectomy; concurrent/immediate (add-on) placement of balloon catheter into the breast for interstitial radiation
+C9714,HCPC,Delivery,Brachytherapy,,Placement of balloon catheter into the breast for interstitial radiation therapy following a partial mastectomy; delayed
+C9715,HCPC,Delivery,Beam,IMRT,Intensity modulated radiation
+G0178,HCPC,Delivery,Beam,IMRT,Intensity modulated radiation
+G0256,HCPC,Delivery,Brachytherapy,,"Prostate brachytherapy using permanently implanted palladium seeds, including transperitoneal placement of needles or catheters into the prostate, cystoscopy and application of permanent interstitial radiation source"
+G0273,HCPC,Delivery,Isotopes,,"Lymphoma, includes administration of radiopharmaceutical (e.g., radiolabeled antibodies) radiopharmaceutical biodistribution, single or multiple scans on one or more days, pre-treatment planning for radiopharmaceutical therapy of non-hodgkin's"
+G0274,HCPC,Delivery,Isotopes,,"Radiopharmaceutical therapy, non-hodgkin's lymphoma, includes administration of radiopharmaceutical (.e.g. radiolabeled antibodies)"
+G0338,HCPC,Planning,Beam,SRS,"LINEAR-ACCELERATOR-BASED STEREOTACTIC RADIOSURGERY PLAN, INCLUDING DOSE VOLUME HISTOGRAMS FOR TARGET AND CRITICAL STRUCTURE TOLERANCES, PLAN OPTIMIZATION PERFORMED FOR HIGHLY CONFORMAL DISTRIBUTIONS, PLAN POSITIONAL ACCURACY AND DOSE VERIFICATION, ALL LES"
+G0339,HCPC,Delivery,Beam,SRS,"Image-guided robotic linear accelerator-based stereotactic radiosurgery, complete course of therapy in one session or first session of fractionated treatment ( Robot lin-radsurg com, first )"
+G0340,HCPC,Delivery,Beam,SRS,"Image-guided robotic linear accelerator-based stereotactic radiosurgery, delivery including collimator changes and custom plugging, fractionated treatment, all lesions, per session, second through fifth sessions, maximum five sessions per course of treatment ( Robt lin-radsurg fractx 2-5 )"
+G0458,HCPC,Delivery,Brachytherapy,,"Low does rate (LDR) prostate brachytherapy services, composite rate"
+C2644,HCPC,Supplies,Brachytherapy,,"Brachytherapy source, cesium-131 chloride solution, per millicurie"
+C2645,HCPC,Supplies,Brachytherapy,,"Brachytherapy planar source, palladium-103, per square millimter"

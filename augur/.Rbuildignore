@@ -1,0 +1,8 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^data-raw$
+tmp.R
+Makefile
+to_run.R
+^packrat/
+^\.Rprofile$

@@ -1,0 +1,570 @@
+PX2,CODE_TYPE,DESCRIPTION,CHEMOCAT,CHEMO_TYPE,TREATMENT_TYPE,CHEMOTHERAPY,DATE_ADDED
+C9216,HCPC,"INJECTION, ABARELIX FOR INJECTABLE SUSPENSION, PER 10 MG",ABARELIX,R,H,N,6/24/2011
+J9216,HCPC,"INJECTION, ABARELIX FOR INJECTABLE SUSPENSION, PER 10 MG",ABARELIX,R,H,N,6/24/2011
+J0128,HCPC,"INJECTION, ABARELIX, 10 MG",ABARELIX,R,H,N,6/24/2011
+S0165,HCPC,"INJECTION, ABARELIX, 100 MG",ABARELIX,R,H,N,6/24/2011
+J3490,HCPC,"ABATACEPT, 10 MG, FOR INFUSION",ABATACEPT,O,B,N,7/17/2015
+C9230,HCPC,INJECTION ABATACEPT PER 10 MG,ABATACEPT,O,B,N,7/17/2015
+J0129,HCPC,"Injection, abatacept, 10mg",ABATACEPT,O,B,N,5/31/2012
+J9354,HCPC,INJ ADO-TRASTUZUMAB EMTANSINE 1 MG,ADO-TRASTUZUMAB EMTANSINE,O,B,Y,7/17/2015
+C9131,HCPC,INJECTION ADO-TRASTUZUMAB EMTANSINE 1 MG,ADO-TRASTUZUMAB EMTANSINE,O,B,Y,7/17/2015
+J0178,HCPC,"AFLIBERCEPT, PER 1 MG FOR INJ",AFLIBERCEPT,O,B,Y,7/17/2015
+Q2046,HCPC,INJECTION AFLIBERCEPT 1 MG,AFLIBERCEPT,O,B,Y,7/17/2015
+J9400,HCPC,INJECTION ZIV-AFLIBERCEPT 1 MG,AFLIBERCEPT,O,B,Y,7/17/2015
+J9015,HCPC,"Aldesleukin, per single use vial",ALDESLEUKIN,O,C,Y,6/24/2011
+S0087,HCPC,"Alemtuzumab injection, 30 mg",ALEMTUZUMAB,O,B,Y,6/24/2011
+J9010,HCPC,"Alemtuzumab, 10 mg",ALEMTUZUMAB,O,B,Y,6/24/2011
+J0202,HCPC,INJECTION ALEMTUZUMAB 1 MG,ALEMTUZUMAB,O,B,Y,2/1/2017
+C9110,HCPC,"INJECTION, ALEMTUZUMAB, PER 10 MG/ ML",ALEMTUZUMAB,O,B,Y,6/24/2011
+J9215,HCPC,"Interferon alfa-N3, (human leukocyte derived), 250,000 IU",ALFERON,I,C,Y,6/24/2011
+J0207,HCPC,"INJECTION, AMIFOSTINE, 500 MG",AMIFOSTINE,O,O,N,6/24/2011
+S0170,HCPC,"ANASTROZOLE, ORAL, 1 MG",ANASTROZOLE,R,H,Y,6/17/2013
+J9017,HCPC,"Arsenic trioxide, 1 mg",ARSENIC,O,C,Y,6/24/2011
+C9012,HCPC,"Injection, arsenic trioxide",ARSENIC,O,C,Y,6/24/2011
+J9019,HCPC,ASPARAGINASE 1000 UNITS,ASPARAGINASE,O,C,Y,6/16/2014
+J9020,HCPC,"Asparaginase, 10,000 units",ASPARAGINASE,O,C,Y,6/24/2011
+J9025,HCPC,"Injection, azacitidine, 1 mg",AZACITIDINE,O,C,Y,6/24/2011
+C9416,HCPC,"Bcg (intravesical) per instillation, brand name",BCG LIVE,I,I,Y,6/24/2011
+J9031,HCPC,"BCG live (intravesical), per instillation",BCG LIVE,I,I,Y,6/24/2011
+Q2044,HCPC,INJECTION BELIMUMAB 10 MG,BELIMUMAB,O,B,Y,7/17/2015
+J0490,HCPC,"INJECTION, BELIMUMAB, 10MG",BELIMUMAB,O,B,Y,5/31/2012
+J9034,HCPC,INJECTION BENDAMUSTINE HCL BENDEKA 1 MG,BENDAMUSTINE,O,C,Y,2/1/2017
+J9033,HCPC,"INJECTION, BENDAMUSTINE HCL, 1 MG",BENDAMUSTINE,O,C,Y,6/24/2011
+S0116,HCPC,BEVACIZUMAB 100 MG,BEVACIZUMAB,O,B,Y,6/24/2011
+C9257,HCPC,"Injection, bevacizumab, 0.25 mg",BEVACIZUMAB,O,B,Y,6/24/2011
+Q2024,HCPC,"Injection, bevacizumab, 0.25 mg",BEVACIZUMAB,O,B,Y,6/24/2011
+J9035,HCPC,"Injection, bevacizumab, 10 mg",BEVACIZUMAB,O,B,Y,6/24/2011
+C9214,HCPC,"INJECTION, BEVACIZUMAB, PER 10 MG",BEVACIZUMAB,O,B,Y,6/24/2011
+J9040,HCPC,"Bleomycin sulfate, 15 units",BLEOMYCIN,O,C,Y,6/24/2011
+C9417,HCPC,"BLEOMYCIN SULFATE, BRAND NAME, 15 UNITS",BLEOMYCIN,O,C,Y,6/24/2011
+S0115,HCPC,"BORTEZOMIB, 3.5 MG",BORTEZOMIB,O,C,Y,6/24/2011
+J9041,HCPC,"Injection, bortezomib, 0.1 mg",BORTEZOMIB,O,C,Y,6/24/2011
+C9207,HCPC,"INJECTION, BORTEZOMIB, PER 3.5 MG",BORTEZOMIB,O,C,Y,6/24/2011
+C9287,CPT4,Brentuximab,BRENTUXIMAB,O,B,Y,5/21/2012
+J9042,HCPC,BRENTUXIMAB VEDOTIN,BRENTUXIMAB,O,B,Y,6/16/2014
+J8510,HCPC,"Busulfan: oral, 2 mg",BUSULFAN,O,C,Y,6/24/2011
+C1178,HCPC,INJECTION BUSULFAN PER 6 MG,BUSULFAN,O,C,Y,6/24/2011
+J0594,HCPC,"INJECTION, BUSULFAN, 1 MG",BUSULFAN,O,C,Y,6/24/2011
+J9043,CPT4,Cabazitaxel,CABAZITAXEL,O,C,Y,5/21/2012
+J8520,HCPC,"Capecitabine, oral, 150 mg",CAPECITABINE,O,C,Y,6/24/2011
+J8521,HCPC,"Capecitabine, oral, 500 mg",CAPECITABINE,O,C,Y,6/24/2011
+J9045,HCPC,"Carboplatin, 50 mg",CARBOPLATIN,O,C,Y,6/24/2011
+J9047,HCPC,INJECTION CARFILZOMIB 1 MG,CARFILZOMIB,O,C,Y,2/1/2017
+J9050,HCPC,"Carmustine, 100 mg",CARMUSTINE,O,C,Y,6/24/2011
+C9437,HCPC,"CARMUSTINE, BRAND NAME, 100 MG",CARMUSTINE,O,C,Y,6/24/2011
+J9055,HCPC,"Injection, cetuximab, 10 mg",CETUXIMAB,O,B,Y,6/24/2011
+C9215,HCPC,"INJECTION, CETUXIMAB, PER 10 MG",CETUXIMAB,O,B,Y,6/24/2011
+4180F,CPT4,"Adjuvant chemotherapy referred, prescribed, or previously received for Stage III",CHEMOTHERAPY,O,C,Y,6/24/2011
+36640,CPT4,"Arterial catheterization for prolonged infusion therapy (chemotherapy), cutdown",CHEMOTHERAPY,O,C,Y,6/24/2011
+G0360,HCPC,"CHEMO ADMIN IV INFUS, EA",CHEMOTHERAPY,O,C,Y,6/24/2011
+C8954,HCPC,"CHEMO ADMIN IV, INFUS UP",CHEMOTHERAPY,O,C,Y,6/24/2011
+C8955,HCPC,"CHEMO ADMN IV, INFUS EA A",CHEMOTHERAPY,O,C,Y,6/24/2011
+G9029,HCPC,CHEMO ASSESS FATIGUE 1: N,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9031,HCPC,CHEMO ASSESS FATIGUE 3: Q,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9030,HCPC,CHEMO ASSESS FATIGUE LVL,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9032,HCPC,CHEMO ASSESS FATIGUE LVL,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9021,HCPC,CHEMO ASSESS NV LEVL 1: N,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9022,HCPC,CHEMO ASSESS NV LEVL 2: L,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9023,HCPC,CHEMO ASSESS NV LEVL 3: Q,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9024,HCPC,CHEMO ASSESS NV LEVL 4: V,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9025,HCPC,CHEMO ASSESS PAIN LVL 1:,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9026,HCPC,CHEMO ASSESS PAIN LVL 2:,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9027,HCPC,CHEMO ASSESS PAIN LVL 3:,CHEMOTHERAPY,O,C,Y,6/24/2011
+G9028,HCPC,CHEMO ASSESS PAIN LVL 4:,CHEMOTHERAPY,O,C,Y,6/24/2011
+G8372,HCPC,CHEMO DOC RECV STAGE III,CHEMOTHERAPY,O,C,Y,6/24/2011
+G0359,HCPC,"CHEMO IV INFUS,UP TO 1 HR",CHEMOTHERAPY,O,C,Y,6/24/2011
+G8373,HCPC,CHEMO PLAN DOC PRIOR CHEM,CHEMOTHERAPY,O,C,Y,6/24/2011
+G8374,HCPC,CHEMO PLAN NOT DOC PRIOR,CHEMOTHERAPY,O,C,Y,6/24/2011
+G0355,HCPC,CHEMO SQ/IM NONHORMONL AN,CHEMOTHERAPY,O,C,Y,6/24/2011
+331,REV,CHEMOTHER/INJ,CHEMOTHERAPY,O,C,Y,5/21/2012
+332,REV,CHEMOTHER/ORAL,CHEMOTHERAPY,O,C,Y,5/21/2012
+C8953,HCPC,"CHEMOTHERAPY ADMIN IV, PU",CHEMOTHERAPY,O,C,Y,6/24/2011
+S5019,HCPC,Chemotherapy admin supplies,CHEMOTHERAPY,O,C,Y,6/24/2011
+S5020,HCPC,Chemotherapy admin supplies,CHEMOTHERAPY,O,C,Y,6/24/2011
+Q0085,HCPC,Chemotherapy administration by both infusion technique and other technique(s) (e,CHEMOTHERAPY,O,C,Y,6/24/2011
+Q0084,HCPC,"Chemotherapy administration by infusion technique only, per visit",CHEMOTHERAPY,O,C,Y,6/24/2011
+Q0083,HCPC,"Chemotherapy administration by other than infusion technique only (e.g., subcuta",CHEMOTHERAPY,O,C,Y,6/24/2011
+96446,CPT4,Chemotherapy administration into peritoneal cavity via indwelling port or catheter,CHEMOTHERAPY,O,C,Y,6/24/2011
+96445,CPT4,"Chemotherapy administration into peritoneal cavity, requiring and including peri",CHEMOTHERAPY,O,C,Y,6/24/2011
+96440,CPT4,"Chemotherapy administration into pleural cavity, requiring and including thorace",CHEMOTHERAPY,O,C,Y,6/24/2011
+96450,CPT4,"Chemotherapy administration, into CNS (eg, intrathecal), requiring and including",CHEMOTHERAPY,O,C,Y,6/24/2011
+96423,CPT4,"Chemotherapy administration, intra-arterial: infusion technique, each additional",CHEMOTHERAPY,O,C,Y,6/24/2011
+96425,CPT4,"Chemotherapy administration, intra-arterial: infusion technique, initiation of p",CHEMOTHERAPY,O,C,Y,6/24/2011
+96422,CPT4,"Chemotherapy administration, intra-arterial: infusion technique, up to one hour",CHEMOTHERAPY,O,C,Y,6/24/2011
+96420,CPT4,"Chemotherapy administration, intra-arterial: push technique",CHEMOTHERAPY,O,C,Y,6/24/2011
+96415,CPT4,"Chemotherapy administration, intravenous infusion technique: each additional hou",CHEMOTHERAPY,O,C,Y,6/24/2011
+96417,CPT4,"Chemotherapy administration, intravenous infusion technique: each additional seq",CHEMOTHERAPY,O,C,Y,6/24/2011
+96416,CPT4,"Chemotherapy administration, intravenous infusion technique: initiation of prolo",CHEMOTHERAPY,O,C,Y,6/24/2011
+96413,CPT4,"Chemotherapy administration, intravenous infusion technique: up to 1 hour, singl",CHEMOTHERAPY,O,C,Y,6/24/2011
+96410,CPT4,"CHEMOTHERAPY ADMINISTRATION, IV: INFUSION, UP TO 1 HR",CHEMOTHERAPY,O,C,Y,6/24/2011
+96408,CPT4,"CHEMOTHERAPY ADMINISTRATION, IV: PUSH TECHNIQUE",CHEMOTHERAPY,O,C,Y,6/24/2011
+96402,CPT4,"Chemotherapy administration, subcutaneous or intramuscular hormonal anti-neopla",CHEMOTHERAPY,O,C,Y,6/24/2011
+96401,CPT4,"Chemotherapy administration, subcutaneous or intramuscular non-hormonal anti-ne",CHEMOTHERAPY,O,C,Y,6/24/2011
+96400,CPT4,"CHEMOTHERAPY ADMINISTRATION, SUBQ/IM, W/WO LOCAL ANESTHESIA",CHEMOTHERAPY,O,C,Y,6/24/2011
+96406,CPT4,"Chemotherapy administration: intralesional, more than 7 lesions",CHEMOTHERAPY,O,C,Y,6/24/2011
+96405,CPT4,"Chemotherapy administration: intralesional, up to and including 7 lesions",CHEMOTHERAPY,O,C,Y,6/24/2011
+96411,CPT4,"Chemotherapy administration: intravenous, push technique, each additional substa",CHEMOTHERAPY,O,C,Y,6/24/2011
+96409,CPT4,"Chemotherapy administration: intravenous, push technique, single or initial subs",CHEMOTHERAPY,O,C,Y,6/24/2011
+G0358,HCPC,CHEMOTHERAPY ADMINSTRATION OF EACH ADD. PUSHED CHEMO DRUG,CHEMOTHERAPY,O,C,Y,6/24/2011
+G0362,HCPC,"CHEMOTHERAPY ADMINSTRATION OF EACH INFUSED CHEMO DRUG, UP TO 1 HR",CHEMOTHERAPY,O,C,Y,6/24/2011
+219583,CPT4,"CHEMOTHERAPY INFORMATION REMINDER, ONCOLOGY ORDER OPTIONS",CHEMOTHERAPY,O,C,Y,7/17/2015
+96542,CPT4,"Chemotherapy injection, subarachnoid or intraventricular via subcutaneous reserv",CHEMOTHERAPY,O,C,Y,6/24/2011
+G0357,HCPC,"CHEMOTHERAPY IV PUSH, SINGLE/INITIAL DRUG",CHEMOTHERAPY,O,C,Y,6/24/2011
+203682,CPT4,CHEMOTHERAPY PRECAUTIONS,CHEMOTHERAPY,O,C,Y,7/17/2015
+96414,CPT4,"CHEMOTHERAPY, IV: INFUSION, > 8 HR W/PORTABLE/IMPLANTABLE PUMP",CHEMOTHERAPY,O,C,Y,6/24/2011
+96412,CPT4,"CHEMOTHERAPY, IV: INFUSION, 1-8 HR, ADDL HR",CHEMOTHERAPY,O,C,Y,6/24/2011
+335,REV,CHEMOTHERP-IV,CHEMOTHERAPY,O,C,Y,5/21/2012
+242226,CPT4,CYTOREDUCTION W HYPERTHERMIC INTRAPERITONEAL CHEMOTHERAPY,CHEMOTHERAPY,O,C,Y,7/17/2015
+S9329,HCPC,"Home infusion therapy, chemotherapy infusion: administrative services, professio",CHEMOTHERAPY,O,C,Y,6/24/2011
+S9330,HCPC,"Home infusion therapy, continuous (24 hours or more) chemotherapy infusion: admi",CHEMOTHERAPY,O,C,Y,6/24/2011
+S9331,HCPC,"Home infusion therapy, intermittent (less than 24 hours) chemotherapy infusion:",CHEMOTHERAPY,O,C,Y,6/24/2011
+61517,CPT4,Implantation of brain intracavitary chemotherapy agent (List separately in addit,CHEMOTHERAPY,O,C,Y,6/24/2011
+00.10,ICD9,Implantation of chemotherapy agent,CHEMOTHERAPY,U,C,Y,2/13/2013
+219687,CPT4,INFUSION IV CHEMOTHERAPY 2 HRS,CHEMOTHERAPY,O,C,Y,7/17/2015
+G0361,HCPC,INIT PROLNG CHEMO INFUS R,CHEMOTHERAPY,O,C,Y,6/24/2011
+99.28,ICD9,Injection or infusion of biological response modifier ÝBRM¨ as an antineoplastic agent,CHEMOTHERAPY,O,C,Y,2/13/2013
+99.25,ICD9,Injection or infusion of cancer chemotherapeutic substance,CHEMOTHERAPY,O,C,Y,2/13/2013
+99.29,ICD9,Injection or infusion of other therapeutic or prophylactic substance,CHEMOTHERAPY,U,C,Y,2/13/2013
+3E06003,ICD10,"Introduction of Low-dose Interleukin-2 into Central Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E06003,ICD10,"Introduction of Low-dose Interleukin-2 into Central Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E06303,ICD10,"Introduction of Low-dose Interleukin-2 into Central Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E06303,ICD10,"Introduction of Low-dose Interleukin-2 into Central Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E04003,ICD10,"Introduction of Low-dose Interleukin-2 into Central Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E04003,ICD10,"Introduction of Low-dose Interleukin-2 into Central Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E04303,ICD10,"Introduction of Low-dose Interleukin-2 into Central Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E04303,ICD10,"Introduction of Low-dose Interleukin-2 into Central Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0S303,ICD10,"Introduction of Low-dose Interleukin-2 into Epidural Space, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0S303,ICD10,"Introduction of Low-dose Interleukin-2 into Epidural Space, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E05003,ICD10,"Introduction of Low-dose Interleukin-2 into Peripheral Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E05003,ICD10,"Introduction of Low-dose Interleukin-2 into Peripheral Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E05303,ICD10,"Introduction of Low-dose Interleukin-2 into Peripheral Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E05303,ICD10,"Introduction of Low-dose Interleukin-2 into Peripheral Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E03003,ICD10,"Introduction of Low-dose Interleukin-2 into Peripheral Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E03003,ICD10,"Introduction of Low-dose Interleukin-2 into Peripheral Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E03303,ICD10,"Introduction of Low-dose Interleukin-2 into Peripheral Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E03303,ICD10,"Introduction of Low-dose Interleukin-2 into Peripheral Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0R303,ICD10,"Introduction of Low-dose Interleukin-2 into Spinal Canal, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0R303,ICD10,"Introduction of Low-dose Interleukin-2 into Spinal Canal, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0J30M,ICD10,"Introduction of Monoclonal Antibody into Biliary and Pancreatic Tract, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0J30M,ICD10,"Introduction of Monoclonal Antibody into Biliary and Pancreatic Tract, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0J70M,ICD10,"Introduction of Monoclonal Antibody into Biliary and Pancreatic Tract, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0J70M,ICD10,"Introduction of Monoclonal Antibody into Biliary and Pancreatic Tract, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0J80M,ICD10,"Introduction of Monoclonal Antibody into Biliary and Pancreatic Tract, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0J80M,ICD10,"Introduction of Monoclonal Antibody into Biliary and Pancreatic Tract, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0A30M,ICD10,"Introduction of Monoclonal Antibody into Bone Marrow, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0A30M,ICD10,"Introduction of Monoclonal Antibody into Bone Marrow, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0V30M,ICD10,"Introduction of Monoclonal Antibody into Bones, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0V30M,ICD10,"Introduction of Monoclonal Antibody into Bones, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0600M,ICD10,"Introduction of Monoclonal Antibody into Central Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0600M,ICD10,"Introduction of Monoclonal Antibody into Central Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0630M,ICD10,"Introduction of Monoclonal Antibody into Central Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0630M,ICD10,"Introduction of Monoclonal Antibody into Central Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0400M,ICD10,"Introduction of Monoclonal Antibody into Central Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0400M,ICD10,"Introduction of Monoclonal Antibody into Central Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0430M,ICD10,"Introduction of Monoclonal Antibody into Central Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0430M,ICD10,"Introduction of Monoclonal Antibody into Central Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0Q30M,ICD10,"Introduction of Monoclonal Antibody into Cranial Cavity and Brain, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0Q30M,ICD10,"Introduction of Monoclonal Antibody into Cranial Cavity and Brain, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0Q70M,ICD10,"Introduction of Monoclonal Antibody into Cranial Cavity and Brain, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0Q70M,ICD10,"Introduction of Monoclonal Antibody into Cranial Cavity and Brain, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0BX0M,ICD10,"Introduction of Monoclonal Antibody into Ear, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0BX0M,ICD10,"Introduction of Monoclonal Antibody into Ear, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0B30M,ICD10,"Introduction of Monoclonal Antibody into Ear, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0B30M,ICD10,"Introduction of Monoclonal Antibody into Ear, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0B70M,ICD10,"Introduction of Monoclonal Antibody into Ear, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0B70M,ICD10,"Introduction of Monoclonal Antibody into Ear, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0S30M,ICD10,"Introduction of Monoclonal Antibody into Epidural Space, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0S30M,ICD10,"Introduction of Monoclonal Antibody into Epidural Space, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0CX0M,ICD10,"Introduction of Monoclonal Antibody into Eye, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0CX0M,ICD10,"Introduction of Monoclonal Antibody into Eye, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0C30M,ICD10,"Introduction of Monoclonal Antibody into Eye, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0C30M,ICD10,"Introduction of Monoclonal Antibody into Eye, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0C70M,ICD10,"Introduction of Monoclonal Antibody into Eye, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0C70M,ICD10,"Introduction of Monoclonal Antibody into Eye, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0P30M,ICD10,"Introduction of Monoclonal Antibody into Female Reproductive, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0P30M,ICD10,"Introduction of Monoclonal Antibody into Female Reproductive, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0P70M,ICD10,"Introduction of Monoclonal Antibody into Female Reproductive, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0P70M,ICD10,"Introduction of Monoclonal Antibody into Female Reproductive, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0P80M,ICD10,"Introduction of Monoclonal Antibody into Female Reproductive, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0P80M,ICD10,"Introduction of Monoclonal Antibody into Female Reproductive, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0K30M,ICD10,"Introduction of Monoclonal Antibody into Genitourinary Tract, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0K30M,ICD10,"Introduction of Monoclonal Antibody into Genitourinary Tract, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0K70M,ICD10,"Introduction of Monoclonal Antibody into Genitourinary Tract, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0K70M,ICD10,"Introduction of Monoclonal Antibody into Genitourinary Tract, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0K80M,ICD10,"Introduction of Monoclonal Antibody into Genitourinary Tract, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0K80M,ICD10,"Introduction of Monoclonal Antibody into Genitourinary Tract, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0U30M,ICD10,"Introduction of Monoclonal Antibody into Joints, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0U30M,ICD10,"Introduction of Monoclonal Antibody into Joints, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0H30M,ICD10,"Introduction of Monoclonal Antibody into Lower GI, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0H30M,ICD10,"Introduction of Monoclonal Antibody into Lower GI, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0H70M,ICD10,"Introduction of Monoclonal Antibody into Lower GI, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0H70M,ICD10,"Introduction of Monoclonal Antibody into Lower GI, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0H80M,ICD10,"Introduction of Monoclonal Antibody into Lower GI, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0H80M,ICD10,"Introduction of Monoclonal Antibody into Lower GI, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0W30M,ICD10,"Introduction of Monoclonal Antibody into Lymphatics, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0W30M,ICD10,"Introduction of Monoclonal Antibody into Lymphatics, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0N30M,ICD10,"Introduction of Monoclonal Antibody into Male Reproductive, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0N30M,ICD10,"Introduction of Monoclonal Antibody into Male Reproductive, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0N70M,ICD10,"Introduction of Monoclonal Antibody into Male Reproductive, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0N70M,ICD10,"Introduction of Monoclonal Antibody into Male Reproductive, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0N80M,ICD10,"Introduction of Monoclonal Antibody into Male Reproductive, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0N80M,ICD10,"Introduction of Monoclonal Antibody into Male Reproductive, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0DX0M,ICD10,"Introduction of Monoclonal Antibody into Mouth and Pharynx, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0DX0M,ICD10,"Introduction of Monoclonal Antibody into Mouth and Pharynx, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0D30M,ICD10,"Introduction of Monoclonal Antibody into Mouth and Pharynx, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0D30M,ICD10,"Introduction of Monoclonal Antibody into Mouth and Pharynx, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0D70M,ICD10,"Introduction of Monoclonal Antibody into Mouth and Pharynx, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0D70M,ICD10,"Introduction of Monoclonal Antibody into Mouth and Pharynx, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0230M,ICD10,"Introduction of Monoclonal Antibody into Muscle, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0230M,ICD10,"Introduction of Monoclonal Antibody into Muscle, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E09X0M,ICD10,"Introduction of Monoclonal Antibody into Nose, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E09X0M,ICD10,"Introduction of Monoclonal Antibody into Nose, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0930M,ICD10,"Introduction of Monoclonal Antibody into Nose, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0930M,ICD10,"Introduction of Monoclonal Antibody into Nose, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0970M,ICD10,"Introduction of Monoclonal Antibody into Nose, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0970M,ICD10,"Introduction of Monoclonal Antibody into Nose, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0Y30M,ICD10,"Introduction of Monoclonal Antibody into Pericardial Cavity, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0Y30M,ICD10,"Introduction of Monoclonal Antibody into Pericardial Cavity, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0Y70M,ICD10,"Introduction of Monoclonal Antibody into Pericardial Cavity, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0Y70M,ICD10,"Introduction of Monoclonal Antibody into Pericardial Cavity, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0500M,ICD10,"Introduction of Monoclonal Antibody into Peripheral Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0500M,ICD10,"Introduction of Monoclonal Antibody into Peripheral Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0530M,ICD10,"Introduction of Monoclonal Antibody into Peripheral Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0530M,ICD10,"Introduction of Monoclonal Antibody into Peripheral Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0300M,ICD10,"Introduction of Monoclonal Antibody into Peripheral Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0300M,ICD10,"Introduction of Monoclonal Antibody into Peripheral Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0330M,ICD10,"Introduction of Monoclonal Antibody into Peripheral Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0330M,ICD10,"Introduction of Monoclonal Antibody into Peripheral Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0M30M,ICD10,"Introduction of Monoclonal Antibody into Peritoneal Cavity, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0M30M,ICD10,"Introduction of Monoclonal Antibody into Peritoneal Cavity, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0M70M,ICD10,"Introduction of Monoclonal Antibody into Peritoneal Cavity, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0M70M,ICD10,"Introduction of Monoclonal Antibody into Peritoneal Cavity, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0L30M,ICD10,"Introduction of Monoclonal Antibody into Pleural Cavity, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0L30M,ICD10,"Introduction of Monoclonal Antibody into Pleural Cavity, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0L70M,ICD10,"Introduction of Monoclonal Antibody into Pleural Cavity, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0L70M,ICD10,"Introduction of Monoclonal Antibody into Pleural Cavity, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0E30M,ICD10,"Introduction of Monoclonal Antibody into Products of Conception, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0E30M,ICD10,"Introduction of Monoclonal Antibody into Products of Conception, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0E70M,ICD10,"Introduction of Monoclonal Antibody into Products of Conception, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0E70M,ICD10,"Introduction of Monoclonal Antibody into Products of Conception, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0E80M,ICD10,"Introduction of Monoclonal Antibody into Products of Conception, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0E80M,ICD10,"Introduction of Monoclonal Antibody into Products of Conception, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0F30M,ICD10,"Introduction of Monoclonal Antibody into Respiratory Tract, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0F30M,ICD10,"Introduction of Monoclonal Antibody into Respiratory Tract, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0F70M,ICD10,"Introduction of Monoclonal Antibody into Respiratory Tract, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0F70M,ICD10,"Introduction of Monoclonal Antibody into Respiratory Tract, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0F80M,ICD10,"Introduction of Monoclonal Antibody into Respiratory Tract, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0F80M,ICD10,"Introduction of Monoclonal Antibody into Respiratory Tract, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E00X0M,ICD10,"Introduction of Monoclonal Antibody into Skin and Mucous Membranes, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E00X0M,ICD10,"Introduction of Monoclonal Antibody into Skin and Mucous Membranes, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0R30M,ICD10,"Introduction of Monoclonal Antibody into Spinal Canal, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0R30M,ICD10,"Introduction of Monoclonal Antibody into Spinal Canal, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0130M,ICD10,"Introduction of Monoclonal Antibody into Subcutaneous Tissue, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0130M,ICD10,"Introduction of Monoclonal Antibody into Subcutaneous Tissue, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0G30M,ICD10,"Introduction of Monoclonal Antibody into Upper GI, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0G30M,ICD10,"Introduction of Monoclonal Antibody into Upper GI, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0G70M,ICD10,"Introduction of Monoclonal Antibody into Upper GI, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0G70M,ICD10,"Introduction of Monoclonal Antibody into Upper GI, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0G80M,ICD10,"Introduction of Monoclonal Antibody into Upper GI, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0G80M,ICD10,"Introduction of Monoclonal Antibody into Upper GI, Via Natural or Artificial Opening Endoscopic",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E06005,ICD10,"Introduction of Other Antineoplastic into Central Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E06305,ICD10,"Introduction of Other Antineoplastic into Central Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E04005,ICD10,"Introduction of Other Antineoplastic into Central Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E04305,ICD10,"Introduction of Other Antineoplastic into Central Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0BX05,ICD10,"Introduction of Other Antineoplastic into Ear, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0B305,ICD10,"Introduction of Other Antineoplastic into Ear, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0B705,ICD10,"Introduction of Other Antineoplastic into Ear, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0S305,ICD10,"Introduction of Other Antineoplastic into Epidural Space, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0CX05,ICD10,"Introduction of Other Antineoplastic into Eye, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0C305,ICD10,"Introduction of Other Antineoplastic into Eye, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0C705,ICD10,"Introduction of Other Antineoplastic into Eye, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0U305,ICD10,"Introduction of Other Antineoplastic into Joints, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0DX05,ICD10,"Introduction of Other Antineoplastic into Mouth and Pharynx, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0D305,ICD10,"Introduction of Other Antineoplastic into Mouth and Pharynx, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0D705,ICD10,"Introduction of Other Antineoplastic into Mouth and Pharynx, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E09X05,ICD10,"Introduction of Other Antineoplastic into Nose, External Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E09305,ICD10,"Introduction of Other Antineoplastic into Nose, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E09705,ICD10,"Introduction of Other Antineoplastic into Nose, Via Natural or Artificial Opening",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E05005,ICD10,"Introduction of Other Antineoplastic into Peripheral Artery, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E05305,ICD10,"Introduction of Other Antineoplastic into Peripheral Artery, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E03005,ICD10,"Introduction of Other Antineoplastic into Peripheral Vein, Open Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E03305,ICD10,"Introduction of Other Antineoplastic into Peripheral Vein, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+3E0R305,ICD10,"Introduction of Other Antineoplastic into Spinal Canal, Percutaneous Approach",CHEMOTHERAPY,O,C,Y,5/30/2017
+J9999,HCPC,"NOC, antineoplastic drug",CHEMOTHERAPY,O,C,Y,6/24/2011
+0519F,CPT4,"Planned chemotherapy regimen, including at a minimum: drug(s) prescribed, dose,",CHEMOTHERAPY,O,C,Y,6/24/2011
+J8999,HCPC,"Prescription drug, oral, chemotherapeutic, NOS",CHEMOTHERAPY,O,C,Y,6/24/2011
+J7150,HCPC,Prescription Oral Chemo Drug,CHEMOTHERAPY,O,C,Y,6/24/2011
+96545,CPT4,"PROVISION, CHEMOTHERAPY AGENT",CHEMOTHERAPY,O,C,Y,6/24/2011
+0331,REV,"RADIOLOGY, THERAPEUTIC AND/OR CHEMO ADMIN - CHEMOTHERAPY, INJECTED",CHEMOTHERAPY,O,C,Y,7/17/2015
+0335,REV,"RADIOLOGY, THERAPEUTIC AND/OR CHEMO ADMIN - CHEMOTHERAPY, IV",CHEMOTHERAPY,O,C,Y,7/17/2015
+206820,CPT4,REFERRAL CHEMOTHERAPY,CHEMOTHERAPY,O,C,Y,7/17/2015
+206929,CPT4,"REFERRAL PEDS, CHEMOTHERAPY",CHEMOTHERAPY,O,C,Y,7/17/2015
+J3590,HCPC,UNCLASSIFIED BIOLOGICS,CHEMOTHERAPY,O,B,Y,7/17/2015
+96549,CPT4,Unlisted chemotherapy procedure,CHEMOTHERAPY,O,C,Y,6/24/2011
+S0172,HCPC,"CHLORAMBUCIL, ORAL, 2MG",CHLORAMBUCIL,O,C,Y,6/24/2011
+J9062,HCPC,"Cisplatin, 50 mg",CISPLATIN,O,C,Y,6/24/2011
+C9418,HCPC,"CISPLATIN, POWDER OR S0LUTION, BRAND NAME, PER 10 MG",CISPLATIN,O,C,Y,6/24/2011
+J9060,HCPC,"Cisplatin, powder or solution, per 10 mg",CISPLATIN,O,C,Y,6/24/2011
+209622,HCPC,REIMB CISPLATIN 10 MG VIAL (PLATINOL).,CISPLATIN,O,C,Y,7/17/2015
+C9419,HCPC,"INJECTION, CLADRIBINE, BRAND NAME, PER 1 MG",CLADRIBINE,O,C,Y,6/24/2011
+J9065,HCPC,"Injection, cladribine, per 1 mg",CLADRIBINE,O,C,Y,6/24/2011
+J9027,HCPC,"Injection, clofarabine, 1 mg",CLOFARABINE,O,C,Y,6/24/2011
+17.70,ICD9,intravenous infusion of clofarabine (17.70),CLOFARABINE,O,C,Y,2/13/2013
+3E0600P,ICD10,"Introduction of Clofarabine into Central Artery, Open Approach",CLOFARABINE,O,C,Y,5/30/2017
+3E0630P,ICD10,"Introduction of Clofarabine into Central Artery, Percutaneous Approach",CLOFARABINE,O,C,Y,5/30/2017
+3E0400P,ICD10,"Introduction of Clofarabine into Central Vein, Open Approach",CLOFARABINE,O,C,Y,5/30/2017
+3E0430P,ICD10,"Introduction of Clofarabine into Central Vein, Percutaneous Approach",CLOFARABINE,O,C,Y,5/30/2017
+3E0500P,ICD10,"Introduction of Clofarabine into Peripheral Artery, Open Approach",CLOFARABINE,O,C,Y,5/30/2017
+3E0530P,ICD10,"Introduction of Clofarabine into Peripheral Artery, Percutaneous Approach",CLOFARABINE,O,C,Y,5/30/2017
+3E0300P,ICD10,"Introduction of Clofarabine into Peripheral Vein, Open Approach",CLOFARABINE,O,C,Y,5/30/2017
+3E0330P,ICD10,"Introduction of Clofarabine into Peripheral Vein, Percutaneous Approach",CLOFARABINE,O,C,Y,5/30/2017
+J9091,HCPC,"Cyclophosphamide, 1 g",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9070,HCPC,"Cyclophosphamide, 100 mg",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9092,HCPC,"Cyclophosphamide, 2 g",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9080,HCPC,"Cyclophosphamide, 200 mg",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9090,HCPC,"Cyclophosphamide, 500 mg",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+C9420,HCPC,"CYCLOPHOSPHAMIDE, BRAND NAME, 100 MG",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9096,HCPC,"Cyclophosphamide, lyophilized, 1 g",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9093,HCPC,"Cyclophosphamide, lyophilized, 100 mg",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9097,HCPC,"Cyclophosphamide, lyophilized, 2 g",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9094,HCPC,"Cyclophosphamide, lyophilized, 200 mg",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J9095,HCPC,"Cyclophosphamide, lyophilized, 500 mg",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+C9421,HCPC,"CYCLOPHOSPHAMIDE, LYOPHILIZED, BRAND NAME, 100 MG",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+J8530,HCPC,"Cyclophosphamide: oral, 25 mg",CYCLOPHOSPHAMIDE,O,C,Y,6/24/2011
+C9438,HCPC,"CYCLOSPORINE, ORAL, BRAND NAME, 100 MG",CYCLOSPORINE,O,C,Y,2/13/2013
+J9098,HCPC,"Cytarabine liposome, 10 mg",CYTARABINE,O,C,Y,6/24/2011
+J9100,HCPC,"Cytarabine, 100 mg",CYTARABINE,O,C,Y,6/24/2011
+J9110,HCPC,"Cytarabine, 500 mg",CYTARABINE,O,C,Y,6/24/2011
+C9422,HCPC,"CYTARABINE, BRAND NAME, 100 MG",CYTARABINE,O,C,Y,6/24/2011
+C1166,HCPC,"INJECTION, CYTARABINE LIPOSOME, PER 10 MG",CYTARABINE,O,C,Y,6/24/2011
+J9130,HCPC,"Dacarbazine, 100 mg",DACARBAZINE,O,C,Y,6/24/2011
+J9140,HCPC,"Dacarbazine, 200 mg",DACARBAZINE,O,C,Y,6/24/2011
+C9423,HCPC,"DACARBAZINE, BRAND NAME, 100 MG",DACARBAZINE,O,C,Y,6/24/2011
+J9120,HCPC,"Dactinomycin, 0.5 mg",DACTINOMYCIN,O,C,Y,6/24/2011
+J9145,HCPC,INJECTION DARATUMUMAB 10 MG,DARATUMUMAB,O,B,Y,4/10/2017
+J9151,HCPC,"Daunorubicin citrate, liposomal formulation, 10 mg   A",DAUNORUBICIN,A,C,Y,6/24/2011
+J9150,HCPC,"Daunorubicin, 10 mg                                  A",DAUNORUBICIN,A,C,Y,6/24/2011
+C9424,HCPC,"DAUNORUBICIN, BRAND NAME, 10 MG",DAUNORUBICIN,A,C,Y,6/24/2011
+J0894,HCPC,"INJECTION, DECITABINE, 1 MG",DECITABINE,O,C,Y,6/24/2011
+J9155,HCPC,INJECTION DEGARELIX 1 MG,DEGARELIX,R,H,Y,6/24/2011
+C1084,HCPC,"Denileukin diftitox, 300 mcg",DENILEUKIN,I,C,Y,6/24/2011
+J9160,HCPC,"Denileukin diftitox, 300 mcg",DENILEUKIN,I,C,Y,6/24/2011
+C9272,HCPC,INJECTION DENOSUMAB 1 MG,DENOSUMAB,O,B,Y,5/23/2017
+J0897,HCPC,INJECTION DENOSUMAB 1 MG,DENOSUMAB,O,B,Y,5/23/2017
+J8540,HCPC,"Dexamethasone, oral, 0.25mg",DEXAMETHASONE,O,C,Y,5/31/2012
+J1094,HCPC,"INJECTION, DEXAMETHASONE ACETATE, 1 MG",DEXAMETHASONE,O,C,Y,5/31/2012
+J1100,HCPC,"INJECTION, DEXAMETHASONE SODIUM PHOSPHATE, 1 MG",DEXAMETHASONE,O,C,Y,5/31/2012
+J1190,HCPC,"INJECTION, DEXRAZOXANE HYDROCHLORIDE, PER 250 MG",DEXRAZOXANE,O,C,Y,6/24/2011
+J9165,HCPC,DIETHYLSTILBESTROL DIPHOSPHATE 250 MH IV,DIETHYLSTILBESTROL,O,H,Y,6/16/2014
+J9170,HCPC,"Docetaxel, 20 mg",DOCETAXEL,O,C,Y,6/24/2011
+J9171,HCPC,"Injection, docetaxel, 1 mg",DOCETAXEL,O,C,Y,6/24/2011
+J9000,HCPC,"Doxorubicin HCl, 10 mg                               A",DOXORUBICIN,A,C,Y,6/24/2011
+J9001,HCPC,"Doxorubicin HCl, all lipid formulations, 10 mg       A",DOXORUBICIN,A,C,Y,6/24/2011
+C9415,HCPC,"DOXORUBICIN HCL, BRAND NAME, 10 MG",DOXORUBICIN,A,C,Y,6/24/2011
+J9002,HCPC,"DOXORUBICIN HCL, LIPOSOMAL, 10 MG IV",DOXORUBICIN,O,C,Y,6/16/2014
+Q2049,HCPC,"DOXORUBICIN HCL, LIPOSOMAL, 10 MG IV",DOXORUBICIN,O,C,Y,6/16/2014
+Q2048,HCPC,INJ DOXORUBICIN HYDROCHLORIDE LIP DOXIL 10 MG,DOXORUBICIN,A,C,Y,2/1/2017
+Q2050,HCPC,INJECTION DOXORUBICIN HCL LIPOSOMAL NOS 10 MG,DOXORUBICIN,A,C,Y,7/17/2015
+J9180,HCPC,"EPIRUBICIN HYDROCHLORIDE, 50 MG                      A",EPIRUBICIN,A,C,Y,6/24/2011
+J9178,HCPC,"Injection, epirubicin HCl, 2 mg                      A",EPIRUBICIN,A,C,Y,6/24/2011
+C1167,HCPC,"INJECTION, EPIRUBICIN HYDROCHLORIDE, 2 MG",EPIRUBICIN,A,C,Y,6/24/2011
+J9179,CPT4,Eribulin,ERIBULIN,O,C,Y,5/21/2012
+J9181,HCPC,"Etoposide, 10 mg",ETOPOSIDE,O,C,Y,6/24/2011
+J9182,HCPC,"Etoposide, 100 mg",ETOPOSIDE,O,C,Y,6/24/2011
+C9425,HCPC,"ETOPOSIDE, BRAND NAME, 10 MG",ETOPOSIDE,O,C,Y,6/24/2011
+C9414,HCPC,"ETOPOSIDE, ORAL, BRAND NAME, 50 MG",ETOPOSIDE,O,C,Y,6/24/2011
+J8560,HCPC,"Etoposide; oral, 50 mg",ETOPOSIDE,O,C,Y,6/24/2011
+J7527,HCPC,EVEROLIMUS,EVEROLIMUS,O,C,Y,6/16/2014
+J8561,HCPC,"Everolimus, oral, 0.25mg",EVEROLIMUS,O,C,Y,5/31/2012
+S0156,HCPC,"EXEMESTANE, 25 MG",EXEMESTANE,R,H,Y,6/17/2013
+J9200,HCPC,"Floxuridine, 500 mg",FLOXURIDINE,O,C,Y,6/24/2011
+C9426,HCPC,"FLOXURIDINE, BRAND NAME, 500 MG",FLOXURIDINE,O,C,Y,6/24/2011
+J9185,HCPC,"Fludarabine phosphate, 50 mg",FLUDARABINE,O,C,Y,6/24/2011
+C9262,HCPC,"Fludarabine phosphate, oral, 1 mg",FLUDARABINE,O,C,Y,6/24/2011
+J8562,HCPC,"Fludarabine phosphate, oral, 10 mg",FLUDARABINE,O,C,Y,5/31/2012
+J9190,HCPC,"Fluorouracil, 500 mg",FLUOROURACIL,O,C,Y,6/24/2011
+S0175,HCPC,"FLUTAMIDE, ORAL, 125MG",FLUTAMIDE,R,C,Y,6/17/2013
+J9395,HCPC,"Injection, fulvestrant, 25 mg",FULVESTRANT,R,C,Y,6/24/2011
+C9434,HCPC,"GALLIUM GA 67, BRAND",GALLIUM,O,R,Y,2/13/2013
+J1457,HCPC,GALLIUM NITRATE 1 MG IV,GALLIUM,O,R,Y,6/16/2014
+J8565,HCPC,"Gefitinib, oral, 250 mg",GEFITINIB,O,C,Y,6/24/2011
+J9201,HCPC,"Gemcitabine HCl, 200 mg",GEMCITABINE,O,C,Y,6/24/2011
+C9004,HCPC,"Gemtuzumab ozogamicin inj,5m",GEMTUZUMAB,O,B,Y,6/24/2011
+J9300,HCPC,"Gemtuzumab ozogamicin, 5 mg",GEMTUZUMAB,O,B,Y,6/24/2011
+J1620,HCPC,GONADORELIN HYDROCHLORIDE,GONADORELIN,R,H,Y,6/17/2013
+J9202,HCPC,"Goserelin acetate implant, per 3.6 mg",GOSERELIN,R,C,Y,6/24/2011
+J9226,HCPC,"Histrelin implant (Supprelin LA), 50 mg",HISTRELIN,R,H,Y,6/24/2011
+J9225,HCPC,"Histrelin implant (Vantas), 50 mg",HISTRELIN,R,H,Y,6/24/2011
+J1675,HCPC,"INJECTION, HISTRELIN ACETATE, 10 MCG",HISTRELIN,R,H,Y,6/24/2011
+Q2020,HCPC,"INJECTION, HISTRELIN ACETATE, 10 MCG",HISTRELIN,R,H,Y,6/24/2011
+G0356,HCPC,HORMONAL ANTI-NEOPLASTIC,HORMONE,R,H,Y,6/24/2011
+S0176,HCPC,"HYDROXYUREA, ORAL, 500MG",HYDROXYUREA,O,C,Y,6/24/2011
+A9522,HCPC,INDIUM111IBRITUMOMABTIUXETAN,IBRITUMOMAB,O,B,N,7/17/2015
+J9211,HCPC,"Idarubicin HCl, 5 mg                                 A",IDARUBICIN,A,C,Y,6/24/2011
+C9429,HCPC,"IDARUBICIN HYDROCHLORIDE, BRAND NAME, 5 MG",IDARUBICIN,A,C,Y,6/24/2011
+C9427,HCPC,"IFOSFAMIDE, BRAND NAME, 1 GM",IFOSFAMIDE,O,C,Y,6/24/2011
+J9208,HCPC,"Ifosfamide, per 1 g",IFOSFAMIDE,O,C,Y,6/24/2011
+S0088,HCPC,"Imatinib injection, 100 mg",IMATINIB,O,C,Y,6/24/2011
+S2107,HCPC,Adoptive immunotherapy i.e. development of specific anti-tumor reactivity (e.g.,IMMUNOTHERAPY,I,I,Y,6/24/2011
+00.15,ICD9,"Immunotherapy, antineoplastic",IMMUNOTHERAPY,I,I,Y,2/13/2013
+XW04351,ICD10,"Introduction of Blinatumomab Antineoplastic Immunotherapy into Central Vein, Percutaneous Approach, New Technology Group 1",IMMUNOTHERAPY,I,I,Y,5/30/2017
+XW03351,ICD10,"Introduction of Blinatumomab Antineoplastic Immunotherapy into Peripheral Vein, Percutaneous Approach, New Technology Group 1",IMMUNOTHERAPY,I,I,Y,5/30/2017
+99601,CPT4,"Home infusion/specialty drug administration, per visit (up to 2 hours):",INFUSION,U,O,N,6/24/2011
+99602,CPT4,"Home infusion/specialty drug administration, per visit (up to 2 hours): each add",INFUSION,U,O,N,6/24/2011
+62360,CPT4,Implantation or replacement of device for intrathecal or epidural drug infusion;,INFUSION,U,O,N,6/24/2011
+62361,CPT4,Implantation or replacement of device for intrathecal or epidural drug infusion;,INFUSION,U,O,N,6/24/2011
+62362,CPT4,Implantation or replacement of device for intrathecal or epidural drug infusion;,INFUSION,U,O,N,6/24/2011
+36823,CPT4,Insertion of arterial and venous cannula(s) for isolated extracorporeal circulation including regional chemoth,INFUSION,U,O,N,6/24/2011
+36260,CPT4,Insertion of implantable intra-arterial infusion pump,INFUSION,U,O,N,6/24/2011
+61215,CPT4,"Insertion of subcutaneous reservoir, pump or continuous infusion system for conn",INFUSION,U,O,N,6/24/2011
+90765,CPT4,"Intravenous infusion, for therapy, prophylaxis, or diagnosis (specify substance",INFUSION,U,O,N,6/24/2011
+90766,CPT4,"Intravenous infusion, for therapy, prophylaxis, or diagnosis (specify substance",INFUSION,U,O,N,6/24/2011
+90767,CPT4,"Intravenous infusion, for therapy, prophylaxis, or diagnosis (specify substance",INFUSION,U,O,N,6/24/2011
+90768,CPT4,"Intravenous infusion, for therapy, prophylaxis, or diagnosis (specify substance",INFUSION,U,O,N,6/24/2011
+96365,CPT4,"Intravenous infusion, for therapy, prophylaxis, or diagnosis (specify substance",INFUSION,U,O,N,6/24/2011
+96366,CPT4,"Intravenous infusion, for therapy, prophylaxis, or diagnosis (specify substance",INFUSION,U,O,N,6/24/2011
+96367,CPT4,"Intravenous infusion, for therapy, prophylaxis, or diagnosis (specify substance",INFUSION,U,O,N,6/24/2011
+96368,CPT4,"Intravenous infusion, for therapy, prophylaxis, or diagnosis (specify substance",INFUSION,U,O,N,6/24/2011
+96523,CPT4,Irrigation of implanted venous access device for drug delivery systems,INFUSION,U,O,N,6/24/2011
+90781,CPT4,"IV INFUSION THERAPY/DX, GIVEN BY/UNDER DIRECTION, PHYSICIAN: EACH ADDL HR, UP T",INFUSION,U,O,N,6/24/2011
+90780,CPT4,"IV INFUSION THERAPY/DX, GIVEN BY/UNDER DIRECTION, PHYSICIAN: UP TO 1 HR",INFUSION,U,O,N,6/24/2011
+96530,CPT4,"REFILLING & MAINTENANCE, IMPLANTABLE PUMP/RESERVOIR DRUG DELIVERY, SYSTEMIC",INFUSION,U,O,N,6/24/2011
+96520,CPT4,"REFILLING & MAINTENANCE, PORTABLE PUMP",INFUSION,U,O,N,6/24/2011
+95990,CPT4,"Refilling and maintenance of implantable pump or reservoir for drug delivery, sp",INFUSION,U,O,N,6/24/2011
+95991,CPT4,"Refilling and maintenance of implantable pump or reservoir for drug delivery, sp",INFUSION,U,O,N,6/24/2011
+96522,CPT4,"Refilling and maintenance of implantable pump or reservoir for drug delivery, sy",INFUSION,U,O,N,6/24/2011
+96521,CPT4,Refilling and maintenance of portable pump,INFUSION,U,O,N,6/24/2011
+62365,CPT4,"Removal of subcutaneous reservoir or pump, previously implanted for intrathecal",INFUSION,U,O,N,6/24/2011
+0169T,CPT4,Stereotactic placement of infusion catheter(s) in the brain for delivery of ther,INFUSION,U,O,N,6/24/2011
+90775,CPT4,"Therapeutic, prophylactic or diagnostic injection (specify substance or drug): e",INFUSION,U,O,N,6/24/2011
+90776,CPT4,"Therapeutic, prophylactic or diagnostic injection (specify substance or drug): e",INFUSION,U,O,N,6/24/2011
+90773,CPT4,"Therapeutic, prophylactic or diagnostic injection (specify substance or drug): i",INFUSION,U,O,N,6/24/2011
+90774,CPT4,"Therapeutic, prophylactic or diagnostic injection (specify substance or drug): i",INFUSION,U,O,N,6/24/2011
+90772,CPT4,"Therapeutic, prophylactic or diagnostic injection (specify substance or drug): s",INFUSION,U,O,N,6/24/2011
+90783,CPT4,THERAPEUTIC/PROPHYLACTIC/DX INJECTION (SPECIFY MATL INJECTED): INTRA-ARTERIAL,INFUSION,U,O,N,6/24/2011
+90784,CPT4,THERAPEUTIC/PROPHYLACTIC/DX INJECTION (SPECIFY MATL INJECTED): IV,INFUSION,U,O,N,6/24/2011
+90782,CPT4,THERAPEUTIC/PROPHYLACTIC/DX INJECTION (SPECIFY MATL INJECTED): SUBQ/IM,INFUSION,U,O,N,6/24/2011
+90799,CPT4,"UNLISTED PROC, INJECTION, THERAPEUTIC/PROPHYLACTIC/DX",INFUSION,U,O,N,6/24/2011
+90779,CPT4,"Unlisted therapeutic, prophylactic or diagnostic intravenous or intra-arterial i",INFUSION,U,O,N,6/24/2011
+96379,CPT4,"Unlisted therapeutic, prophylactic, or diagnostic intravenous or intra-arterial",INFUSION,U,O,N,6/24/2011
+J9213,HCPC,"Injection, interferon, alfa-2a, recombinant, 3 million units",INTERFERON ALFA-2A,I,C,Y,5/31/2017
+S0146,HCPC,"Injection, pegylated interferon alfa-2b, 10 mcg per 0.5 ml",INTERFERON ALFA-2B,I,C,Y,6/24/2011
+J9214,HCPC,"Interferon alfa-2B, recombinant, 1 million units",INTERFERON ALFA-2B,I,C,Y,6/24/2011
+J9212,HCPC,"Injection, interferon alfacon-1, recombinant, 1 mcg",INTERFERON ALFACON,I,C,Y,6/24/2011
+J1826,HCPC,"INTERFERON BETA-1A 30 MCG, FOR INJ",INTERFERON BETA-1A,I,C,Y,5/23/2017
+C9284,CPT4,"Injection, ipilimumab, 1 mg",IPILIMUMAB,I,B,Y,5/21/2012
+J9228,HCPC,"IPILIMUMAB, 1MG, IV",IPILIMUMAB,I,B,Y,6/16/2014
+81350,CPT4,"IRINOTECAN TOXICITY, UGT1A1*28, GENOTYPING",IRINOTECAN,O,C,Y,7/17/2015
+J9206,HCPC,"Irinotecan, 20 mg",IRINOTECAN,O,C,Y,6/24/2011
+J9207,HCPC,"INJECTION, IXABEPILONE, 1 MG",IXABEPILONE,O,C,Y,6/24/2011
+J1930,HCPC,INJECTION LANREOTIDE 1 MG,LANREOTIDE,R,H,Y,2/1/2017
+C9237,HCPC,"INJECTION, LANREOTIDE ACETATE, 1 MG",LANREOTIDE,R,H,Y,2/1/2017
+J0640,HCPC,"INJECTION, LEUCOVORIN CALCIUM, PER 50 MG",LEUCOVORIN,O,O,N,6/24/2011
+J1950,HCPC,"INJECTION, LEUPROLIDE ACETATE (FOR DEPOT SUSPENSION)  PER 3.75 MG",LEUPROLIDE,R,O,N,6/24/2011
+J9217,HCPC,"Leuprolide acetate (for depot suspension), 7.5 mg",LEUPROLIDE,R,O,N,6/24/2011
+J9219,HCPC,"Leuprolide acetate implant, 65 mg",LEUPROLIDE,R,O,N,6/24/2011
+J9218,HCPC,"Leuprolide acetate, per 1 mg",LEUPROLIDE,R,O,N,6/24/2011
+S0177,HCPC,"LEVAMISOLE HYDROCHLORIDE, ORAL, 50MG",LEVAMISOLE,I,O,N,6/24/2011
+J0641,HCPC,"INJECTION, LEVOLEUCOVORIN CALCIUM, 0.5 MG",LEVOLEUCOVORIN,O,O,N,6/24/2011
+96912,CPT4,Photochemotherapy; psoralens and ultraviolet A (PUVA),LIGHT,U,O,Y,6/24/2011
+96910,CPT4,Photochemotherapy; tar and ultraviolet B (Goeckerman treatment) or petrolatum and ultraviolet B,LIGHT,U,O,Y,6/24/2011
+96570,CPT4,Photodynamic therapy by endoscopic application of light to ablate abnormal tissue via activation of photosensi,LIGHT,U,O,Y,6/24/2011
+96571,CPT4,Photodynamic therapy by endoscopic application of light to ablate abnormal tissue via activation of photosensi,LIGHT,U,O,Y,6/24/2011
+96567,CPT4,Photodynamic therapy by external application of light to destroy premalignant and/or malignant lesions of the,LIGHT,U,O,Y,6/24/2011
+S0178,HCPC,"LOMUSTINE, ORAL, 10MG",LOMUSTINE,O,C,Y,6/24/2011
+J9230,HCPC,"Mechlorethamine HCl, (nitrogen mustard), 10 mg",MECHLORETHAMINE,O,C,Y,6/24/2011
+J1050,HCPC,"INJECTION, MEDROXYPROGESTERONE ACETATE, 100 MG",MEDROXYPROGESTERONE,R,H,Y,6/24/2011
+J1051,HCPC,"INJECTION, MEDROXYPROGESTERONE ACETATE, 50 MG",MEDROXYPROGESTERONE,R,H,Y,6/24/2011
+S0179,HCPC,"MEGESTROL ACETATE, ORAL, 20MG",MEGESTROL,R,H,Y,6/17/2013
+J9245,HCPC,"Injection, melphalan HCl, 50 mg",MELPHALAN,O,C,Y,6/24/2011
+J8600,HCPC,"Melphalan: oral, 2 mg",MELPHALAN,O,C,Y,6/24/2011
+S0108,HCPC,"Mercaptopurine, oral, 50 mg",MERCAPTOPURINE,O,C,Y,5/31/2017
+J9209,HCPC,"Mesna, 200 mg",MESNA,O,O,N,6/24/2011
+83520,CPT4,METHOTREXATE LEVEL,METHOTREXATE,O,C,Y,7/17/2015
+J9250,HCPC,"Methotrexate sodium, 5 mg",METHOTREXATE,O,C,Y,6/24/2011
+J9260,HCPC,"Methotrexate sodium, 50 mg",METHOTREXATE,O,C,Y,6/24/2011
+J8610,HCPC,"Methotrexate: oral, 2.5 mg",METHOTREXATE,O,C,Y,6/24/2011
+J9290,HCPC,"Mitomycin, 20 mg",MITOMYCIN,O,C,Y,6/24/2011
+J9291,HCPC,"Mitomycin, 40 mg",MITOMYCIN,O,C,Y,6/24/2011
+J9280,HCPC,"Mitomycin, 5 mg",MITOMYCIN,O,C,Y,6/24/2011
+C9432,HCPC,"MITOMYCIN, BRAND NAME, 5 MG",MITOMYCIN,O,C,Y,6/24/2011
+J9293,HCPC,"Injection, mitoxantrone HCl, per 5 mg",MITOXANTRONE,O,C,Y,6/24/2011
+J0340,HCPC,NADROLONE PHENPROPIONATE,NANDROLONE,R,H,N,6/17/2013
+J2320,HCPC,NANDROLONE DECANOATE,NANDROLONE,R,H,N,6/17/2013
+J2321,HCPC,NANDROLONE DECANOATE,NANDROLONE,R,H,N,6/17/2013
+J2322,HCPC,NANDROLONE DECANOATE,NANDROLONE,R,H,N,6/17/2013
+J2323,HCPC,"Injection, natalizumab, 1 mg",NATALIZUMAB,O,B,Y,5/31/2012
+Q4079,HCPC,"INJECTION, NATALIZUMAB, PER 1 MG",NATALIZUMAB,O,B,Y,7/17/2015
+J9261,HCPC,"Injection, nelarabine, 50 mg",NELARABINE,O,C,Y,6/24/2011
+J9299,HCPC,INJECTION NIVOLUMAB 1 MG,NIVOLUMAB,O,B,Y,3/31/2016
+J9301,HCPC,INJECTION OBINUTUZUMAB 10 MG,OBINUTUZUMAB,O,B,Y,2/1/2017
+J2352,HCPC,OCTREOTIDE ACETATE,OCTREOTIDE,R,H,Y,6/17/2013
+J2353,HCPC,OCTREOTIDE ACETATE,OCTREOTIDE,R,H,Y,6/17/2013
+J2354,HCPC,OCTREOTIDE ACETATE,OCTREOTIDE,R,H,Y,6/17/2013
+J9302,HCPC,"Injection, ofatumumab, 10 mg",OFATUMUMAB,O,B,Y,6/24/2011
+C9297,HCPC,"Injection, omacetaxine mepesuccinate, 0.01 mg",OMACETAXINE,O,C,Y,5/31/2017
+J9262,HCPC,"Injection, omacetaxine mepesuccinate, 0.01 mg",OMACETAXINE,O,C,Y,5/31/2017
+G8381,HCPC,"FOR PATIENTS WITH ER OR PR POSITIVE, STAGE IC-III BREAST CANCER, CLINICIAN DOCUMENTED OR PRESCRIBED THAT THE P",OTHER,R,O,N,6/24/2011
+J9263,HCPC,"Injection, oxaliplatin, 0.5 mg",OXALIPLATIN,O,C,Y,6/24/2011
+C9205,HCPC,"INJECTION, OXALIPLATIN, PER 5 MG",OXALIPLATIN,O,C,Y,6/24/2011
+J9264,HCPC,"Injection, paclitaxel protein-bound particles, 1 mg",PACLITAXEL,O,C,Y,6/24/2011
+J9267,HCPC,"INJECTION, PACLITAXEL, 1 MG",PACLITAXEL,O,C,Y,7/17/2015
+J9265,HCPC,"Paclitaxel, 30 mg",PACLITAXEL,O,C,Y,6/24/2011
+C9431,HCPC,"PACLITAXEL, BRAND NAME, 30 MG",PACLITAXEL,O,C,Y,6/24/2011
+J2430,HCPC,"Injection, pamidronate disodium, per 30 mg",PAMIDRONATE,O,O,N,5/31/2012
+C9235,HCPC,"Injection, panitumumab, 10 mg",PANITUMUMAB,O,B,Y,6/24/2011
+J9303,HCPC,"Injection, panitumumab, 10 mg",PANITUMUMAB,O,B,Y,6/24/2011
+J9266,HCPC,"Pegaspargase, per single dose vial",PEGASPARGASE,O,C,Y,6/24/2011
+C9027,HCPC,INJECTION PEMBROLIZUMAB 1 MG,PEMBROLIZUMAB,I,I,Y,2/1/2017
+J9271,HCPC,INJECTION PEMBROLIZUMAB 1 MG,PEMBROLIZUMAB,I,I,Y,2/1/2017
+J9305,HCPC,"Injection, pemetrexed, 10 mg",PEMETREXED,O,C,Y,6/24/2011
+C9213,HCPC,"INJECTION, PEMETREXED, PER 10 MG",PEMETREXED,O,C,Y,6/24/2011
+J9268,HCPC,"Pentostatin, per 10 mg",PENTOSTATIN,O,C,Y,6/24/2011
+J9306,HCPC,INJECTION PERTUZUMAB 1 MG,PERTUZUMAB,O,B,Y,7/17/2015
+J9270,HCPC,"Plicamycin, 2.5 mg",PLICAMYCIN,O,C,Y,6/24/2011
+J9600,HCPC,"Injection, porfimer sodium, 75 mg",PORFIMER,O,C,Y,6/24/2011
+J9307,HCPC,"Injection, pralatrexate, 1 mg",PRALATREXATE,O,C,Y,5/31/2012
+S0182,HCPC,"PROCARBAZINE HYDROCHLORIDE, ORAL, 50MG",PROCARBAZINE,O,C,Y,6/24/2011
+J2675,HCPC,PROGESTERONE,PROGESTERONE,R,H,N,6/17/2013
+J9308,HCPC,INJECTION RAMUCIRUMAB 5 MG,RAMUCIRUMAB,O,B,Y,2/1/2017
+214693,HCPC,RITUXIMAB 100 MG,RITUXIMAB,O,B,Y,7/17/2015
+J9310,HCPC,"Rituximab, 100 mg",RITUXIMAB,O,B,Y,6/24/2011
+J9315,HCPC,"Injection, romidepsin, 1m g",ROMIDEPSIN,O,C,Y,5/31/2012
+C9265,HCPC,Romidepsin,ROMIDEPSIN,O,C,Y,5/21/2012
+A9604,HCPC,"Samarium Sm-153 lexidronam, therapeutic, per treatment dose, up to 150 millicuries",SAMARIUM,O,R,Y,5/31/2012
+A9605,HCPC,SAMARIUM SM-153 LEXIDRONAMM TX PER 50 MCI,SAMARIUM,O,R,Y,7/17/2015
+Q2043,HCPC,SIPULEUCEL-T AUTO CD54+,SIPULEUCEL,I,I,Y,7/17/2015
+J9320,HCPC,"Streptozocin, 1 g",STREPTOZOCIN,O,C,Y,6/24/2011
+A9600,HCPC,"Strontium-89 chloride, supply of",STRONTIUM-89,O,R,Y,5/31/2012
+S0187,HCPC,"TAMOXIFEN CITRATE, ORAL, 10MG",TAMOXIFEN,R,H,Y,6/17/2013
+J9328,HCPC,"Injection, temozolomide, 1 mg",TEMOZOLOMIDE,O,C,Y,5/31/2012
+C1086,HCPC,"Temozolomide, 5 mg",TEMOZOLOMIDE,O,C,Y,6/24/2011
+J8700,HCPC,"Temozolomide, oral, 5 mg",TEMOZOLOMIDE,O,C,Y,6/24/2011
+J9330,HCPC,"INJECTION, TEMSIROLIMUS, 1 MG",TEMSIROLIMUS,O,C,Y,6/24/2011
+Q2017,HCPC,"INJECTION, TENIPOSIDE, 50 MG",TENIPOSIDE,O,C,Y,6/24/2011
+J1070,HCPC,TESTOSTERONE CYPIONATE,TESTOSTERONE,R,H,N,6/17/2013
+J1080,HCPC,TESTOSTERONE CYPIONATE,TESTOSTERONE,R,H,N,6/17/2013
+J1090,HCPC,TESTOSTERONE CYPIONATE,TESTOSTERONE,R,H,N,6/17/2013
+J1060,HCPC,TESTOSTERONE CYPIONATE AND ESTRADIOL CYPION,TESTOSTERONE,R,H,N,6/17/2013
+J3120,HCPC,TESTOSTERONE ENANTHATE,TESTOSTERONE,R,H,N,6/17/2013
+J3130,HCPC,TESTOSTERONE ENANTHATE,TESTOSTERONE,R,H,N,6/17/2013
+J0900,HCPC,TESTOSTERONE ENANTHATE AND ESTRADIOL VALERA,TESTOSTERONE,R,H,N,6/17/2013
+J3150,HCPC,TESTOSTERONE PROPIONATE,TESTOSTERONE,R,H,N,6/17/2013
+J3140,HCPC,TESTOSTERONE SUSPENSION,TESTOSTERONE,R,H,N,6/17/2013
+J9340,HCPC,"Thiotepa, 15 mg",THIOTEPA,O,C,Y,6/24/2011
+C9433,HCPC,"THIOTEPA, BRAND NAME, 15 MG",THIOTEPA,O,C,Y,6/24/2011
+J3262,HCPC,"Injection, tocilizumab, 1 mg",TOCILIZUMAB,O,B,Y,5/31/2012
+J9351,HCPC,"Injection, topotecan, 0.1mg",TOPOTECAN,O,C,Y,5/31/2012
+J9350,HCPC,"Topotecan, 4 mg",TOPOTECAN,O,C,Y,6/24/2011
+J8705,HCPC,"TOPOTECAN, ORAL, 0.25 MG",TOPOTECAN,O,C,Y,6/24/2011
+C9480,HCPC,INJECTION TRABECTEDIN 0.1 MG,TRABECTEDIN,O,C,Y,2/1/2017
+J9355,HCPC,"Trastuzumab, 10 mg                                   H",TRASTUZUMAB,H,B,Y,6/24/2011
+J3315,HCPC,"INJECTION, TRIPTORELIN PAMOATE, 3.75 MG",TRIPTORELIN,R,H,N,6/24/2011
+J9357,HCPC,"Valrubicin, intravesical, 200 mg",VALRUBICIN,O,C,Y,6/24/2011
+J9360,HCPC,"Vinblastine sulfate, 1 mg",VINBLASTINE,O,C,Y,6/24/2011
+J9370,HCPC,"Vincristine sulfate, 1 mg",VINCRISTINE,O,C,Y,6/24/2011
+J9375,HCPC,"Vincristine sulfate, 2 mg",VINCRISTINE,O,C,Y,6/24/2011
+J9380,HCPC,"Vincristine sulfate, 5 mg",VINCRISTINE,O,C,Y,6/24/2011
+J9371,HCPC,"Vincristine sulfate, 1 mg",VINCRISTINE,O,C,Y,5/31/2017
+C9440,HCPC,"VINORELBINE TARTRATE, BRAND NAME, PER 10 MG",VINORELBINE,O,C,Y,6/24/2011
+J9390,HCPC,"Vinorelbine tartrate, per 10 mg",VINORELBINE,O,C,Y,6/24/2011

@@ -1,0 +1,421 @@
+/* Published: 12/1/2016 */
+
+/**************************   COMMENTS   *******************************/
+/* THIS INPUT STATMENT IS FOR THE 2016 SEER-MEDICARE LINKAGE.          */
+/* IF YOU RECEIVED OUTPATIENT FILES BEFORE DECEMBER 2016 THEN YOU WILL */
+/* NEED A DIFFERENT INPUT STATEMENT. PLEASE CONTACT IMS VIA E-MAIL AT  */
+/* SEER-MEDICARE@IMSWEB.COM AND AN INPUT STATEMENT WILL BE SENT TO YOU */
+/***********************************************************************/
+/*                                                                     */
+/* For cancer files, Patient Identifier is @01 REGCASE $char10.        */
+/* For non-cancer files, Patient Identifier is @01 HICBIC $char11.     */
+/*                                                                     */
+/***********************************************************************/
+
+/***************   IMPORTANT PROGRAMING NOTES   ************************/
+/*               TO IDENTIFY CLAIMS PER PATIENT                        */
+/*                                                                     */
+/* The Patient ID and Claim ID (column 552) should be used to identify */
+/* all the records for each claim per patient.  All are needed to      */
+/* identify a claim.                                                   */
+/***********************************************************************/
+
+/***********************************************************************/
+/* TO CALCULATE COSTS PER PATIENT                                      */
+/*                                                                     */
+/* When calculating costs per patient you will need to use the claim   */
+/* payment amount variable (column 65).  The value from the record     */
+/* count (column 448) equal to 1 should be used.  This will eliminate  */
+/* duplicate counting from other records.                              */
+/***********************************************************************/
+
+/***********************************************************************/
+/* If you are using PC SAS to read in these files you will have to     */
+/* un-zip the files first and use the un-zipped filename statement,    */
+/* rather than using the zipped files and statement.                   */
+/***********************************************************************/
+
+*filename outin '/directory/outsaf14.txt';                    /* reading in an un-zipped file */
+filename outin pipe 'gunzip -c /directory/outsaf14.txt.gz';  /* reading in a zipped file */
+*filename outin pipe 'gunzip -c /directory/outsaf*.txt.gz';   /* using wildcard to match multiple files */
+
+options nocenter validvarname=upcase;
+
+data outpat;
+  infile outin lrecl=1175 missover pad;
+  input
+    @001  patient_id $char11. /* Patient ID (for either Cancer or Non-Cancer Patients) */
+    /*@001  REGCASE    $char10.*/ /* ID for Cancer Patients */
+    /*@001  HICBIC     $char11.*/ /* ID for Non Cancer Patients */
+    @012  bic        $char2.
+    @014  state_cd   $char2.
+    @016  cnty_cd    $char3.
+    @019  bene_zip   $char9.  /****************Encrypted***************/
+    @028  ms_cd      $char2.
+    @030  clm_type   $char2.
+    @032  from_dtm   $char2.
+    @034  from_dtd   $char2.
+    @036  from_dty   $char4.
+    @040  thru_dtm   $char2.
+    @042  thru_dtd   $char2.
+    @044  thru_dty   $char4.
+    @048  fi_num     $char5.
+    @053  provider   $char6.
+    @059  query_cd   $char1.
+    @060  fac_type   $char1.
+    @061  typesrvc   $char1.
+    @062  freq_cd    $char1.
+    @063  nopay_cd   $char2.  /* $char1. in 2010 Linkage */
+    @065  pmt_amt    15.2
+    @080  tot_chrg   15.2
+    @095  prpay_cd   $char1.
+    @096  prpayamt   15.2
+    @111  actioncd   $char1.
+    @112  prvstate   $char2.  /* named prstate in 2010 Linkage */
+    @114  orgnpinm   $char10.
+    @124  at_upin    $char6.
+    @130  at_npi     $char10.
+    @140  op_upin    $char6.
+    @146  op_npi     $char10.
+    @156  ot_upin    $char6.
+    @162  ot_npi     $char10.
+    @172  stus_cd    $char2.
+    @174  pps_ind    $char1.
+    @175  tot_line   $char3.  /* new in 2012 Linkage */
+    @178  seg_line   $char2.  /* new in 2012 Linkage */
+    @180  mcopdsw    $char1.  /* new in 2012 Linkage */
+    @181  authrztn   $char18. /* new in 2012 Linkage */
+    @199  e1dgnscd   $char7.  /* new in 2012 Linkage */
+    @206  srvcfac    $char9.  /* new in 2012 Linkage, Encrypted in 2014 Linkage */
+    @215  oprevcnt   $char2.  /* $char3. in 2010 Linkage */
+    @217  opsrvtyp   $char1.  /* new in 2012 Linkage */
+    @218  op_rfrl    $char1.  /* new in 2012 Linkage */
+    @219  center     $char4.
+    @223  cendm      $char2.
+    @225  cendd      $char2.
+    @227  cendy      $char4.
+    @231  revan1     $char5.  /* new in 2012 Linkage */
+    @236  revhipps   $char5.  /* new in 2012 Linkage */
+    @241  hcpcs      $char5.
+    @246  mf1        $char2.
+    @248  mf2        $char2.
+    @250  mf3        $char2.  /* new in 2012 Linkage */
+    @252  pmtmthd    $char2.  /* new in 2012 Linkage */
+    @254  dscntind   $char1.  /* new in 2012 Linkage */
+    @255  packgind   $char1.  /* new in 2012 Linkage */
+    @256  pricing    $char2.  /* new in 2012 Linkage */
+    @258  idendc     $char24. /* new in 2016 Linkage */
+    @282  qtyqlfr    $char2.
+    @284  ndcqty     15.3
+    @299  unit       8.
+    @307  rate       15.2
+    @322  revdctbl   15.2
+    @337  wageadj    15.2
+    @352  rev_msp1   15.2
+    @367  rprvdpmt   15.2
+    @382  ptntresp   15.2
+    @397  charge     15.2
+    @412  pay        15.2
+    @427  revncvr    15.2
+    @442  ded        $char1.
+    @443  rstusind   $char2.
+    @445  dup_chk    $char1.
+    @446  year       $char4.
+    @468  tot_seg    $char2.
+    @470  seg_num    $char2.
+    @472  rec_count  $char3.
+    @475  ptb_ded    15.2
+    @490  ptb_coin   15.2
+    @505  blddedam   15.2
+    @520  PRVDRPMT   15.2
+    @535  BLDFRNSH   3.
+    @538  BLDDEDPT   3.
+    @541  TRANTYPE   $char1.
+    @542  SRVCNPI    $char10. /* new in 2016 Linkage */
+    @552  claim_id   10.      /* new in 2016 Linkage */
+    @562  editind1   $char1.  /* new in 2012 Linkage */
+    @563  editcd1    $char4.  /* new in 2012 Linkage */
+    @;
+
+  input
+    @613 (dgn_cd1-dgn_cd25) ($char7.)  /* $char5. and only 10 codes in 2010 Linkage */
+    @788 (edgnsd1-edgnsd6)  ($char7.)  /* new in 2012 Linkage */
+    @;
+
+  array prcdr_cd(13) $ prcdr_cd1-prcdr_cd13;  /* only 6 codes in 2010 Linkage */
+  array prcdrdtm(13) $ prcdrdtm1-prcdrdtm13;
+  array prcdrdtd(13) $ prcdrdtd1-prcdrdtd13;
+  array prcdrdty(13) $ prcdrdty1-prcdrdty13;
+  inc = 830;
+  do j = 1 to 13;
+    input
+      @inc+0  prcdr_cd(j) $char7.  /* $char4. and only 5 codes in 2010 Linkage */
+      @inc+7  prcdrdtm(j) $char2.  /* only 6 codes in 2010 Linkage */
+      @inc+9  prcdrdtd(j) $char2.  /* only 6 codes in 2010 Linkage */
+      @inc+11 prcdrdty(j) $char4.  /* only 6 codes in 2010 Linkage */
+      @;
+      inc=inc+15;
+  end;
+
+  input
+    @1025 (rlt_cond1-rlt_cond2) ($char2.)  /* new in 2012 Linkage */
+    @;
+
+  array ocrnc_cd(14) $ ocrnc_cd1-ocrnc_cd14;
+  array ocrncdty(14) $ ocrncdty1-ocrncdty14;
+  array ocrncdtm(14) $ ocrncdtm1-ocrncdtm14;
+  array ocrncdtd(14) $ ocrncdtd1-ocrncdtd14;
+  inc = 1035;
+  do j = 1 to 14;
+    input
+      @inc+0  ocrnc_cd(j)  $char2.  /* new in 2012 Linkage */
+      @inc+2  ocrncdty(j)  $char4.  /* new in 2012 Linkage */
+      @inc+6  ocrncdtm(j)  $char2.  /* new in 2012 Linkage */
+      @inc+8  ocrncdtd(j)  $char2.  /* new in 2012 Linkage */
+      @;
+      inc=inc+10;
+  end;
+
+  input;
+
+  drop j inc;
+
+  label
+    patient_id = 'Patient ID'
+    /* regcase  = 'SEER Registry Case Number - Cancer Patients' */
+    /* hicbic   = 'Patient ID for the Non Cancer Patients' */
+    bic        = 'BIC'
+    state_cd   = 'State code'
+    cnty_cd    = 'County code'
+    bene_zip   = 'Zip code (encrypted)'
+    ms_cd      = 'Medicare Status code'
+    clm_type   = 'NCH Claim Type Code'
+    from_dtm   = 'Month of Claim From date'
+    from_dtd   = 'Day of Claim From date'
+    from_dty   = 'Year of Claim From date'
+    thru_dtm   = 'Month of Claim Thru date'
+    thru_dtd   = 'Day of Claim Thru date'
+    thru_dty   = 'Year of Claim Thru date'
+    fi_num     = 'Ficarr id number'
+    provider   = 'Provider number (encrypted)'
+    query_cd   = 'Claim query code'
+    fac_type   = 'Claim facility type'
+    typesrvc   = 'Classification type code'
+    freq_cd    = 'Claim frequency code'
+    nopay_cd   = 'Claim Medicare Non Payment Reason Code'
+    pmt_amt    = 'Claim payment amount'
+    tot_chrg   = 'Claim total charge amount'
+    prpay_cd   = 'Primary payer code'
+    prpayamt   = 'Primary payer payment amount'
+    actioncd   = 'FI Claim action code'
+    prvstate   = 'NCH Provider State Code'
+    orgnpinm   = 'Organization NPI Number (encrypted)'
+    at_upin    = 'Claim Attending Physician UPIN (encrypted)'
+    at_npi     = 'Claim Attending Physician NPI (encrypted)'
+    op_upin    = 'Claim Operating Physician UPIN (encrypted)'
+    op_npi     = 'Claim Operating Physician NPI (encrypted)'
+    ot_upin    = 'Claim Other Physician UPIN (encrypted)'
+    ot_npi     = 'Claim Other Physician NPI (encrypted)'
+    stus_cd    = 'Patient discharge status code'
+    pps_ind    = 'Claim PPS Indicator Code'
+    tot_line   = 'Claim Total Line Count'
+    seg_line   = 'Claim Segment Line Count'
+    mcopdsw    = 'Claim MCO Paid Switch'
+    authrztn   = 'Claim Treatment Authorization Number'
+    e1dgnscd   = 'Claim 1st Diagnosis E Code'
+    srvcfac    = 'Claim Service Facility Zip Code (encrypted)'
+    oprevcnt   = 'Outpatient Revenue Center Code Count'
+    opsrvtyp   = 'Claim Outpatient Service Type Code'
+    op_rfrl    = 'Claim Outpatient Referral Code'
+    center     = 'Revenue Center Code'
+    cendm      = 'Revenue Center Month'
+    cendd      = 'Revenue Center Day'
+    cendy      = 'Revenue Center Year'
+    revan1     = 'Revenue Center 1st ANSI Code'
+    revhipps   = 'Revenue Center APC/HIPPS'
+    hcpcs      = 'HCPCS Code'
+    mf1        = 'Initial modifier code'
+    mf2        = 'Second modifier code'
+    mf3        = 'Third modifier code'
+    pmtmthd    = 'Payment Method Indicator Code'
+    dscntind   = 'Revenue Center Discount Indicator Code'
+    packgind   = 'Revenue Center Packaging Indicator Code'
+    pricing    = 'Revenue Center Pricing Indicator Code'
+    idendc     = 'Revenue Center IDE, NDC or UPC#'
+    qtyqlfr    = 'Revenue Center NDC Quantity Qualifier Code'
+    ndcqty     = 'Revenue Center NDC Quantity'
+    unit       = 'Revenue Center unit count'
+    rate       = 'Revenue Center rate amount'
+    revdctbl   = 'Revenue Center cash deductible amount'
+    wageadj    = 'Coinsurance/Wage Adjusted Coinsurance'
+    rev_msp1   = '1st Medicare Secondary Payer Paid Amount'
+    rprvdpmt   = 'Revenue Center Provider Payment Amount'
+    ptntresp   = 'Patient Responsibility Payment Amount'
+    charge     = 'Revenue Center Total Amount'
+    pay        = 'Revenue Center Payment Amount'
+    revncvr    = 'Non-Covered Charge Amount'
+    ded        = 'Deductible Coinsurance Code'
+    rstusind   = 'Revenue Center Status Indicator Code'
+    dup_chk    = 'Duplicate Claim Check Indicator Code'
+    year       = 'Claim Year'
+    tot_seg    = 'Claim Total Segment Count'
+    seg_num    = 'Claim Segment Number'
+    rec_count  = 'Claim record count'
+    claim_id   = 'Claim ID'
+    srvcnpi    = 'Claim Service Location NPI Number (encrypted)'
+    ptb_ded    = 'Part B deductible liability'
+    ptb_coin   = 'Part B coinsurance liability'
+    blddedam   = 'NCH Beneficiary Blood Deductible Liability Amount'
+    prvdrpmt   = 'Claim Outpatient Provider Payment Amount'
+    bldfrnsh   = 'NCH Blood Pints Furnished Quantity'
+    blddedpt   = 'NCH Blood Deductible Pints Quantity'
+    trantype   = 'Claim Outpatient Transaction Type Code'
+    editind1   = 'NCH Edit Trailer Indicator Code'
+    editcd1    = 'NCH Edit Code'
+    dgn_cd1    = 'ICD-9-CM code #1'
+    dgn_cd2    = 'ICD-9-CM code #2'
+    dgn_cd3    = 'ICD-9-CM code #3'
+    dgn_cd4    = 'ICD-9-CM code #4'
+    dgn_cd5    = 'ICD-9-CM code #5'
+    dgn_cd6    = 'ICD-9-CM code #6'
+    dgn_cd7    = 'ICD-9-CM code #7'
+    dgn_cd8    = 'ICD-9-CM code #8'
+    dgn_cd9    = 'ICD-9-CM code #9'
+    dgn_cd10   = 'ICD-9-CM code #10'
+    dgn_cd11   = 'ICD-9-CM code #11'
+    dgn_cd12   = 'ICD-9-CM code #12'
+    dgn_cd13   = 'ICD-9-CM code #13'
+    dgn_cd14   = 'ICD-9-CM code #14'
+    dgn_cd15   = 'ICD-9-CM code #15'
+    dgn_cd16   = 'ICD-9-CM code #16'
+    dgn_cd17   = 'ICD-9-CM code #17'
+    dgn_cd18   = 'ICD-9-CM code #18'
+    dgn_cd19   = 'ICD-9-CM code #19'
+    dgn_cd20   = 'ICD-9-CM code #20'
+    dgn_cd21   = 'ICD-9-CM code #21'
+    dgn_cd22   = 'ICD-9-CM code #22'
+    dgn_cd23   = 'ICD-9-CM code #23'
+    dgn_cd24   = 'ICD-9-CM code #24'
+    dgn_cd25   = 'ICD-9-CM code #25'
+    edgnsd1    = 'Claim Diagnosis E Code 1'
+    edgnsd2    = 'Claim Diagnosis E Code 2'
+    edgnsd3    = 'Claim Diagnosis E Code 3'
+    edgnsd4    = 'Claim Diagnosis E Code 4'
+    edgnsd5    = 'Claim Diagnosis E Code 5'
+    edgnsd6    = 'Claim Diagnosis E Code 6'
+    prcdr_cd1  = 'Procedure code #1'
+    prcdrdtm1  = 'Month procedure performed #1'
+    prcdrdtd1  = 'Day procedure performed #1'
+    prcdrdty1  = 'Year procedure performed #1'
+    prcdr_cd2  = 'Procedure code #2'
+    prcdrdtm2  = 'Month procedure performed #2'
+    prcdrdtd2  = 'Day procedure performed #2'
+    prcdrdty2  = 'Year procedure performed #2'
+    prcdr_cd3  = 'Procedure code #3'
+    prcdrdtm3  = 'Month procedure performed #3'
+    prcdrdtd3  = 'Day procedure performed #3'
+    prcdrdty3  = 'Year procedure performed #3'
+    prcdr_cd4  = 'Procedure code #4'
+    prcdrdtm4  = 'Month procedure performed #4'
+    prcdrdtd4  = 'Day procedure performed #4'
+    prcdrdty4  = 'Year procedure performed #4'
+    prcdr_cd5  = 'Procedure code #5'
+    prcdrdtm5  = 'Month procedure performed #5'
+    prcdrdtd5  = 'Day procedure performed #5'
+    prcdrdty5  = 'Year procedure performed #5'
+    prcdr_cd6  = 'Procedure code #6'
+    prcdrdtm6  = 'Month procedure performed #6'
+    prcdrdtd6  = 'Day procedure performed #6'
+    prcdrdty6  = 'Year procedure performed #6'
+    prcdr_cd7  = 'Procedure code #7'
+    prcdrdtm7  = 'Month procedure performed #7'
+    prcdrdtd7  = 'Day procedure performed #7'
+    prcdrdty7  = 'Year procedure performed #7'
+    prcdr_cd8  = 'Procedure code #8'
+    prcdrdtm8  = 'Month procedure performed #8'
+    prcdrdtd8  = 'Day procedure performed #8'
+    prcdrdty8  = 'Year procedure performed #8'
+    prcdr_cd9  = 'Procedure code #9'
+    prcdrdtm9  = 'Month procedure performed #9'
+    prcdrdtd9  = 'Day procedure performed #9'
+    prcdrdty9  = 'Year procedure performed #9'
+    prcdr_cd10  = 'Procedure code #10'
+    prcdrdtm10  = 'Month procedure performed #10'
+    prcdrdtd10  = 'Day procedure performed #10'
+    prcdrdty10  = 'Year procedure performed #10'
+    prcdr_cd11  = 'Procedure code #11'
+    prcdrdtm11  = 'Month procedure performed #11'
+    prcdrdtd11  = 'Day procedure performed #11'
+    prcdrdty11  = 'Year procedure performed #11'
+    prcdr_cd12  = 'Procedure code #12'
+    prcdrdtm12  = 'Month procedure performed #12'
+    prcdrdtd12  = 'Day procedure performed #12'
+    prcdrdty12  = 'Year procedure performed #12'
+    prcdr_cd13  = 'Procedure code #13'
+    prcdrdtm13  = 'Month procedure performed #13'
+    prcdrdtd13  = 'Day procedure performed #13'
+    prcdrdty13  = 'Year procedure performed #13'
+    rlt_cond1  = 'Claim related condition code 1'
+    rlt_cond2  = 'Claim related condition code 2'
+    ocrnc_cd1  = 'Claim related occurrence code 1'
+    ocrnc_cd2  = 'Claim related occurrence code 2'
+    ocrnc_cd3  = 'Claim related occurrence code 3'
+    ocrnc_cd4  = 'Claim related occurrence code 4'
+    ocrnc_cd5  = 'Claim related occurrence code 5'
+    ocrnc_cd6  = 'Claim related occurrence code 6'
+    ocrnc_cd7  = 'Claim related occurrence code 7'
+    ocrnc_cd8  = 'Claim related occurrence code 8'
+    ocrnc_cd9  = 'Claim related occurrence code 9'
+    ocrnc_cd10 = 'Claim related occurrence code 10'
+    ocrnc_cd11 = 'Claim related occurrence code 11'
+    ocrnc_cd12 = 'Claim related occurrence code 12'
+    ocrnc_cd13 = 'Claim related occurrence code 13'
+    ocrnc_cd14 = 'Claim related occurrence code 14'
+    ocrncdty1  = 'Claim related occurrence year 1'
+    ocrncdtm1  = 'Claim related occurrence month 1'
+    ocrncdtd1  = 'Claim related occurrence day 1'
+    ocrncdty2  = 'Claim related occurrence year 2'
+    ocrncdtm2  = 'Claim related occurrence month 2'
+    ocrncdtd2  = 'Claim related occurrence day 2'
+    ocrncdty3  = 'Claim related occurrence year 3'
+    ocrncdtm3  = 'Claim related occurrence month 3'
+    ocrncdtd3  = 'Claim related occurrence day 3'
+    ocrncdty4  = 'Claim related occurrence year 4'
+    ocrncdtm4  = 'Claim related occurrence month 4'
+    ocrncdtd4  = 'Claim related occurrence day 4'
+    ocrncdty5  = 'Claim related occurrence year 5'
+    ocrncdtm5  = 'Claim related occurrence month 5'
+    ocrncdtd5  = 'Claim related occurrence day 5'
+    ocrncdty6  = 'Claim related occurrence year 6'
+    ocrncdtm6  = 'Claim related occurrence month 6'
+    ocrncdtd6  = 'Claim related occurrence day 6'
+    ocrncdty7  = 'Claim related occurrence year 7'
+    ocrncdtm7  = 'Claim related occurrence month 7'
+    ocrncdtd7  = 'Claim related occurrence day 7'
+    ocrncdty8  = 'Claim related occurrence year 8'
+    ocrncdtm8  = 'Claim related occurrence month 8'
+    ocrncdtd8  = 'Claim related occurrence day 8'
+    ocrncdty9  = 'Claim related occurrence year 9'
+    ocrncdtm9  = 'Claim related occurrence month 9'
+    ocrncdtd9  = 'Claim related occurrence day 9'
+    ocrncdty10 = 'Claim related occurrence year 10'
+    ocrncdtm10 = 'Claim related occurrence month 10'
+    ocrncdtd10 = 'Claim related occurrence day 10'
+    ocrncdty11 = 'Claim related occurrence year 11'
+    ocrncdtm11 = 'Claim related occurrence month 11'
+    ocrncdtd11 = 'Claim related occurrence day 11'
+    ocrncdty12 = 'Claim related occurrence year 12'
+    ocrncdtm12 = 'Claim related occurrence month 12'
+    ocrncdtd12 = 'Claim related occurrence day 12'
+    ocrncdty13 = 'Claim related occurrence year 13'
+    ocrncdtm13 = 'Claim related occurrence month 13'
+    ocrncdtd13 = 'Claim related occurrence day 13'
+    ocrncdty14 = 'Claim related occurrence year 14'
+    ocrncdtm14 = 'Claim related occurrence month 14'
+    ocrncdtd14 = 'Claim related occurrence day 14'
+    ;
+
+run;
+
+proc contents data=outpat position;
+run;
