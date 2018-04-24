@@ -103,7 +103,7 @@ extract_slice_codes <- function(directory, pttrn, infile_df,
 #' @export
 #' 
 read_scan <- function(filepath, infile_df, codes, codes_column) {
-  print(paste("scanning", filepath, 
+  message(paste("scanning", filepath, 
               "for", paste(codes[1:4], collapse = ", "), '...'))
   claims_df <- read_medicare(filepath, infile_df, progress = FALSE)
   scan_df <- scan_codes(claims_df[[codes_column]], codes)
