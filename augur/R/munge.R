@@ -1,36 +1,4 @@
 
-#' Split and translate columns that are provided as a variable number of observations
-#' 
-#' @param vr A character array of multiple datapoints to split and translate, where the same number of multiple measurements is present in every row
-#' @param split_pattern This is the character that signifies the beginning or end of a string that will be translated according to `key_df`
-#' @param key_df A data.frame containing translations between variable codes and values. See the example, `pedsf_utils$pedsf_recodes`
-#' 
-#' @examples
-#' #gho_key <- dplyr::filter(pedsf_utils$pedsf_recodes, Var == "gho1")
-#' # implement system file retrieval to make pedsf and example split variable
-#' # pedsf_df <- read_medicare
-#' 
-#' @seealso read_medicare
-#' @importFrom purrr map
-#' @export
-#' 
-split_compound_vars <- function(vr, split_pattern, key_df){
-  translate_code <- function(vr, k_df) {
-    as.character(factor(vr, 
-                        levels = key_df[["Code"]], 
-                        labels = key_df[["Meaning"]]))
-  }
-  split_var <- strsplit(vr, split = split_pattern)
-  make_dfstuff <- function(i) vapply(split_var, 
-                                     function(x) x[i], character(1))
-  values_list <- map(1:length(split_var[[1]]), make_dfstuff) 
-  to_return <- map(values_list, translate_code, k_df = key_df)
-  prefix <- deparse(substitute(vr))[[1]]
-  if(grepl("\\$", prefix)) prefix <- gsub(".*\\$", "", prefix) 
-  names(to_return) <- paste(prefix, 
-                            1:length(to_return), sep = "_")
-  tbl_df(to_return)
-}
 
 
 #' Function to select claims dataframe variables for use in `join_claims`
@@ -79,13 +47,13 @@ select_dates_for_join <- function(claims_df) {
 #' @importFrom readr read_csv
 #' 
 read_matches <- function(matches_path, ...) {
-  read_select <- function(x) {
-    to_return <- select_dates_for_join(read_csv(x, ...))
-    to_return[["patient_id"]] <- as.character(to_return[["patient_id"]])
-    to_return
-  }
-  claims_dfs <- 
-    map_df(list.files(matches_path, full.names = TRUE), read_select)
+  map_df(list.files(matches_path, full.names = TRUE), 
+    read_select <- function(x) {
+      to_return <- select_dates_for_join(read_csv(x, ...))
+      to_return[["patient_id"]] <- as.character(to_return[["patient_id"]])
+      to_return
+    }
+  )
 }
 
 #' Merge a PEDSF df with output from `extract_slice`
@@ -133,7 +101,7 @@ join_claims <- function(the_cancers, the_matches) {
   clms_days[["days_until_cd"]] <- 
     with(clms_days, as.numeric(difftime(dte_cd, dx_date, units = "days")))
 
-  print(paste("Beginning", new_name, "summary"))
+  message(paste("Beginning", new_name, "summary"))
   min_days_til <- function(x) {
     ifelse(all(is.na(x)), NA, min(abs(x), na.rm = TRUE))
   }

@@ -121,14 +121,6 @@ switch_levels <- function(x) {
                 NA))
 }
 
-count_by_year <- function(df, gp_vr) { 
-  gp_vr <- enquo(gp_vr)
-  df %>% 
-    group_by(dx_year, seer_br_mets, !!gp_vr, which_cancer) %>% 
-    summarise(counts = n()) %>% spread(seer_br_mets, counts) %>%
-    arrange(desc(which_cancer))
-}
-
 
 tbl_one <- function(df, vrs, strt){
   tbl_fn <- function(...) {
@@ -141,12 +133,6 @@ tbl_one <- function(df, vrs, strt){
   }
 }
 
-table_against_seer <- function(df, to_table){
-  tt <- to_table <- enquo(to_table)
-  df %>% 
-  group_by(which_cancer, csmetsdxbr_pub_v, !!tt) %>% 
-  summarise(count = n())
-}
 
 img_dx_test <- function(df, n_days){                                  
   c(dx_nm, img_nm) %<-%                                               
@@ -154,46 +140,5 @@ img_dx_test <- function(df, n_days){
          paste0("medicare_", n_days, "_prim_cpt_img", collapse = ""))     
   as.numeric(((df[[dx_nm]] + df[[img_nm]]) == 2))
 }                                                                     
-
-
-
-
-
-table_dx_screen <- function(df, n_days) {                                          
-  vr_fn <- function(vr) paste0("medicare_", n_days, vr)                            
-  nm_fn <- function(nm) paste("Medicare", n_days, "days", nm)                      
-  c(dx_var, sc_var) %<-% lapply(c("_prim_dx_matches", "_prim_cpt_img"), vr_fn)     
-  c(dx_nm, sc_nm) %<-% lapply(c("diagnosis", "screening"), nm_fn)                  
-  c(df[[dx_nm]], df[[sc_nm]]) %<-% list(df[[dx_var]], df[[sc_var]])                
-  df[["SEER Synchronous"]] <- df[["seer_bm_01"]]                                   
-  #list(vr_fn, nm_fn, dx_var, sc_var, dx_nm, sc_nm)                                
-  medicare_table <- table(df[[sc_nm]], df[[dx_nm]])                                
-  dimnames(medicare_table) <-                                                      
-    list(c(sc_nm, "No imaging"), c(dx_nm, "No diagnosis"))                         
-  seer_table <- table(df[["SEER Synchronous"]], df[[sc_nm]])                       
-  dimnames(seer_table) <-                                                          
-    list(c(sc_nm, "No imaging"),                                                   
-         c("SEER Synchronous diagnosis", "No diagnosis"))                          
-  list(medicare_table = medicare_table,                                            
-       medicare_prop_table = prop.table(medicare_table, margin = 2),               
-       seer_table = seer_table,                                                    
-       seer_prop_table = prop.table(seer_table, margin = 2))                       
-}                                                                                  
-                                                                                   
-counts_tables <- function(df) {                                        
-  dx_screening <- pryr::partial(table_dx_screen, df = df)             
-  screening_days <- c(30, 60, 90)                                     
-  dx_screen_tables <- lapply(screening_days, dx_screening)            
-  names(dx_screen_tables) <- paste0("Screen_", screening_days)        
-  dx_screen_tables                                                    
-}                                                                     
-                                                                      
-                                                                      
-get_html_table <- function(the_url, ...) {                            
-  the_site <- xml2::read_html(the_url)                                
-  the_html_table <- rvest::html_table(the_site, header = TRUE, ...)   
-}                                                                     
-                                                                      
-
 
 
