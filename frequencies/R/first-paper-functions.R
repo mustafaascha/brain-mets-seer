@@ -1,4 +1,24 @@
 
+#' Show one of the clinical/demographic characteristics tables
+#'
+#' @param x The table
+#' @param extras Something to add to the caption
+#' @param ... 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+pander_to <- function(x, extras = NULL, ...) {
+  table_one_caption <- "This table only includes the subjects with primary diagnosis during 2010 through 2012."
+  if(!missing(extras)) {
+    table_one_caption <- paste(table_one_caption, extras)
+  }
+  pander(x, caption = table_one_caption, ...)
+}
+
+
+
 #' Back up pipe intermediates for later inspection
 #'
 #' This function is meant to be placed within a sequence of piping operations,
@@ -68,6 +88,48 @@ primary_classification <- function(df, which_primary) {
   list(class = to_show, caption = classification_metrics_caption)
 }
 
+#' Final preparation for presentation of classification metrics
+#'
+#' @param df A data.frame containing the following variables: "which_cancer",
+#'   "synchronous", "claims_code", "medicare_count", "seer_count",
+#'   "sensitivity", "PPV", "specificity", "kappa".
+#' @param which_primary The primary cancer to select from `df` for presentation
+#'
+#' @return A list containing another list of tables plus a caption. The nested
+#'   list of tables is called "class" and contains a table of SEER counts called
+#'   "SEER_Count" along with a "metrics" table describing classification metrics
+#'   in a presentable way.
+#' @export
+#'
+#' @examples
+strata_classification <- function(df, which_primary) {
+  classification_metrics_caption <-
+    "For the years 2010 through 2012, the following reflect classification metrics for Medicare claims code algorithms predicting the presence of brain metastases at the same time as primary cancer diagnosis."
+  to_show <-
+    df %>%
+    filter(which_cancer %in% which_primary) %>%
+    prep_classifimetry()
+  to_show[[2]] <-
+    to_show[[2]] %>% arrange(desc(Timing), Primary_Cancer, desc(Claims_code)) %>%
+    select(Timing,      Primary_Cancer,
+           Claims_code, Count,
+           Sensitivity, PPV,
+           Kappa)
+  suppress_repeat <- function(vctr) {
+    vctr <- as.character(vctr)
+    c(vctr[1],
+      ifelse(vctr[seq(vctr)[-1]] == vctr[seq(vctr)[-length(vctr)]],
+             "", vctr[seq(vctr)[-1]]))
+  }
+  to_suppress <- c("Timing", "Primary_Cancer", "Claims_code")
+  to_show[[2]][, to_suppress] <-
+    lapply(to_show[[2]][, to_suppress], suppress_repeat)
+  if (!exists("backups")) {
+    backups <- list()
+  }
+  backups[["classification"]] <- to_show
+  list(class = to_show, caption = classification_metrics_caption)
+}
 
 
 #' Make a demographics/patient characteristics manuscript table from the
@@ -742,6 +804,61 @@ clean_strat_class <- function(df) {
     })
 }
 
+
+#' Intended for use with 'papes$strata_only'
+#'
+#' @param df 
+#'
+#' @return
+#' @export
+
+clean_crude_sbm <- function(df) {
+  df %>% 
+    spread(algo_value, cnt) %>% 
+    rename(Present = `1`, Absent = `0`, Missing = `<NA>`) %>%
+    filter(algo == "seer_bm_01") %>% 
+    #divide each by three because we have three years' time, and we want per-annum values
+    # I know these things are mathematically equivalent, but...it's what I said I did
+    #PPA = present per annum
+    mutate(PPA = Present / 3, APA = Absent / 3, MPA = Missing / 3) %>% 
+    mutate(IR = 1e4 * (PPA / (APA + MPA + PPA))) %>% 
+    #IPP = incidence proportion positive
+    mutate(IPP = 100 * (Present / (Present + Absent + Missing)), 
+           IPA = 100 * (Absent / (Present + Absent + Missing)),
+           IPM = 100 * (Missing / (Present + Absent + Missing))) %>% 
+    mutate(IRS = paste("*", sprintf("%.1f", IR)))
+}
+
+#replace_aair_w_crude <- function()
+
+
+# #The following doesn't include a confidence interval! That CI would be defined as follows: 
+# # The age-adjusted incidence rate (AAIR) was calculated as an age-weighted sum over each year using census values from 2010. More explicitly, \(AAIR = \sum_{a=66}^{105+} \lambda_a(t) P_{a,2010} \left(\sum_{a'=66}^{105+} P_{a',2010} \right)^{-1}\), where \(\lambda_a(t)\) is the age- and year-specific rate, and \(P_{a,2010}\) is the age-specific proportions in the US 2010 population. The standard error was calculated as \(SE = \lambda(t) / \sqrt{n_0}\), where \(n_0\) was the unweighted sum of cases during that year [@keyfitz1966sampling, @akushevich].
+# 
+# nest_times <- papes$age_over_time %>% group_by(algo, dx_year, which_cancer) %>% tidyr::nest()
+# nest_times[["data"]] <- map(nest_times[["data"]], munge_counts)
+# 
+# #check data
+# #map(nest_times$data, names) %>% map(paste0, collapse = "*") %>% unlist %>% table
+# #map_chr(nest_times$data, function(x) paste(map_chr(x, class), collapse = "*")) %>% table
+# wts <- prep_weights()
+# 
+# nest_times$adj_rates_10 <- 
+#   map_dbl(nest_times$data, function(rates) sum(wts$census2010[["weight"]] * rates[["rate"]]))
+# 
+# nest_times$adj_rates_00 <- 
+#   map_dbl(nest_times$data, function(rates) sum(wts$seer2000[["weight"]] * rates[["rate"]]))
+# 
+# nest_times$crude_rates <- map_dbl(nest_times$data, function(rates) sum(rates[["rate"]]))
+# 
+# rates_df <- 
+#   nest_times %>% select(algo, dx_year, which_cancer, adj_rates_10, adj_rates_00, crude_rates) %>%
+#   filter(!(algo == "seer_bm_01" & dx_year < 2010)) %>% 
+#   group_by(algo, which_cancer) %>% summarise(adj_ann_ave_10 = mean(adj_rates_10), 
+#                                              adj_ann_ave_00 = mean(adj_rates_00),
+#                                              crude_ann_ave = mean(crude_rates)) %>% 
+#   filter(algo %in% c("seer_bm_01", "medicare_00_dx_dx"))
+# pander(rates_df)
 
 
 

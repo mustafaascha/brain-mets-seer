@@ -32,67 +32,6 @@ paper_products[["not_right_cancer"]] <-
 cancers <- cancers %>% filter(siterwho %in% c(22030, 25010, 26000))    
 cancers_full <- cancers_full %>% filter(siterwho %in% c(22030, 25010, 26000))  
 
-rep_pat <- "(Malignant\\ neoplasm\\:|Carcinoma\\ in\\ situ|Malignant\\ neoplasm\\ of\\ other\\ and\\ ill-defined\\ sites\\:)\\ (of)?"
-cancers$icd <- gsub(rep_pat, "", cancers$icd10)
-stems <- 
-  list(mis = c("(Melanoma", "in", "situ)"), 
-       malm = c("(Malignant", "melanoma)"),
-       olo = c("(Overlapping", "lesion)"), 
-       cars = c("(Carcinoma", "in", "situ)"), 
-       cst = c("(Connective", "and", "soft", "tissue)"), 
-       mnp = c("(Malignant", "neoplasm)"), 
-       qdrnt = "(^.*quadrant)",
-       lobe = "(^.*lobe)",
-       inc = "(including.*$)", 
-       unsp = "(unspecified$)", 
-       oth = "(other", "and", "unspecified", "parts)"
-       )
-to_replace <- 
-  c(paste0(map(stems, function(x) paste0(tolower(x), collapse = "\\ ")), 
-    collapse = "|"), 
-    "\\,|of\\ |:\\ ", 
-    "skin",  
-    "\\ +")
-replacements <- 
-  c("", "", 
-    "", 
-    "\\ ")
-
-cancers$icd <- 
-  reduce2(to_replace, replacements, 
-          function(starting, fst, snd) {
-            new_x <- trimws(tolower(starting), "both")
-            gsub(pattern = fst, replacement = snd, x = new_x)
-          }, 
-          .init = cancers$icd)
-
-cancers$icd[cancers$icd == ""] <- NA
-#cancers$icd <- ifelse(grepl("[lL]ower\\ [lL]imb", cancers$icd), "llt", cancers$icd)
-#cancers$icd <- ifelse(grepl("[tT]run[ck](al)?", cancers$icd), "llt", cancers$icd)
-#cancers$icd <- ifelse(grepl("[Ff]ace", cancers$icd), "ulf", cancers$icd)
-#cancers$icd <- ifelse(grepl("[uU]pper\\ [lL]imb", cancers$icd), "ulf", cancers$icd)
-grep_repl <- 
-to_remove <- 
-  c("[lL]ower\\ [lL]imb", "[tT]run[ck](al)?", "[Ff]ace", 
-    "[uU]pper\\ [lL]imb", "[sS]calp|[nN]eck|[eE]ar|[eE]ye|[lL]ip")
-replacements <- c("llt", "llt", "ulf", "ulf", "ulf") 
-
-cancers <- 
-  reduce2(to_remove, replacements, 
-          function(df, to_rep, repmnt) {
-            df[["icd"]] <- 
-              ifelse(grepl(to_rep, df[["icd"]]), repmnt, df[["icd"]])
-            df
-          },
-         .init = cancers)  
-
-skins <- which(cancers$which_cancer == "skin")
-cancers$icd_c[skins] <- 
-  ifelse((cancers$icd[skins] %in% c("llt", "ulf")), 
-         cancers$icd[skins],
-         "other")
-  
-
 #fix NAs so they're correctly represented
 cancers[,grep("csmetsdx", names(cancers))] <- 
   lapply(cancers[,grep("csmetsdx", names(cancers))], 
@@ -126,7 +65,9 @@ vfe <- vars_for_exclusion <-
       "med_stcd", "race",  "srv_time_mon",
      #"hmocnt1991_2015", "age_dx_e",
       "vrfydth", "payerdx_v",
-      "payerdx_v", "all_same_cancer")
+      "payerdx_v"
+      #, "all_same_cancer"
+      )
 vte <- values_to_exclude <-
     c("Used HMO", "Under 65 years", "Before 2008",
       "Autopsy/Death Certificate",
@@ -134,7 +75,9 @@ vte <- values_to_exclude <-
       "Disabled with ESRD", "Unknown", "9999",
      #"Used HMO", "Age < 65", 
       "No", "Insurance status unknown",
-      "Not insured", "Unaccounted primaries present")
+      "Not insured"
+      #, "Unaccounted primaries present"
+      )
 exclusion_df_vars <- 
   c("patient_id", "which_cancer", 
     names(cancers_full)[grep("_e\\.?[0-5]?$", names(cancers_full))])
@@ -259,8 +202,26 @@ cancers$her2_v <- paste("HER2", cancers$her2_v)
 
 cancers$histo <- stringr::str_to_title(tolower(cancers$histo))
 
+cancers$depth <- as.numeric(cancers$cs_ssf1) / 10
+
+cancers$depth[cancers$cs_ssf1 %in% c("988", "998", "999")] <- NA
+
+cancers$breslow <- 
+  cut(cancers$depth, 
+      breaks = c(0, 1, 4, Inf), 
+      labels = c("Less than 1", "1 to 4", "More than 4")) %>% 
+  as.character()
+
+cancers$breslow <- 
+  cut(cancers$depth, 
+      breaks = c(0, 4, Inf), 
+      labels = c("0 to 4", "More than 4")) %>% 
+  as.character()
+
+cancers$breslow[is.na(cancers$breslow)] <- "Missing"
+
 cancers$the_strata <- 
-with(cancers, ifelse(which_cancer == "skin", icd_c, histo))
+with(cancers, ifelse(which_cancer == "skin", breslow, histo))
 
 cancers$the_strata <- 
 with(cancers, 
@@ -295,7 +256,8 @@ cancers$the_strata <-
   ifelse(cancers$the_strata %in% c("Her2+/Hr-", "Her2+/Hr+"), 
          "Her2+/ Hr(+/-)", cancers$the_strata)
 
-#this is not the most efficient approach
+cancers$race_v <- cancers$rac_recy_v
+
 cancers <- 
   reduce2(list(c("N. Am. Native", "Hispanic", "Asian"), 
               c("N. Am. Native", "Hispanic", "Black", "Asian")), 
@@ -306,6 +268,26 @@ cancers <-
                    "Other", df[["race_v"]])
             df},
           .init = cancers)
+
+hispanic_origin_values <- 
+  c("Cuban", 
+    "Dominican Republic", 
+    "Mexican", 
+    "NHIA Surname Match Only", 
+    "Other specified Spanish/Hispanic Origin including Europe",
+    "Puerto Rican", 
+    "South or Central American excluding Brazil", 
+    "Spanish/Hispanic/Latino, NOS")
+
+cancers[["race_v"]] <- 
+  ifelse(cancers[["nhiade_v"]] %in% hispanic_origin_values & 
+         cancers[["race_v"]] == "White", 
+         "White Hispanic", 
+         gsub("White", "White Non-Hispanic", cancers[["race_v"]]))
+         
+
+
+
 
 
 

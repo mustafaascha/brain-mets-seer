@@ -88,7 +88,7 @@ gp_count <- function(df, vr, ...){
   to_return <- 
     df %>% group_by(algo_value, !!!gps) %>% summarise(cnt = n()) %>% 
        mutate(algo = vr)
-  to_return[["cnt"]][to_return$cnt <= 11 & to_return$cnt > 0] <- NA
+  #to_return[["cnt"]][to_return$cnt <= 11 & to_return$cnt > 0] <- NA
   to_return
 }
 
