@@ -40,7 +40,9 @@ vfe <- vars_for_exclusion <-
     "med_stcd_v", "race_v",  "srv_time_mon", 
    #"hmocnt1991_2015", "age_dx_e", 
     "vrfydth_v", "payerdx_v", 
-    "payerdx_v", "all_same_cancer") 
+    "payerdx_v"
+    #, "all_same_cancer"
+    ) 
 
 vte <- values_to_exclude <- 
   c("Autopsy Only or Death Certificate Only case", 
@@ -48,7 +50,9 @@ vte <- values_to_exclude <-
     "Disabled with ESRD", "Unknown", "9999", 
     #TRUE, TRUE, 
     "No", "Insurance status unknown", 
-    "Not insured", "Unaccounted primary cancers present")
+    "Not insured"
+    #, "Unaccounted primary cancers present"
+    )
 
 exclude <- function(df, vr, value_to_exclude){
   vte <- value_to_exclude

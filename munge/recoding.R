@@ -331,20 +331,31 @@ cancers$icd[cancers$icd == ""] <- NA
 #cancers$icd <- ifelse(grepl("[tT]run[ck](al)?", cancers$icd), "llt", cancers$icd)
 #cancers$icd <- ifelse(grepl("[Ff]ace", cancers$icd), "ulf", cancers$icd)
 #cancers$icd <- ifelse(grepl("[uU]pper\\ [lL]imb", cancers$icd), "ulf", cancers$icd)
-grep_repl <- function(df, to_rep, repmnt) {
-  df[["icd"]] <- ifelse(grepl(to_rep, df[["icd"]]), repmnt, df[["icd"]])
-  df
-}
 to_reps <- 
   c("[lL]ower\\ [lL]imb", "[tT]run[ck](al)?", "[Ff]ace", "[uU]pper\\ [lL]imb", 
     "[sS]calp|[nN]eck|[eE]ar|[eE]ye|[lL]ip")
 replacements <- c("llt", "llt", "ulf", "ulf", "ulf") 
 
-cancers <- reduce2(to_reps, replacements, grep_repl, .init = cancers)  
-cancers$icd_c <- 
-  ifelse(!(cancers$icd %in% c("llt", "ulf")) & !is.na(cancers$icd), 
-        "other", cancers$icd)
+cancers <- 
+  reduce2(to_reps, replacements, 
+    function(df, to_rep, repmnt) {
+      df[["icd"]] <- ifelse(grepl(to_rep, df[["icd"]]), repmnt, df[["icd"]])
+      df
+    },
+    .init = cancers)  
+skins <- which(cancers$which_cancer == "skin")
+cancers$icd_c[skins] <- 
+  ifelse((cancers$icd[skins] %in% c("llt", "ulf")), cancers$icd, "other")
   
+
+cancers$rac_recy_v <-
+  as.character(
+    factor(cancers$rac_recy, levels = c(1:4, 9),
+          labels = c("White", "Black",
+                     "American Indian", "Asian/Pacific Islander", 
+                      NA))
+  ) 
+
 
 
 write_csv(cancers, "cache/cancers_postrecode.csv.gz")
