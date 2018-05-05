@@ -17,8 +17,9 @@ plot_df <-
   map2(c("seer_bm_01", which_algo_to_use), c("SEER SBM", "Medicare LBM"),
       function(vr, nm) mutate(papes$age_sex_race_strat[[vr]], measure = nm) %>% 
         rename(Present = !!sym(vr))) %>% 
-    reduce(compose(tbl_df, bind_rows))
-
+    reduce(compose(tbl_df, bind_rows)) %>% 
+  modify_at("measure", ~ factor(.x, levels = c("SEER SBM", "Medicare LBM")))
+  
 #summarize by measures of interest
 
 by_sex <- make_lung_by_sex(plot_df)

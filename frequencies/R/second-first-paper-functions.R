@@ -302,11 +302,10 @@ do_ip <- function(df, which_algo, ...) {
   gsub_this <- function(initl, to_r, repl) gsub(to_r, repl, initl)
   df[["algorithm"]] <-
     reduce2(names(algo_keys), algo_keys, gsub_this, .init = df[["algo"]])
-  
-#  to_return <- df[!with(df, algo == "seer_bm_01" & dx_year < 2010), ]
+
   df[["synchronous"]] <-
     ifelse(grepl("Synchronous", df[["algorithm"]]), "Synchronous", "Lifetime")
-  #to_return[["algorithm"]] <- gsub("Synchronous\\ |Lifetime\\ ", "", to_return[["algorithm"]])
+  
   df[["algo_v"]] <-
     as.character(factor(df[["algo_value"]],
                     levels = 1:0, labels = c("Positive", "Negative")))
@@ -432,7 +431,7 @@ ageadjust <- function(count, pop, stdpop, conf.level = 0.95) {
       count / pop,
       stdpop / sum(stdpop)
     )
-  
+  if(all(is.na(stdwt))|all(is.na(pop))) { stop() }
   c(dsr, dsr.var, wm) %<-%
     list(sum(stdwt * rate, na.rm = T),
          sum((stdwt ^ 2) * (count / pop ^ 2), na.rm = T),
@@ -471,19 +470,30 @@ ageadjust <- function(count, pop, stdpop, conf.level = 0.95) {
 #' @examples
 ageadj_munge_df <- function(df) {
   df_nm <- quo_name(enquo(df))
-  list_col_data <- df[["data"]] %>% back_up("aair_listcol")
-  #browser()
+
+  list_col_data <- 
+    df[["data"]] %>% back_up("aair_listcol") %>% 
+    map(function(the_df) {
+      if(!("total" %in% names(the_df))) { 
+        the_df[["total"]] <- rowSums(the_df[,-grep("pop", names(the_df))])
+        }
+      the_df
+    })
+
   age_adj <- function(rates, std_df) {
-    #stopifnot(nrow(rates) == nrow(std_df))
+    stopifnot(nrow(rates) == nrow(std_df))
     ageadjust(rates[["crude_count"]], rates[["total"]], std_df[["count"]])
   }
   
   wts <- prep_weights()
   
   list(adj_00 = wts$seer2000,
-       adj_10 = wts$census2010) %>%                      back_up(paste0(df_nm, "_aair_stds", collapse = "")) %>%
-    map( ~ map(list_col_data, age_adj, std_df = .x)) %>%  back_up(paste0(df_nm, "_aair_aa_init", collapse = "")) %>%
-    map( ~ reduce(.x, bind_rows)) %>%                     back_up(paste0(df_nm, "_aair_df", collapse = "")) %>%
+       adj_10 = wts$census2010) %>%                      
+    back_up(paste0(df_nm, "_aair_stds", collapse = "")) %>%
+    map( ~ map(list_col_data, age_adj, std_df = .x)) %>%  
+    back_up(paste0(df_nm, "_aair_aa_init", collapse = "")) %>%
+    map( ~ reduce(.x, bind_rows)) %>%                     
+    back_up(paste0(df_nm, "_aair_df", collapse = "")) %>%
     imap_dfc(function(df, df_nm) {
       names(df) <-
         paste(gsub("\\.", "_", names(df)),
@@ -493,7 +503,7 @@ ageadj_munge_df <- function(df) {
     })
 }
 
-#' Title
+#' Calculate AAIR by `...`
 #'
 #' @param unnested_df 
 #' @param which_algo 

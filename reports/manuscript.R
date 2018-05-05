@@ -1,5 +1,12 @@
 
+library(tidyverse) 
+library(zeallot)
+library(Hmisc)
 
+papes <- read_rds("paper_products.rds")
+
+devtools::load_all("augur")
+devtools::load_all("frequencies")
 
 #munge_group_ip <- function(df, which_algo, ...) group_ip(munge_ip(df, which_algo), ...)
 
@@ -8,39 +15,102 @@ which_algo_to_use <- "medicare_60_dx_img"
 
 
 to <- table_ones <- 
-  map(papes$table_ones, make_table, which_algo = which_algo_to_use) %>% 
+  map(papes[["table_ones"]], make_table, which_algo = which_algo_to_use) %>% 
   map(suppress_columns, which_columns = 2:4)
 
 #table-one for in-text reference=================
 to <- 
   map(to, function(df){
-    names(df) <- c("v", "o", "s", "m")
-    df <- df %>% 
-      separate("o", c("on", "op"), sep = "\\ \\(\\ {0,4}") %>% 
-      separate("s", c("sn", "sp"), sep = "\\ \\(\\ {0,4}") %>% 
-      separate("m", c("mn", "mp"), sep = "\\ \\(\\ {0,4}")
-    to_fx <- c("op", "sp", "mp")
-    df[,to_fx] <- lapply(df[,to_fx], function(z) gsub("\\)", "", z))
-    df
-  }) %>% 
+    #names reflect: Variable, Overall, SEER SBM, Medicare LBM
+      names(df) <- c("v", "o", "s", "m")
+      qs <- function(df, x, y) {
+        quietly(separate
+                )(data = df, col = x, into = y, 
+                  sep = "\\ \\(\\ {0,4}")[["result"]]
+      }
+      df <- 
+        reduce2(c("o", "s", "m"), 
+                list(c("on", "op"), c("sn", "sp"), c("mn", "mp")), 
+                qs, .init = df) 
+      to_fx <- c("op", "sp", "mp")
+      df[,to_fx] <- lapply(df[,to_fx], function(z) gsub("\\)", "", z))
+      df
+    }) %>% 
   modify_at(c("on", "op", "sn", "sp", "mn", "mp"), as.numeric) %>% 
   map(function(df, nm, vr) function(vr) df[grep(vr,df$v),])
 names(to) <- map_chr(names(to), function(z) substr(z,1,1))
 
 
-
-pander_to <- function(x, extras = NULL, ...) {
-  table_one_caption <- "This table only includes the subjects with primary diagnosis during 2010 through 2012."
-  if(!missing(extras)) {
-    table_one_caption <- paste(table_one_caption, extras)
-  }
-  pander(x, caption = table_one_caption, ...)
+rm_rws <- function(to, to_rm) {
+  to <- to[-to_rm,]
+  rownames(to) <- NULL
+  to[["Variable"]] <- 
+    gsub_reduce(c("\\(.*", 
+                  "age_dx",   "a ge_cut", 
+                  "cs_mets",  "eod10_pn", 
+                  "beh03v",   "cs_size",
+                  "d_ssg00",  "race_v",
+                  "histo",    
+                  "prstatus_v", "erstatus_v", "her2_v", "brst_sub_v",
+                  "csmetsdxb_pub_v", "csmetsdxliv_pub_v", "csmetsdxlung_pub_v",
+                  "_",        "\\ ="
+    ),
+    c("", 
+      "Age (continuous)", "Age (categorical)", 
+      "Number of metastases found at primary diagnosis", 
+      "Number of metastasis-positive nodes at primary diagnosis", 
+      "Behavior", "Size (mm)",
+      "SEER Stage", "Race",
+      "Histology", 
+      "PR Status", "ER Status", "HER2 Status", "SEER Subtype",
+      "Bone metastases", "Liver metastases", "Lung metastases",
+      " ", ":"
+    ), 
+    to[["Variable"]])
+  to
 }
+
+table_ones <- 
+  map2(table_ones[c("breast", "lung", "skin")], 
+       list(
+         breast_rows_to_rm =   
+           reduce(c("llt",     "other", "ulf", "icd_c",
+                    "cs_mets", "eod10_pn", "beh03v"), 
+                  function(a, z) c(a, grep(z, table_ones[["breast"]][["Variable"]])), 
+                  .init = c()), 
+         lung_rows_to_rm =   
+           reduce( c("brst_sub", "PR",       "HER2",  "ER",  
+                     "her2_v",   "llt",      "other", "ulf", 
+                     "icd_c",    "status",   "csmetsdxlung_pub_v", 
+                     "cs_mets",  "eod10_pn", "beh03v"), 
+                 function(a, z) c(a, grep(z, table_ones[["lung"]][["Variable"]])), 
+                 .init = c()), 
+         skin_rows_to_rm =
+           reduce(c("brst_sub", "PR",       "HER2",  "ER",  
+                    "her2_v",   "llt",      "other", "ulf", 
+                    "icd_c",    "status",   "csmetsdxlung_pub_v", 
+                    "cs_mets",  "eod10_pn", "beh03v"), 
+                  function(a, z) c(a, grep(z, table_ones[["skin"]][["Variable"]])), 
+                  .init = c())
+            ), 
+      rm_rws
+      )
+
+table_ones[["breast"]] <- 
+  reduce2(c("Hr$", "Adenoid"), 
+          c("Her2+/HR(+/-)", "Adenoid Car."), 
+          function(the_table, ptrn, replacement) {
+            the_table[["Variable"]] <- 
+              ifelse(grepl(ptrn, the_table[["Variable"]]), 
+                     replacement, the_table[["Variable"]])
+            the_table
+          },
+          .init = table_ones[["breast"]])
 
 #classification ===================================
 
 show_class_freq <- pryr::partial(primary_classification, df = papes$classifimetry)
-class_df <- show_class_freq(c("lung", "breast")) %>% back_up("class_df")
+class_df <- show_class_freq(c("lung", "breast", "skin")) %>% back_up("class_df")
 
 #strat_ip========================================
 #group_ip(munge_ip(df, which_algo), ...)
@@ -118,26 +188,14 @@ ip_aair <-
   modify_at("Site", function(x) factor(x, levels = c("", "Lung", "Breast", "Skin"))) %>% 
   arrange(Site, Histology) %>% modify_at("Histology", function(x) gsub("^1_", "", x)) %>% 
   filter(Total != 0) %>% 
-  filter(Site != "Skin") %>% 
+  #filter(Site != "Skin") %>% 
   back_up("ip_aair")
 
 #=======================================
 #crude stuff========================
 crude_df <- 
-  papes$strata_only %>% 
-  spread(algo_value, cnt) %>% 
-  rename(Present = `1`, Absent = `0`, Missing = `<NA>`) %>%
-  filter(algo == "seer_bm_01") %>% 
-  #divide each by three because we have three years' time, and we want per-annum values
-  # I know these things are mathematically equivalent, but...it's what I said I did
-  #PPA = present per annum
-  mutate(PPA = Present / 3, APA = Absent / 3, MPA = Missing / 3) %>% 
-  mutate(IR = 1e4 * (PPA / (APA + MPA))) %>% 
-  #IPP = incidence proportion positive
-  mutate(IPP = 100 * (Present / (Present + Absent + Missing)), 
-         IPA = 100 * (Absent / (Present + Absent + Missing)),
-         IPM = 100 * (Missing / (Present + Absent + Missing))) %>% 
-  mutate(IRS = paste("*", sprintf("%.1f", IR))) %>% 
+  papes$strata_only  %>% 
+  clean_crude_sbm() %>% 
   back_up("crude_rates") %>% 
   filter(which_cancer == "breast")
   
@@ -145,11 +203,21 @@ pats_tr <- c("Her2", "Other", "Tripl")
 grepats <- pryr::partial(grepl, pattern = paste0(pats_tr, collapse = "|"))
 ia_to_replace <- which(grepats(ip_aair$Histology) & ip_aair$Site == "Breast")
 #Using crude values because very low proportion in SEER SBM led to unstable estimates
-ip_aair$SEER[ia_to_replace] <- crude_df$IRS
-ip_aair$Total[ia_to_replace] <- apply(crude_df[,c("Absent", "Present", "Missing")], 1, sum)
-ip_aair$Present[ia_to_replace] <- sprintf("%.2f", crude_df$IPP)
-ip_aair$Absent[ia_to_replace] <- sprintf("%.2f", crude_df$IPA)
-ip_aair$Missing[ia_to_replace] <- sprintf("%.2f", crude_df$IPM)
+ip_aair[["SEER"]][ia_to_replace] <- crude_df$IRS
+ip_aair[["Total"]][ia_to_replace] <- 
+  apply(crude_df[,c("Absent", "Present", "Missing")], 1, sum)
+
+ip_aair[ia_to_replace,c("Present", "Absent", "Missing")] <-
+  lapply(crude_df[, c("IPP", "IPA", "IPM")], sprintf, fmt = "%.2f")
+
+ip_aair[["SEER"]][ip_aair$Site == "Skin" & ip_aair$Histology == "0 To 4"] <- 
+  (clean_crude_sbm(papes$strata_only) %>% 
+   filter(which_cancer == "skin" & the_strata  == "0 To 4"))$IRS
+
+
+
+
+#final ip aair names
   
 names(ip_aair) <- 
   gsub_reduce(c("1$", "SEER",     "Medicare",     
@@ -181,13 +249,13 @@ to_sep <-
     list("lbm_ci",   c("lbm_lci", "lbm_hci"),  "-")
   )
 
-#to separate this, separate into, separate by
-red_sep <- function(df, rs) {
-  c(to_s, si, sb) %<-% rs
-  df %>% separate(to_s, si, sb)
-}
-
-ipa <- reduce(to_sep, red_sep, .init = ipa)
+ipa <- 
+  reduce(to_sep, 
+         function(df, rs) {
+            c(to_s, in2, s_by) %<-% rs
+            separate(df, to_s, in2, s_by)
+          }, 
+         .init = ipa)
 
 ipa <- 
   gather(ipa, msr, val, -which_cancer, -histo) %>% 
@@ -213,7 +281,7 @@ histos$hsts <- map(histos$data, function(x) gsub("\\ ", "_", (unique(x[["histo"]
 
 #make a function to retrieve incidence measures for each cancer/histology
 ip <- 
-  lapply(c("lung", "breast"), function(cncr) {
+  lapply(c("lung", "breast", "skin"), function(cncr) {
     hst_nms <- unlist(histos$hsts[histos$which_cancer == cncr])
     tr <- to_return <- 
       map(hst_nms, function(hsto) function(tms) {
@@ -222,7 +290,7 @@ ip <-
     names(tr) <- hst_nms
     tr
   })
-names(ip) <- c("l", "b")
+names(ip) <- c("l", "b", "s")
 #ip[["lengths"]] <- map_int(ip[c("l", "b", "s")], length)
 
 names(ip$b) <- gsub("-", "n", names(ip$b))
@@ -254,8 +322,8 @@ gen_e$Vars[1:3] <-
 
 #clean exclusion up a bit =========
 
-med_e <- select(med_e, -skin)
-gen_e <- select(gen_e, -skin)
+#med_e <- select(med_e, -skin)
+#gen_e <- select(gen_e, -skin)
 
 names(med_e) <- str_to_title(names(med_e))
 names(gen_e) <- str_to_title(names(gen_e))
@@ -338,6 +406,72 @@ life_strat_class <-
                                 "CNS Mets. w/Diagnostic Imaging", 
                                 "CNS Metastasis")) %>% 
   clean_strat_class()
+
+# For description of histology codes in methods =============================
+
+histo_key <- 
+  papes$histo_key %>% 
+  arrange(desc(Freq)) %>% 
+  group_by(which_cancer) %>% 
+  tidyr::nest() #%>% 
+  #filter(which_cancer != "skin")
+
+histo_key[["data"]] <- 
+  map(histo_key[["data"]], function(df) {
+    sum_df <- 
+      group_by(df, hist03v_v) %>% 
+      summarise(cnt = sum(Freq)) %>% 
+      arrange(desc(cnt))
+    if (nrow(sum_df) < 5) { return(df) }
+    sum_df <- sum_df[1:5,]
+    df %>% filter(hist03v_v %in% sum_df$hist03v_v)
+  })
+
+histo_key <- unnest(histo_key)
+
+histo_key <- 
+  histo_key %>% 
+  modify_at("hist03v_v", 
+            function(z) str_to_title(gsub("\\,\\ NOS$", "", z))) %>% 
+  group_by(which_cancer, hist03v_v) %>% 
+  arrange(hist03v) %>% 
+  nest()
+
+histo_key[["codes"]] <- 
+  map_chr(histo_key[["data"]], 
+          function(df) {
+            df[["hist03v"]] <- as.numeric(as.character(df[["hist03v"]]))
+            df <- arrange(df, hist03v)
+            biggest <- max(df[["hist03v"]], na.rm = TRUE)
+            smallest <- min(df[["hist03v"]], na.rm = TRUE)
+            if (biggest == (smallest + nrow(df) - 1) & nrow(df) > 1) {
+              return(paste(smallest, biggest, sep = "-"))
+            } else {
+              paste(df[["hist03v"]], collapse = ", ")
+            }
+          })  
+
+histo_key <- rename(histo_key, histo = hist03v_v)
+
+histo_key[["frq"]] <- map_int(histo_key[["data"]], ~ sum(.x[["Freq"]]))
+
+histo_key <- arrange(histo_key, desc(frq))
+
+hst_c <- function(cnc, hst) {
+  if (is.numeric(hst)) { 
+    which_hst <- hst
+  } else if(is.character(hst)) {
+    which_hst <- grep(hst, histo_key$histo[histo_key$which_cancer == cnc])
+  }
+  hst <- histo_key$histo[histo_key$which_cancer == cnc][which_hst]
+  with(histo_key, 
+    list(h = hst, c = codes[which_cancer == cnc & histo == hst]))
+}
+
+
+
+
+
 
 
 
