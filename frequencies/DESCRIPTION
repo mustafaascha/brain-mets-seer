@@ -1,9 +1,22 @@
 Package: frequencies
-Title: Functions to make a manuscript about lifetime brain metastasis frequencies
-Version: 0.0.0.9000
+Title: This package is meant to enable a reproducible manuscript
+Version: 0.0.0.9001
+Date: 2018-05-05
 Authors@R: person("Mustafa", "Ascha", email = "mustafa.ascha@gmail.com", role = c("aut", "cre"))
-Description: The functions contained in this package enable the calculation of brain metastasis incidence measures in SEER-Medicare.
-Depends: R (>= 3.4.3)
-License: MIT
+Description: Calculate statistics and formatting/prettifying results
+Depends: R (>= 3.3.3)
+License: MIT + file LICENSE 
 Encoding: UTF-8
 LazyData: true
+Imports: readr,
+    dplyr,
+    purrr,
+    rlang,
+    tidyr,
+    lubridate, 
+    pryr
+Suggests: testthat,
+    knitr,
+    rmarkdown
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
