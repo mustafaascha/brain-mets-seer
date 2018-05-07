@@ -283,7 +283,7 @@ histos$hsts <- map(histos$data, function(x) gsub("\\ ", "_", (unique(x[["histo"]
 ip <- 
   lapply(c("lung", "breast", "skin"), function(cncr) {
     hst_nms <- unlist(histos$hsts[histos$which_cancer == cncr])
-    tr <- to_return <- 
+    tr <- #to_return 
       map(hst_nms, function(hsto) function(tms) {
         ipa %>% filter(which_cancer == cncr & histo == hsto & timing == tms)
       })
@@ -335,6 +335,7 @@ exclusionary <-
   modify_at("Purpose", perma_dupes)
 names(exclusionary)[2] <- ""
 
+rm(med_e, gen_e)
 #in-text SEER count object ==============================
 
 sc <- class_df$class$SEER_Count
@@ -433,6 +434,9 @@ histo_key <-
   histo_key %>% 
   modify_at("hist03v_v", 
             function(z) str_to_title(gsub("\\,\\ NOS$", "", z))) %>% 
+  modify_at("hist03v_v", 
+            function(z) tolower(gsub("Mal\\.\\ Mel\\.\\ In\\ Junct\\.\\ Nevus", 
+                                     "malignant Melanoma in junctional nevus", z))) %>% 
   group_by(which_cancer, hist03v_v) %>% 
   arrange(hist03v) %>% 
   nest()
@@ -460,7 +464,7 @@ histo_key <- arrange(histo_key, desc(frq))
 hst_c <- function(cnc, hst) {
   if (is.numeric(hst)) { 
     which_hst <- hst
-  } else if(is.character(hst)) {
+  } else if (is.character(hst)) {
     which_hst <- grep(hst, histo_key$histo[histo_key$which_cancer == cnc])
   }
   hst <- histo_key$histo[histo_key$which_cancer == cnc][which_hst]

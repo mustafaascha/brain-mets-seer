@@ -220,8 +220,8 @@ cancers$breslow <-
 
 cancers$breslow[is.na(cancers$breslow)] <- "Missing"
 
-cancers$the_strata <- 
-with(cancers, ifelse(which_cancer == "skin", breslow, histo))
+cancers$the_strata <- cancers$histo
+  #with(cancers, ifelse(which_cancer == "skin", breslow, histo))
 
 cancers$the_strata <- 
 with(cancers, 
@@ -250,7 +250,10 @@ new_values <-
     #"Face or Limb", "Face or Limb", "Face or Limb"
    )
 
-cancers$the_strata <- gsub_reduce(cancers$the_strata, old_values, new_values)
+cancers$the_strata <- 
+  reduce2(old_values, new_values, 
+          function(init, a, b) gsub(a, b, init),
+          .init = cancers$the_strata)
 
 cancers$the_strata <- 
   ifelse(cancers$the_strata %in% c("Her2+/Hr-", "Her2+/Hr+"), 
