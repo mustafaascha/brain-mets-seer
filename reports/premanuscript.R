@@ -213,7 +213,7 @@ paper_products <-
 paper_products[["histo_key"]] <-
   with(cancers, table(hist03v, hist03v_v, which_cancer)) %>%
   data.frame %>%
-  filter(Freq != 0) %>%
+  filter(Freq != 0 & hist03v_v %in% unique(cancers$histo)) %>%
   arrange(desc(Freq))
 
 paper_products[["age_sex_race_strat"]] <-
