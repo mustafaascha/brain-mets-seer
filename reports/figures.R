@@ -9,7 +9,7 @@ papes <- read_rds("paper_products.rds")
 devtools::load_all("augur")
 devtools::load_all("frequencies")
 
-if(!exists("which_algo_to_use")) { which_algo_to_use <- "medicare_60_dx_img" }
+if (!exists("which_algo_to_use")) { which_algo_to_use <- "medicare_60_dx_img" }
 the_plots <- list()
 
 #bring the SEER and Medicare BM estimates together
@@ -21,27 +21,22 @@ plot_df <-
   modify_at("measure", ~ factor(.x, levels = c("SEER SBM", "Medicare LBM")))
   
 #summarize by measures of interest
+by_sex  <- make_by_sex(plot_df) %>% gp_cncr
+by_race <- make_by_race(plot_df) %>% gp_cncr
 
-by_sex <- make_lung_by_sex(plot_df)
-by_race <- make_by_race(plot_df)
-
-# by_age <- 
-#   group_by(plot_df, which_cancer, age_cut, the_strata, measure) %>% 
-#   tidyr::nest()
-# 
-# by_age[["data"]] <- map(by_age[["data"]], make_plot_ips) %>% tbl_df
-# by_age <- unnest(by_age)
-
-
-the_plots[["lung-strat-sex"]] <-
-  by_sex %>% filter(which_cancer == "lung") %>% 
+the_plots[["lung_strat_sex"]] <-
+  by_sex$lung %>% 
+  mutate(text_y = ifelse(measure == "SEER SBM", 0.17, 0.245)) %>% 
+  modify_at("present", function(z) ifelse(z > 10, paste(z, "  "), "*")) %>% 
   modify_at("the_strata", 
-            ~ factor(.x, levels = c("Other", "Adenocarcinoma", "Carcinoma", 
-                                    "SCLC", "NSCLC", "Squamous CC"))) %>% 
+          ~ factor(.x, levels = c("Other", "Adenocarcinoma", "Carcinoma", 
+                                  "SCLC", "NSCLC", "Squamous CC"))) %>% 
   ggplot(aes(x = the_strata, y = IP, fill = s_sex_v)) + 
   facet_wrap(~ measure, scales = "free_x") + 
   geom_bar(stat = "identity", position = position_dodge(), color = "black") + 
-  coord_flip() + 
+    geom_text(aes(label = present, y = text_y), 
+              position = position_dodge(width = 1)) + 
+    coord_flip() + 
   scale_fill_grey(start = 0.2, end = 0.6) + 
   theme_bw() + 
   theme(axis.text.y = element_text(angle = 45), 
@@ -51,14 +46,18 @@ the_plots[["lung-strat-sex"]] <-
        fill = "Sex")
 
 
-the_plots[["lung-strat-race"]] <-
-  by_race %>% filter(which_cancer == "lung") %>% 
+the_plots[["lung_strat_race"]] <-
+  by_race$lung %>% 
+    mutate(text_y = ifelse(measure == "SEER SBM", 0.2, 0.26)) %>% 
     modify_at("the_strata", 
               ~ factor(.x, levels = c("Other", "Adenocarcinoma", "Carcinoma", 
                                       "SCLC", "NSCLC", "Squamous CC"))) %>% 
+    modify_at("present", function(z) ifelse(z > 10, paste(z, "   "), "*")) %>% 
     ggplot(aes(x = the_strata, y = IP, fill = race_v)) + 
     geom_bar(stat = "identity", position = position_dodge(), color = "black") + 
-    facet_wrap( ~ measure) + 
+    geom_text(aes(label = present, y = text_y), 
+              position = position_dodge(width = 1)) + 
+    facet_wrap( ~ measure, scales = "free_x") + 
     coord_flip() + 
     scale_fill_grey(start = 0, end = 0.8) + 
     theme_bw() + 
@@ -68,13 +67,61 @@ the_plots[["lung-strat-race"]] <-
          x = "Lung cancer histology", 
          fill = "Race")
 
-the_plots[["breast-strat-race"]] <-
-  by_race %>% filter(which_cancer == "breast" & the_strata != "Duct Carcinoma") %>% 
+the_plots[["skin_strat_sex"]] <-
+  by_sex$skin %>% 
+  mutate(text_y = ifelse(measure == "SEER SBM", 0.05, 0.1)) %>% 
+  modify_at("the_strata", 
+            ~ factor(.x, levels = c("Other", "Nevi & Melanomas", 
+                                    "Mal. Mel. In Junct. Nevus"))) %>% 
+  modify_at("present", function(z) ifelse(z > 10, paste(z, "  "), "*")) %>% 
+  ggplot(aes(x = the_strata, y = IP, fill = s_sex_v)) + 
+  facet_wrap(~ measure, scales = "free_x") + 
+  geom_bar(stat = "identity", position = position_dodge(), color = "black") + 
+  geom_text(aes(label = present, y = text_y), 
+            position = position_dodge(width = 1)) + 
+  coord_flip() + 
+  scale_fill_grey(start = 0.2, end = 0.6) + 
+  theme_bw() + 
+  theme(axis.text.y = element_text(angle = 45), 
+        legend.position = "bottom") + 
+  labs(y = "Incidence Proportion", 
+       x = "Skin cancer histology", 
+       fill = "Sex")
+
+# the_plots[["skin-strat-race"]] <-
+#   by_race$skin %>% 
+#   mutate(text_y = ifelse(measure == "SEER SBM", 0.032, 0.19)) %>% 
+#    modify_at("the_strata", 
+#              ~ factor(.x, levels = c("Other", "Nevi & Melanomas", 
+#                                      "Mal. Mel. In Junct. Nevus"))) %>% 
+#   modify_at("present", function(z) ifelse(z > 10, paste(z, "  "), "*")) %>% 
+#   ggplot(aes(x = the_strata, y = IP, fill = race_v)) + 
+#   geom_bar(stat = "identity", position = position_dodge(), color = "black") + 
+#   geom_text(aes(label = present, y = text_y),
+#             position = position_dodge(width = 1)) +
+#   facet_wrap( ~ measure, scales = "free_x") + 
+#   coord_flip() + 
+#   scale_fill_grey(start = 0, end = 0.8) + 
+#   theme_bw() + 
+#   theme(axis.text.y = element_text(angle = 45), 
+#         legend.position = "bottom") +
+#   labs(y = "Incidence Proportion", 
+#        x = "Skin cancer histology", 
+#        fill = "Race")
+
+by_race[["breast"]][["b_y"]] <- 
+  ifelse(by_race[["breast"]][["measure"]] == "SEER SBM", 
+         0.008, 0.047)
+
+the_plots[["breast_strat_race"]] <-
+  by_race$breast %>% filter(the_strata != "Duct Carcinoma") %>% 
     modify_at("the_strata", ~ factor(.x, levels = c("Other", "Her2-/Hr+",  "Her2+/ Hr(+/-)", 
                                                     "Triple Negative"))) %>% 
-    #  modify_at("race_v", ~ factor(.x, levels = c("Black", "White", "Other"))) %>% 
+    modify_at("present", function(z) ifelse(z > 10, paste(z, "  "), "*")) %>% 
     ggplot(aes(x = the_strata, y = IP, fill = race_v)) + 
     geom_bar(stat = "identity", position = position_dodge(), color = "black") + 
+    geom_text(aes(label = present, y = b_y),
+              position = position_dodge(width = 1)) +
     facet_wrap( ~ measure, scales = "free_x") + 
     coord_flip() + 
     scale_fill_grey(start = 0, end = 0.8) + 
@@ -87,14 +134,6 @@ the_plots[["breast-strat-race"]] <-
 
 
 
-# papes$age_sex_race_strat$seer_bm_01 %>% 
-#   filter(which_cancer == "breast") %>% 
-#   group_by(which_cancer, race_v, the_strata, seer_bm_01) %>% 
-#   summarise(count = sum(Freq)) %>% 
-#   data.frame %>% 
-#   modify_at("seer_bm_01", ~ ifelse(.x == 1, "SBM_Present", "SBM_Absent")) %>% 
-#   spread(seer_bm_01, count) %>% 
-#   select(-which_cancer)
 
 
 

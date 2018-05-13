@@ -81,10 +81,7 @@ primary_classification <- function(df, which_primary) {
   to_suppress <- c("Timing", "Primary_Cancer", "Claims_code")
   to_show[[2]][, to_suppress] <-
     lapply(to_show[[2]][, to_suppress], suppress_repeat)
-  if (!exists("backups")) {
-    backups <- list()
-  }
-  backups[["classification"]] <- to_show
+
   list(class = to_show, caption = classification_metrics_caption)
 }
 
@@ -267,17 +264,29 @@ prep_classifimetry <- function(df) {
       "Sensitivity",
       "PPV",
       "Kappa")
-  #df[["Kappa"]][df[["Timing"]] == "Lifetime"] <- NA
-  df[["Claims_code"]][df[["Claims_code"]] == "CNS + imaging"] <-
+
+  df[["Claims_code"]][
+    df[["Claims_code"]] == "CNS + imaging"] <-
     "CNS Metastasis w/Diagnostic Imaging"
-  df[["Claims_code"]][df[["Claims_code"]] == "CNS"] <-
+  
+  df[["Claims_code"]][
+    df[["Claims_code"]] == "CNS"] <- 
     "CNS Metastasis"
+  
   df[["Claims_code"]] <-
-    relevel(factor(df[["Claims_code"]]), ref = "CNS Metastasis w/Diagnostic Imaging")
+    relevel(factor(df[["Claims_code"]]), 
+            ref = "CNS Metastasis w/Diagnostic Imaging")
+  
   df[["Primary_Cancer"]] <-
-    factor(df[["Primary_Cancer"]], levels = c("lung", "breast", "skin"))
+    factor(df[["Primary_Cancer"]], 
+           levels = c("lung", "breast", "skin"))
+  
   seer_df <-
-    df %>% select(Primary_Cancer, SEER_Count) %>% distinct() %>% arrange(Primary_Cancer)
+    df %>% 
+    select(Primary_Cancer, SEER_Count) %>% 
+    distinct() %>% 
+    arrange(Primary_Cancer)
+  
   list(SEER_Count = seer_df,
        metrics = df[, keepers])
 }
@@ -691,8 +700,9 @@ make_plot_ips <- function(df) {
   names(df) <- c("absent", "present")
   df[["total"]] <- df[["absent"]] + df[["present"]]
   df[["IP"]] <- df[["present"]] / df[["total"]]
-  df[,c("absent", "present", "total")] <- NULL
-  df
+  df[["IP"]] <- ifelse(df[["present"]] < 11, 0, df[["IP"]])
+  #df[,c("absent", "present", "total")] <- NULL
+  df[,c("absent", "total")] <- NULL
   df
 }
 
@@ -719,11 +729,10 @@ recode_strata <- function(x){
 #' @export
 #'
 #' @examples
-make_lung_by_sex <- function(plot_df){
+make_by_sex <- function(plot_df){
   by_sex <- 
     group_by(plot_df, which_cancer, s_sex_v, the_strata, measure) %>% 
-    tidyr::nest() %>% 
-    filter(which_cancer == "lung")
+    tidyr::nest() 
   by_sex[["data"]] <- map(by_sex[["data"]], make_plot_ips)
   by_sex <- unnest(by_sex)
   by_sex[["the_strata"]] <- recode_strata(by_sex[["the_strata"]])
@@ -743,9 +752,17 @@ make_by_race <- function(plot_df) {
                         NSCLC = "Non-Small Cell Carcinoma", 
                         SCLC  = "Small Cell Carcinoma", 
                         `Squamous CC` = "Squamous Cell Carcinoma")
+  by_race[["race_v"]] <- 
+    forcats::fct_recode(as.character(by_race[["race_v"]]), 
+                        WNH = "White Non-Hispanic", 
+                        WH  = "White Hispanic", 
+                        Asian = "Asian/Pacific Islander")
   by_race
 }
 
+gp_cncr <- function(a_df) {
+  nest_to_list(tidyr::nest(dplyr::group_by(a_df, which_cancer)))
+}
 
 #' Group a dataframe by `algorithm` and make a list whose names are the algo
 #'
@@ -911,6 +928,31 @@ clean_crude_sbm <- function(df) {
 }
 
 
+#' Given an integer vector, hyphenate consecutive runs and paste into a char
+#'
+#' @param vctr 
+#'
+#' @return
+#' @export
+rle_hyp <- function(vctr) {
+  diff_1 <- function(x) as.numeric(diff(as.integer(as.character(x))) != 1)
+  rle_diff <- function(x) rle(cumsum(c(0, diff_1(x))))[["lengths"]]
+  consecs <- rle_diff(vctr)
+  hyphenates <- list()
+  vct_position <- 0
+  for (i in seq_along(consecs)) {
+    if (consecs[i] == 1) {
+      vct_position <- vct_position + 1
+      hyphenates[[i]] <- vctr[vct_position]
+    } else {
+      the_first <- vctr[vct_position + 1]
+      the_last <- vctr[vct_position + consecs[i]]
+      vct_position <- vct_position + consecs[i]
+      hyphenates[[i]] <- paste(the_first, "-", the_last, sep = "")
+    }
+  }
+  paste(hyphenates, collapse = ", ")
+}
 
 
 
