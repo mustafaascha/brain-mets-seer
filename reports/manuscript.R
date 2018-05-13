@@ -142,11 +142,8 @@ aair_strat <-
   papes$histo_age_over_time %>% filter(!is.na(cnt)) %>% 
   aair_by(which_algo_to_use, algo, which_cancer, the_strata) %>% 
   rates_fn(gp_nms = c("Algorithm", "Primary", "Stratum")) %>% ungroup() %>% 
-  back_up("aair_strat_rates") %>% 
   select(-crude) %>% spread(Algorithm, AAIR) %>% 
-  back_up("aair_sr_spread") %>% 
   reorder_primary() %>% 
-  back_up("aair_reorder_primary") %>% 
   select(Primary, Stratum, SEER_SBM = seer_bm_01, Medicare_LBM = which_algo_to_use)
 
 
@@ -171,32 +168,36 @@ site_ip_show <- bind_and_show(site_ip) %>% relabel_ip()
 site_ip_show <- site_ip_show[-1,]
 
 site_aair <- 
-  papes$age_over_time %>% filter(!is.na(cnt)) %>% 
+  papes$age_over_time %>% 
+  filter(!is.na(cnt)) %>% 
   aair_by(which_algo_to_use, algo, which_cancer) %>%
-  rates_fn(gp_nms = c("Algorithm", "Primary")) %>% ungroup() %>% 
-  back_up("aair_site_rates") %>% 
-  select(-crude) %>% spread(Algorithm, AAIR) %>% reorder_primary() %>% 
-  select(Primary, SEER_SBM = seer_bm_01, Medicare_LBM = which_algo_to_use)
+  rates_fn(gp_nms = c("Algorithm", "Primary")) %>% 
+  ungroup() %>% 
+  select(-crude) %>% 
+  spread(Algorithm, AAIR) %>% 
+  reorder_primary() %>% 
+  select(Primary, 
+         SEER_SBM = seer_bm_01, 
+         Medicare_LBM = which_algo_to_use)
 
 ip_aair[["overall"]] <- 
   bind_cols(site_ip_show, site_aair) %>% 
-  mutate(Histology = "1_Overall") %>% select_showvars()
+  mutate(Histology = "1_Overall") %>% 
+  select_showvars()
 
 #make ip_aair====
 ip_aair <- 
   ip_aair %>% bind_rows() %>%
   modify_at("Site", function(x) factor(x, levels = c("", "Lung", "Breast", "Skin"))) %>% 
-  arrange(Site, Histology) %>% modify_at("Histology", function(x) gsub("^1_", "", x)) %>% 
-  filter(Total != 0) %>% 
-  #filter(Site != "Skin") %>% 
-  back_up("ip_aair")
+  arrange(Site, Histology) %>% 
+  modify_at("Histology", function(x) gsub("^1_", "", x)) %>% 
+  filter(Total != 0) 
 
 #=======================================
 #crude stuff========================
 crude_df <- 
   papes$strata_only  %>% 
   clean_crude_sbm() %>% 
-  back_up("crude_rates") %>% 
   filter(which_cancer == "breast")
   
 pats_tr <- c("Her2", "Other", "Tripl")
@@ -214,11 +215,6 @@ ip_aair[["SEER"]][ip_aair$Site == "Skin" & ip_aair$Histology == "0 To 4"] <-
   (clean_crude_sbm(papes$strata_only) %>% 
    filter(which_cancer == "skin" & the_strata  == "0 To 4"))$IRS
 
-
-
-
-#final ip aair names
-  
 names(ip_aair) <- 
   gsub_reduce(c("1$", "SEER",     "Medicare",     
                 "Present", "Absent", "Missing", "Total"), 
@@ -226,10 +222,8 @@ names(ip_aair) <-
                 "(+)", "\\(-)",  "NA", "At-risk"), 
               names(ip_aair))
 
-back_up(ip_aair)
-
 #in-text ip aair object ================================================
-ipa <- global_backups$ip_aair
+ipa <- ip_aair
 names(ipa) <- 
   c("which_cancer", "histo", "sbm_aair", "sbm_cnt", "sbm_ip", 
     "sbm_neg", "sbm_na", "lbm_aair", "lbm_cnt", "lbm_ip", "lbm_neg")
@@ -264,7 +258,9 @@ ipa <-
   filter(histo != "") %>% 
   spread(which, val) %>% 
   gather(timing, value, -which_cancer, -histo, -msr) %>% 
-  spread(msr, value) %>% data.frame(stringsAsFactors = FALSE)
+  spread(msr, value) %>% 
+  data.frame(stringsAsFactors = FALSE) %>% 
+  modify_at("ip", ~ sprintf(fmt = "%.1f", as.numeric(.x)))
 
 
 back_up(ipa)
@@ -321,10 +317,6 @@ gen_e$Vars[1:3] <-
     "Diagnosis before 2008", "Multiple primary diagnoses")
 
 #clean exclusion up a bit =========
-
-#med_e <- select(med_e, -skin)
-#gen_e <- select(gen_e, -skin)
-
 names(med_e) <- str_to_title(names(med_e))
 names(gen_e) <- str_to_title(names(gen_e))
 
@@ -349,16 +341,16 @@ cm <-
     df["kui"] <- map_chr(vls, 6)
     df[["Kappa"]] <- map_chr(vls, 1) 
     df
-   }) %>% back_up("zzz") %>% 
+   }) %>% 
   modify_at(c("Timing", "Primary_Cancer"), 
             function(vctr) {
-              for(i in seq_along(vctr)){
+              for (i in seq_along(vctr)) {
                 if (vctr[i] == "") {
                   vctr[i] <- vctr[i - 1]
                 }
               }
               vctr
-            }) %>% back_up("zzz1") %>% 
+            }) %>% 
   rename(the_time = Timing, the_cancer = Primary_Cancer, codes = Claims_code) %>% 
   modify_at("codes", function(vctr){
     vctr[vctr == "CNS Metastasis"] <- "dx"
@@ -369,7 +361,9 @@ cm <-
     vctr[vctr == "Synchronous"] <- "sync"
     vctr[vctr == "Lifetime"] <- "life"
     vctr
-  })
+  }) %>% 
+  modify_at(c("Sensitivity", "PPV", "Kappa", "kli", "kui"), 
+            function(thing) sprintf("%.2f", as.numeric(thing)))
 
 #stopifnot(identical(cm[,4:7], class_df$class$metrics[,4:7]))
 
@@ -379,7 +373,9 @@ get_cm <- function(which_cancer, timing, the_codes){
 #I prefer not to do a nested map, but this seems to be an easy way to expand..how can curry? 
 class_fns <- 
   map(c(l = "lung", b = "breast", s = "skin"), 
-      function(the_cancer) function(timing, codes) get_cm(the_cancer, timing, the_codes=codes))
+      function(the_cancer) {
+        function(timing, codes) get_cm(the_cancer, timing, the_codes = codes)
+        })
 
 #==============================================================
 
@@ -391,7 +387,6 @@ sync_strat_class <-
   papes$histo_metrics %>% 
   filter(measure %in% c("medicare_60_prim_dx_img", 
                         "medicare_60_prim_dx_matches")) %>% 
-  filter(which_cancer != "skin") %>% 
   modify_at("measure", ~ ifelse(.x == "medicare_60_prim_dx_img", 
                                 "CNS Mets. w/Diagnostic Imaging", 
                                 "CNS Metastasis")) %>% 
@@ -402,7 +397,6 @@ life_strat_class <-
   papes$histo_metrics %>% 
   filter(measure %in% c("medicare_60_dx_img", 
                         "medicare_00_dx_dx")) %>% 
-  filter(which_cancer != "skin") %>% 
   modify_at("measure", ~ ifelse(.x == "medicare_60_dx_img", 
                                 "CNS Mets. w/Diagnostic Imaging", 
                                 "CNS Metastasis")) %>% 
@@ -412,35 +406,18 @@ life_strat_class <-
 
 histo_key <- 
   papes$histo_key %>% 
-  arrange(desc(Freq)) %>% 
-  group_by(which_cancer) %>% 
-  tidyr::nest() #%>% 
-  #filter(which_cancer != "skin")
-
-histo_key[["data"]] <- 
-  map(histo_key[["data"]], function(df) {
-    sum_df <- 
-      group_by(df, hist03v_v) %>% 
-      summarise(cnt = sum(Freq)) %>% 
-      arrange(desc(cnt))
-    if (nrow(sum_df) < 5) { return(df) }
-    sum_df <- sum_df[1:5,]
-    df %>% filter(hist03v_v %in% sum_df$hist03v_v)
-  })
-
-histo_key <- unnest(histo_key)
-
-histo_key <- 
-  histo_key %>% 
-  modify_at("hist03v_v", 
+  select(-Freq) %>% 
+  modify_at("histo", 
             function(z) str_to_title(gsub("\\,\\ NOS$", "", z))) %>% 
-  modify_at("hist03v_v", 
+  modify_at("histo", 
             function(z) tolower(gsub("Mal\\.\\ Mel\\.\\ In\\ Junct\\.\\ Nevus", 
                                      "malignant Melanoma in junctional nevus", z))) %>% 
-  group_by(which_cancer, hist03v_v) %>% 
-  arrange(hist03v) %>% 
+  modify_at("histo", 
+            function(z) gsub("ca\\.$", "carcinoma", z)) %>% 
+  group_by(which_cancer, histo) %>% 
   nest()
 
+#I don't need to do this biggest/smallest stuff...
 histo_key[["codes"]] <- 
   map_chr(histo_key[["data"]], 
           function(df) {
@@ -451,15 +428,9 @@ histo_key[["codes"]] <-
             if (biggest == (smallest + nrow(df) - 1) & nrow(df) > 1) {
               return(paste(smallest, biggest, sep = "-"))
             } else {
-              paste(df[["hist03v"]], collapse = ", ")
+              rle_hyp(df[["hist03v"]])
             }
           })  
-
-histo_key <- rename(histo_key, histo = hist03v_v)
-
-histo_key[["frq"]] <- map_int(histo_key[["data"]], ~ sum(.x[["Freq"]]))
-
-histo_key <- arrange(histo_key, desc(frq))
 
 hst_c <- function(cnc, hst) {
   if (is.numeric(hst)) { 
