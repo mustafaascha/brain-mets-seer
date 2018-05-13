@@ -261,16 +261,6 @@ cancers$the_strata <-
 
 cancers$race_v <- cancers$rac_recy_v
 
-cancers <- 
-  reduce2(list(c("N. Am. Native", "Hispanic", "Asian"), 
-              c("N. Am. Native", "Hispanic", "Black", "Asian")), 
-         c("breast", "skin"), 
-         function(df, oths, cncr){
-          df[["race_v"]] <- 
-            ifelse(df[["which_cancer"]] == cncr & df[["race_v"]] %in% oths, 
-                   "Other", df[["race_v"]])
-            df},
-          .init = cancers)
 
 hispanic_origin_values <- 
   c("Cuban", 
@@ -289,6 +279,16 @@ cancers[["race_v"]] <-
          gsub("White", "White Non-Hispanic", cancers[["race_v"]]))
          
 
+cancers <- 
+  reduce2(list(c("American Indian", "Asian/Pacific Islander"), 
+              c("American Indian", "Black", "Asian/Pacific Islander")), 
+         c("breast", "skin"), 
+         function(df, oths, cncr){
+          df[["race_v"]] <- 
+            ifelse(df[["which_cancer"]] == cncr & df[["race_v"]] %in% oths, 
+                   "Other", df[["race_v"]])
+            df},
+          .init = cancers)
 
 
 
