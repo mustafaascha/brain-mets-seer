@@ -58,7 +58,7 @@ clean_paper_metrics <- function(metrics_df, df_labels) {
   metrics_df <-                                                                                
     bind_cols(metrics_df, map_df(metrics_df$classification_metrics, data.frame))               
                                                                                                
-  rounder <- function(x) sprintf("%.4f", x)                                                  
+  rounder <- function(x) sprintf("%.2f", x)                                                  
   to_round <-                                                                              
     c("sensitivity", "specificity", "PPV", "NPV", 
       "kappa", "kappa_p", "kappa_lci", "kappa_hci") 

@@ -363,6 +363,7 @@ cm <-
             }) %>% 
   rename(the_time = Timing, the_cancer = Primary_Cancer, codes = Claims_code) %>% 
   modify_at("codes", function(vctr){
+    vctr <- as.character(vctr)
     vctr[vctr == "CNS Metastasis"] <- "dx"
     vctr[vctr == "CNS Metastasis w/Diagnostic Imaging"] <- "dximg"
     vctr
