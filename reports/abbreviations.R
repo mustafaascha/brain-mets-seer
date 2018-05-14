@@ -7,7 +7,7 @@ abbreviations <-
       "AAIR",     "MEDPAR",  "NCH",      "DME", 
       "OUTSAF",   "CPT",     "ICD-9-CM", "WNH", 
       "WH",       "ICD-O-3", "HMO",      "PCI",      
-      "Her2",     "ER",      "PR",       "Hr", 
+      "Her2",     "ER",      "PR",       "HR", 
       "CI",       "SCLC",    "NSCLC",    "Car.", 
       "CNS"
     ), 

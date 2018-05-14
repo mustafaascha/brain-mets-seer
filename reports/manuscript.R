@@ -74,7 +74,7 @@ table_ones <-
   map2(table_ones[c("breast", "lung", "skin")], 
        list(
          breast_rows_to_rm =   
-           reduce(c("llt",     "other", "ulf", "icd_c",
+           reduce(c("llt",     "other", "ulf", "icd_c", "HER2",
                     "cs_mets", "eod10_pn", "beh03v"), 
                   function(a, z) c(a, grep(z, table_ones[["breast"]][["Variable"]])), 
                   .init = c()), 
@@ -111,6 +111,16 @@ table_ones[["breast"]] <-
 
 show_class_freq <- pryr::partial(primary_classification, df = papes$classifimetry)
 class_df <- show_class_freq(c("lung", "breast", "skin")) %>% back_up("class_df")
+
+main_classification_table <- 
+  prep_classifimetry(papes$classifimetry) %>% 
+  (function(df12) left_join(df12[[1]], df12[[2]])) %>% 
+  modify_at("Primary_Cancer", str_to_title) %>% modify_at("Claims_code", as.character) %>% 
+  filter(Claims_code == "CNS Metastasis w/Diagnostic Imaging" & Timing == "Synchronous") %>% 
+  select(-Timing, -Claims_code) %>% 
+  rename(Medicare_Count = Count)
+row.names(main_classification_table) <- NULL
+colnames(main_classification_table) <- gsub("_", " ", colnames(main_classification_table))
 
 #strat_ip========================================
 #group_ip(munge_ip(df, which_algo), ...)
@@ -406,6 +416,7 @@ life_strat_class <-
 
 histo_key <- 
   papes$histo_key %>% 
+  rename(histo = hist03v_v) %>% 
   select(-Freq) %>% 
   modify_at("histo", 
             function(z) str_to_title(gsub("\\,\\ NOS$", "", z))) %>% 
