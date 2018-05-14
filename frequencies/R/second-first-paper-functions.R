@@ -72,15 +72,15 @@ primary_classification <- function(df, which_primary) {
            Claims_code, Count,
            Sensitivity, PPV,
            Kappa)
-  suppress_repeat <- function(vctr) {
-    vctr <- as.character(vctr)
-    c(vctr[1],
-      ifelse(vctr[seq(vctr)[-1]] == vctr[seq(vctr)[-length(vctr)]],
-             "", vctr[seq(vctr)[-1]]))
-  }
-  to_suppress <- c("Timing", "Primary_Cancer", "Claims_code")
-  to_show[[2]][, to_suppress] <-
-    lapply(to_show[[2]][, to_suppress], suppress_repeat)
+  # suppress_repeat <- function(vctr) {
+  #   vctr <- as.character(vctr)
+  #   c(vctr[1],
+  #     ifelse(vctr[seq(vctr)[-1]] == vctr[seq(vctr)[-length(vctr)]],
+  #            "", vctr[seq(vctr)[-1]]))
+  # }
+  # to_suppress <- c("Timing", "Primary_Cancer", "Claims_code")
+  # to_show[[2]][, to_suppress] <-
+  #   lapply(to_show[[2]][, to_suppress], suppress_repeat)
 
   list(class = to_show, caption = classification_metrics_caption)
 }
@@ -954,12 +954,39 @@ rle_hyp <- function(vctr) {
   paste(hyphenates, collapse = ", ")
 }
 
+make_text_y <- function(df, seer, medicare) {
+  mutate(df, 
+         text_y = ifelse(measure == "SEER SBM", seer, medicare))
+}
+
+plot_lung_df <- function(dfs, seer_y, medicare_y) {
+  dfs[["lung"]] %>% 
+    make_text_y(seer = seer_y, medicare = medicare_y) %>% 
+    modify_at("present", censor_few) %>% 
+    modify_at("the_strata", 
+              ~ factor(.x, levels = c("Adenocarcinoma", "Carcinoma", 
+                                      "SCLC", "NSCLC", "Squamous CC")))
+}
+
+bp_this <- function(df, the_fill) {
+  the_fill <- enquo(the_fill)
+  ggplot(df, aes(x = the_strata, y = IP, 
+                 fill = eval_tidy(the_fill, data = df))) + 
+    facet_wrap(~ measure, scales = "free_x") + 
+    geom_bar(stat = "identity", position = position_dodge(), color = "black") + 
+    geom_text(aes(label = present, y = text_y), 
+              position = position_dodge(width = 1)) + 
+    coord_flip()
+}
+
+label_this_histo  <- function(this, that) {
+  labs(y = "Incidence Proportion", x = paste(this, "cancer histology"), fill = that)
+}
 
 
-
-
-
-
+censor_few <- function(z) {
+  ifelse(z <= 11 & z != 0, "*", paste(z, "  "))
+}
 
 
 

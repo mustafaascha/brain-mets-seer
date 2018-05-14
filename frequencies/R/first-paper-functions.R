@@ -1,26 +1,4 @@
 
-#' Back up pipe intermediates for later inspection
-#'
-#' This function is meant to be placed within a sequence of piping operations,
-#' provided an argument `nm` to name the object that will be saved in a
-#' `backups` object in the `.GlobalEnv`. It will return the `stuff` passed to
-#' it.
-#'
-#' @param stuff The object to backup
-#' @param nm The name to give `stuff` for storage in `backups`
-#'
-#' @return `stuff`, unchanged
-#' @export
-#'
-#' @examples
-back_that_up <- function(stuff, nm){
-  if(!exists("global_backups")) {
-    global_backups <<- list()
-  }
-  global_backups[[nm]] <<- stuff
-  stuff
-}
-
 
 #' Final preparation for presentation of classification metrics
 #'
@@ -173,7 +151,7 @@ prep_weights <- function() {
 #' @param df 
 #'
 #'@export
-prep_classifimetry <- function(df) {
+prep_classifimetry <- function(df, keep_these = NULL) {
   df <- df %>% arrange(desc(which_cancer, synchronous, claims_code))
   rows_to_switch <-
     which(df$synchronous == "Lifetime" &
@@ -195,14 +173,18 @@ prep_classifimetry <- function(df) {
       "Specificity",
       "Kappa"
     )
-  keepers <-
-    c("Primary_Cancer",
-      "Timing",
-      "Claims_code",
-      "Count",
-      "Sensitivity",
-      "PPV",
-      "Kappa")
+  if(missing(keep_these)){
+    keepers <-
+      c("Primary_Cancer",
+        "Timing",
+        "Claims_code",
+        "Count",
+        "Sensitivity",
+        "PPV",
+        "Kappa")
+  } else {
+    keepers <- keep_these
+  }
   #df[["Kappa"]][df[["Timing"]] == "Lifetime"] <- NA
   df[["Claims_code"]][df[["Claims_code"]] == "CNS + imaging"] <-
     "CNS Metastasis w/Diagnostic Imaging"
