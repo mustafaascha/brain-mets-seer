@@ -2,6 +2,8 @@
 library(tidyverse)
 library(zeallot)
 
+#options(warn = 2)
+#options(error = browser)
 
 library(tableone)
 
@@ -11,8 +13,13 @@ devtools::load_all("frequencies")
 paper_stuff <- list()
 paper_products <- list()
 
-cancers <- read_csv("cache/cancers.csv.gz", progress = FALSE)
-cancers_full <- read_csv("cache/cancers_before_exclusion.csv.gz", progress = FALSE)
+qr <- quietly(read_csv)
+
+cancers <- 
+  qr("cache/cancers.csv.gz", progress = FALSE)[["result"]]
+cancers_full <- 
+  qr("cache/cancers_before_exclusion.csv.gz", 
+     progress = FALSE)[["result"]]
 
 expected_whocodes <- c(22030, 25010, 26000)
 expected_cancers <- 

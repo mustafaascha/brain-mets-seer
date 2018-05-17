@@ -7,7 +7,8 @@ classifimeter <- function(test_measure, gold_std, test_pos, gold_pos){
                         ifelse(is.na(gold_std), NA, 0)))
   ct <- class_table <- addmargins(table(tm, gs))
   kvpv <- irr::kappa2(data.frame(tm, gs))[c("value", "p.value")]
-  psy_ck <- psych::cohen.kappa(cbind(tm, gs))
+  psy_ck <- 
+    quietly(psych::cohen.kappa)(cbind(tm, gs))[["result"]]
   c(a, b, c, d) %<-% list(ct[2,2], ct[2,1], ct[1,2], ct[1,1]) 
   #browser()
   #         Actual    # Table str:  #a = 2, 2 
