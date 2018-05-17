@@ -2,6 +2,6 @@
 .Rhistory
 .RData
 seerm/**
-lbm.**
+lbm**
 cache/**
 paper_products.rds

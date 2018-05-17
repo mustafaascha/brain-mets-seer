@@ -1,4 +1,344 @@
 
+
+#' Final preparation for presentation of classification metrics
+#'
+#' @param df A data.frame containing the following variables: "which_cancer",
+#'   "synchronous", "claims_code", "medicare_count", "seer_count",
+#'   "sensitivity", "PPV", "specificity", "kappa".
+#' @param which_primary The primary cancer to select from `df` for presentation
+#'
+#' @return A list containing another list of tables plus a caption. The nested
+#'   list of tables is called "class" and contains a table of SEER counts called
+#'   "SEER_Count" along with a "metrics" table describing classification metrics
+#'   in a presentable way.
+#' @export
+#'
+#' @examples
+show_classification <- function(df, which_primary) {
+  classification_metrics_caption <-
+    "For the years 2010 through 2012, the following reflect classification metrics for Medicare claims code algorithms predicting the presence of brain metastases at the same time as primary cancer diagnosis."
+  to_show <-
+    df %>%
+    filter(which_cancer %in% which_primary) %>%
+    prep_classifimetry()
+  to_show[[2]] <-
+    to_show[[2]] %>% arrange(desc(Timing), Primary_Cancer, desc(Claims_code)) %>%
+    select(Timing,
+           Primary_Cancer,
+           Claims_code,
+           Count,
+           Sensitivity,
+           PPV,
+           Kappa)
+  suppress_repeat <- function(vctr) {
+    vctr <- as.character(vctr)
+    c(vctr[1],
+      ifelse(vctr[seq(vctr)[-1]] == vctr[seq(vctr)[-length(vctr)]],
+             "", vctr[seq(vctr)[-1]]))
+  }
+  to_suppress <- c("Timing", "Primary_Cancer", "Claims_code")
+  to_show[[2]][, to_suppress] <-
+    lapply(to_show[[2]][, to_suppress], suppress_repeat)
+  if (!exists("backups")) {
+    backups <- list()
+  }
+  backups[["classification"]] <- to_show
+  list(class = to_show, caption = classification_metrics_caption)
+}
+
+#' Make a demographics/patient characteristics manuscript table from the
+#' multiple similar tables created using the same process but with different
+#' strata.
+#'
+#' @param tbl_list
+#' @param which_algo
+#'
+#' @return
+#' @export
+#'
+#' @examples
+make_table <- function(tbl_list, which_algo) {
+  if (length(unique(map_int(tbl_list, nrow))) != 1) {
+    stop("Tables should have the same number of rows!")
+  }
+  to_return <-
+    data.frame(
+      Variable = rownames(tbl_list[[1]]),
+      `Overall` = tbl_list[["default"]][, 1],
+      `SEER Synchronous` = tbl_list[["seer_br_mets"]][, 2],
+      `Medicare Lifetime` = tbl_list[[which_algo]][, 2],
+      stringsAsFactors = FALSE
+    )
+  rownames(to_return) <- NULL
+  to_return
+}
+
+
+rm_rnm_rws <- function(to, to_rm) {
+  to <- to[-to_rm,]
+  rownames(to) <- NULL
+  to[["Variable"]] <- 
+    reduce2(c("\\(.*", 
+              "age_dx",   "age_cut", 
+              "cs_mets",  "eod10_pn", 
+              "beh03v",   "cs_size",
+              "d_ssg00",  "race_v",
+              "histo",    
+              "prstatus_v", "erstatus_v", "her2_v", "brst_sub_v",
+              "csmetsdxb_pub_v", "csmetsdxliv_pub_v", "csmetsdxlung_pub_v",
+              "_",        "\\ ="
+    ),
+    c("", 
+      "Age (continuous)", "Age (categorical)", 
+      "Number of metastases found at primary diagnosis", 
+      "Number of metastasis-positive nodes at primary diagnosis", 
+      "Behavior", "Size (mm)",
+      "SEER Stage", "Race",
+      "Histology", 
+      "PR Status", "ER Status", "HER2 Status", "SEER Subtype",
+      "Bone metastases", "Liver metastases", "Lung metastases",
+      " ", ":"
+    ), 
+    function(init, rp, repl) { gsub(rp, repl, init) },
+    .init = to[["Variable"]])
+  to
+}
+
+#' Remove observations that would compromise privacy or confidentiality. 
+#'
+#' @param df 
+#' @param which_columns 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+suppress_columns <- function(df, which_columns) {
+  suppress_small_n <- function(x) {
+    first_number <- function(x) {
+      x <- trimws(x, "both")
+      as.numeric(regmatches(x, gregexpr("[0-9]{0,6}\\.?[0-9]{1,5}\\ ", x)))
+    }
+    x[first_number(x) < 12 & first_number(x) > 0] <- NA
+    x
+  }
+  dont_replace <- grep("cs_mets|eod10_pn|cs_size", df[["Variable"]])
+  df[-dont_replace, which_columns] <-
+    lapply(df[-dont_replace, which_columns], suppress_small_n)
+  df
+}
+
+
+
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
+prep_weights <- function() {
+  library(magrittr)
+  adj <- list()
+  adj[["seer2000"]] <-
+    seer_adj_example %>% slice(15:n()) %>%
+    modify_at("Age", function(z)
+      gsub("\\-",  " to ", z)) %>% rename(pop = Age) %>%
+    select(pop, count = U.S._2000_Standard_Populations) %>%
+    modify_at("count", as.numeric) %>%
+    mutate(weight = count / sum(count, na.rm = TRUE))
+  #browser()
+  adj[["census2010"]] <-
+    augur::census2010 %>%
+    select(pop, count = count_2010) %>%
+    slice(c(4, 5, 7, 8, 9, 12)) %>%
+    gather(v, k,-pop) %>%
+    modify_at("k", as.numeric) %>%
+    spread(v, k)
+  adj$census2010[["weight"]] <-
+    adj$census2010$count / sum(adj$census2010$count)
+  adj$census2010 <-
+    rbind(
+      adj$census2010[1:4, ],
+      data.frame(
+        pop = "85+",
+        count = sum(adj$census2010$count[5:6]),
+        weight = sum(adj$census2010$weight[5:6]),
+        stringsAsFactors = FALSE
+      )
+    )
+  adj$census2010$pop <- gsub("\\ years", "", adj$census2010$pop)
+  
+  adj[["totals"]] <-
+    augur::census2010 %>% select(-ends_with("all")) %>% slice(2)
+  #make sure the right rows were selected
+  stopifnot(adj$census2010$count %>% sum == adj$total_65_above$count_2010)
+  adj
+}
+
+
+#' Winnow down classification metrics into something more manageable
+#'
+#' @param df 
+#'
+#'@export
+prep_classifimetry <- function(df, keep_these = NULL) {
+  df <- df %>% arrange(desc(which_cancer, synchronous, claims_code))
+  rows_to_switch <-
+    which(df$synchronous == "Lifetime" &
+            df$claims_code == "CNS + imaging")
+  for (row_num in rows_to_switch) {
+    old_order <- c(rows_to_switch, rows_to_switch + 1)
+    new_order <- rev(old_order)
+    df[old_order, ] <- df[new_order, ]
+  }
+  names(df) <-
+    c("Primary_Cancer",  "Timing",
+      "Claims_code",     "Count",
+      "SEER_Count",      "Sensitivity",
+      "PPV",             "Specificity",
+      "Kappa")
+  if(missing(keep_these)){
+    keepers <-
+      c("Primary_Cancer",   "Timing",
+        "Claims_code",      "Count",
+        "Sensitivity",      "PPV",
+        "Kappa")
+  } else {
+    keepers <- keep_these
+  }
+  #df[["Kappa"]][df[["Timing"]] == "Lifetime"] <- NA
+  df[["Claims_code"]][df[["Claims_code"]] == "CNS + imaging"] <-
+    "CNS Metastasis w/Diagnostic Imaging"
+  df[["Claims_code"]][df[["Claims_code"]] == "CNS"] <-
+    "CNS Metastasis"
+  df[["Claims_code"]] <-
+    relevel(factor(df[["Claims_code"]]), ref = "CNS Metastasis w/Diagnostic Imaging")
+  df[["Primary_Cancer"]] <-
+    factor(df[["Primary_Cancer"]], levels = c("lung", "breast", "skin"))
+  seer_df <-
+    df %>% select(Primary_Cancer, SEER_Count) %>% distinct() %>% arrange(Primary_Cancer)
+  list(SEER_Count = seer_df,
+       metrics = df[, keepers])
+}
+
+
+
+#' Work with the `histo_annum` df
+#'
+#' @param df 
+#'
+#'@export
+munge_ip <- function(df, which_algo) {
+  algo_keys <-
+    list(
+      medicare_00_dx_dx = "Medicare Lifetime CNS",
+      medicare_60_dx_img = "Medicare Lifetime CNS w/Intracranial Imaging",
+      medicare_60_prim_dx_matches = "Medicare Synchronous CNS",
+      medicare_60_prim_dx_img = "Medicare Synchronous CNS w/Intracranial Imaging",
+      seer_bm_01 = "SEER Synchronous Brain"
+    )
+  df[["algorithm"]] <-
+    reduce2(names(algo_keys), algo_keys,
+            function(initi, to_replace, replacement) {
+              gsub(to_replace, replacement, initi)
+            }, .init = df[["algo"]])
+  to_return <- df[!with(df, algo == "seer_bm_01" & dx_year < 2010), ]
+  to_return[["synchronous"]] <-
+    ifelse(grepl("Synchronous", to_return[["algorithm"]]), "Synchronous", "Lifetime")
+  to_return[["algo_v"]] <-
+    as.character(factor(
+      to_return[["algo_value"]],
+      levels = 1:0,
+      labels = c("Positive", "Negative")
+    ))
+  
+  to_return %>% ungroup() %>% data.frame(stringsAsFactors = FALSE) %>%
+    filter(algo %in% c("seer_bm_01", which_algo))
+}
+
+#' For a tidyr::nest-ed df, return a list whose contents are named according to
+#' the first column of that df
+#'
+#' @param nested_df
+nest_to_list <- function(nested_df){
+  the_list <- nested_df[["data"]]
+  names(the_list) <- nested_df[[1]]
+  the_list
+}
+
+#' Get incidence proportions grouped by `...`
+#'
+#'
+#' @param df 
+#' @param ... 
+#'
+#'@export
+group_ip <- function(df, ...) {
+  groupers <- quos(...)
+  df <- df %>%
+    group_by(algo_value,   algo_v,
+             which_cancer, algo,
+             algorithm,    synchronous,
+             !!!groupers) %>%
+    summarise(group_cnt = sum(cnt, na.rm = TRUE)) %>% ungroup()
+  
+  df <-
+    df %>%
+    group_by(which_cancer, algo, algorithm, synchronous,!!!groupers) %>%
+    summarise(group_total = sum(group_cnt, na.rm = TRUE)) %>%
+    right_join(df) %>% ungroup()
+  
+  df[["inc_prop"]] <-
+    sprintf("%.2f", 100 * with(df, group_cnt / group_total))
+  df[["show"]] <-
+    paste0(df$inc_prop, "%",
+           "**", df$group_cnt,
+           sep = "")
+  df[["which_cancer"]] <-
+    stringr::str_to_title(df[["which_cancer"]])
+  
+  df
+}
+
+#' Estimate adjusted incidence rate for a list of pop count dataframes, 
+#' using 2000 and 2010 65+ population weights
+#'
+#' @param df A dataframe containing a list-column of `munge_counts` dataframes
+#'
+#' @return
+#' @export
+#' 
+#' @importFrom dplyr `%>%` 
+#' @importFrom purrr map imap_dfc reduce
+#' @importFrom rlang enquo quo_name
+#' 
+#' @examples
+ageadj_munged_df <- function(df) {
+  df_nm <- quo_name(enquo(df))
+  list_col_data <- df[["data"]] %>% back_that_up("aair_listcol")
+  #browser()
+  age_adj <- function(rates, std_df) {
+    #stopifnot(nrow(rates) == nrow(std_df))
+    ageadjust(rates[["crude_count"]], rates[["total"]], std_df[["count"]])
+  }
+  
+  wts <- prep_weights()
+  
+  list(adj_00 = wts$seer2000,
+       adj_10 = wts$census2010) %>%                      
+    map( ~ map(list_col_data, age_adj, std_df = .x)) %>%  
+    map( ~ reduce(.x, bind_rows)) %>%                     
+    imap_dfc(function(df, df_nm) {
+      names(df) <-
+        paste(gsub("\\.", "_", names(df)),
+              gsub("[^0-9]", "", df_nm),
+              sep = "_")
+      df
+    })
+}
+
+
+
 #' Show one of the clinical/demographic characteristics tables
 #'
 #' @param x The table
@@ -72,15 +412,6 @@ primary_classification <- function(df, which_primary) {
            Claims_code, Count,
            Sensitivity, PPV,
            Kappa)
-  # suppress_repeat <- function(vctr) {
-  #   vctr <- as.character(vctr)
-  #   c(vctr[1],
-  #     ifelse(vctr[seq(vctr)[-1]] == vctr[seq(vctr)[-length(vctr)]],
-  #            "", vctr[seq(vctr)[-1]]))
-  # }
-  # to_suppress <- c("Timing", "Primary_Cancer", "Claims_code")
-  # to_show[[2]][, to_suppress] <-
-  #   lapply(to_show[[2]][, to_suppress], suppress_repeat)
 
   list(class = to_show, caption = classification_metrics_caption)
 }
@@ -156,34 +487,7 @@ make_table <- function(tbl_list, which_algo) {
   to_return
 }
 
-
-#' Title
-#'
-#' @param df 
-#' @param which_columns 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-suppress_columns <- function(df, which_columns) {
-  suppress_small_n <- function(x) {
-    first_number <- function(x) {
-      x <- trimws(x, "both")
-      as.numeric(regmatches(x, gregexpr("[0-9]{0,6}\\.?[0-9]{1,5}\\ ", x)))
-    }
-    x[first_number(x) < 12 & first_number(x) > 0] <- NA
-    x
-  }
-  dont_replace <- grep("cs_mets|eod10_pn|cs_size", df[["Variable"]])
-  df[-dont_replace, which_columns] <-
-    lapply(df[-dont_replace, which_columns], suppress_small_n)
-  df
-}
-
-
-
-#' Title
+#' Make standardized population weights
 #'
 #' @return
 #' @export
@@ -193,7 +497,7 @@ prep_weights <- function() {
   library(magrittr)
   adj <- list()
   adj[["seer2000"]] <-
-    seer_adj_example %>% slice(15:n()) %>%
+    augur::seer_adj_example %>% slice(15:n()) %>%
     modify_at("Age", function(z)
       gsub("\\-",  " to ", z)) %>% rename(pop = Age) %>%
     select(pop, count = U.S._2000_Standard_Populations) %>%
@@ -880,7 +1184,7 @@ clean_strat_class <- function(df) {
     select(which_cancer, the_strata, measure, 
            sensitivity, PPV, kappa, kappa_lci, kappa_hci) %>% 
     modify_at(c("sensitivity", "PPV", "kappa", "kappa_lci", "kappa_hci"), 
-              ~ sprintf("%.4f", .x)) %>% 
+              ~ sprintf("%.2f", .x)) %>% 
     arrange(desc(which_cancer), the_strata) %>% 
     modify_at("which_cancer", compose(perma_dupes, str_to_title)) %>% 
     (function(df) {
