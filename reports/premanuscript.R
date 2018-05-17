@@ -147,7 +147,7 @@ varnames <-
                    "cs_size", "d_ssg00",
                    "cs_mets",#"d_ajcc_t_v", "d_ajcc_n_v", "d_ajcc_m_v", 
                    #"d_ajcc_s_v", 
-                   "eod10_pn", "icd_c", 
+                   "eod10_pn", #"icd_c", 
                    "csmetsdxb_pub_v", "csmetsdxliv_pub_v",   
                    "csmetsdxlung_pub_v"#, 
                    #"csmetsdxbr_pub_v"
