@@ -8,11 +8,9 @@ papes <- read_rds("paper_products.rds")
 devtools::load_all("augur")
 devtools::load_all("frequencies")
 
-#munge_group_ip <- function(df, which_algo, ...) group_ip(munge_ip(df, which_algo), ...)
 
-#which algorithm will be used for lifetime stuff==========================
+#which algorithm will be used for lifetime estimates==========================
 which_algo_to_use <- "medicare_60_dx_img"
-
 
 to <- table_ones <- 
   map(papes[["table_ones"]], make_table, which_algo = which_algo_to_use) %>% 
@@ -33,42 +31,13 @@ to <-
                 list(c("on", "op"), c("sn", "sp"), c("mn", "mp")), 
                 qs, .init = df) 
       to_fx <- c("op", "sp", "mp")
-      df[,to_fx] <- lapply(df[,to_fx], function(z) gsub("\\)", "", z))
+      df[,to_fx] <- 
+        lapply(df[,to_fx], function(z) gsub("\\)", "", z))
       df
     }) %>% 
   modify_at(c("on", "op", "sn", "sp", "mn", "mp"), as.numeric) %>% 
   map(function(df, nm, vr) function(vr) df[grep(vr,df$v),])
 names(to) <- map_chr(names(to), function(z) substr(z,1,1))
-
-
-rm_rws <- function(to, to_rm) {
-  to <- to[-to_rm,]
-  rownames(to) <- NULL
-  to[["Variable"]] <- 
-    gsub_reduce(c("\\(.*", 
-                  "age_dx",   "a ge_cut", 
-                  "cs_mets",  "eod10_pn", 
-                  "beh03v",   "cs_size",
-                  "d_ssg00",  "race_v",
-                  "histo",    
-                  "prstatus_v", "erstatus_v", "her2_v", "brst_sub_v",
-                  "csmetsdxb_pub_v", "csmetsdxliv_pub_v", "csmetsdxlung_pub_v",
-                  "_",        "\\ ="
-    ),
-    c("", 
-      "Age (continuous)", "Age (categorical)", 
-      "Number of metastases found at primary diagnosis", 
-      "Number of metastasis-positive nodes at primary diagnosis", 
-      "Behavior", "Size (mm)",
-      "SEER Stage", "Race",
-      "Histology", 
-      "PR Status", "ER Status", "HER2 Status", "SEER Subtype",
-      "Bone metastases", "Liver metastases", "Lung metastases",
-      " ", ":"
-    ), 
-    to[["Variable"]])
-  to
-}
 
 table_ones <- 
   map2(table_ones[c("breast", "lung", "skin")], 
@@ -93,7 +62,7 @@ table_ones <-
                   function(a, z) c(a, grep(z, table_ones[["skin"]][["Variable"]])), 
                   .init = c())
             ), 
-      rm_rws
+      rm_rnm_rws
       )
 
 table_ones[["breast"]] <- 
@@ -110,22 +79,24 @@ table_ones[["breast"]] <-
 #classification ===================================
 
 show_class_freq <- pryr::partial(primary_classification, df = papes$classifimetry)
-class_df <- show_class_freq(c("lung", "breast", "skin")) %>% back_up("class_df")
+class_df <- show_class_freq(c("lung", "breast", "skin"))
 
 main_classification_table <- 
   prep_classifimetry(papes$classifimetry) %>% 
   (function(df12) left_join(df12[[1]], df12[[2]])) %>% 
-  modify_at("Primary_Cancer", str_to_title) %>% modify_at("Claims_code", as.character) %>% 
+  modify_at("Primary_Cancer", str_to_title) %>% 
+  modify_at("Claims_code", as.character) %>% 
   filter(Claims_code == "CNS Metastasis w/Diagnostic Imaging" & Timing == "Synchronous") %>% 
   select(-Timing, -Claims_code) %>% 
   rename(Medicare_Count = Count)
 row.names(main_classification_table) <- NULL
-colnames(main_classification_table) <- gsub("_", " ", colnames(main_classification_table))
+colnames(main_classification_table) <- 
+  gsub("_", " ", colnames(main_classification_table))
 
 #strat_ip========================================
-#group_ip(munge_ip(df, which_algo), ...)
 strat_ip <- 
-  papes$histo_annum %>% do_ip(which_algo = which_algo_to_use, the_strata) %>% 
+  papes$histo_annum %>% 
+  do_ip(which_algo = which_algo_to_use, the_strata) %>% 
   back_up("strat_ip_munged") %>% 
   select(which_cancer, algorithm, the_strata, group_total, show, algo_v) %>% 
   spread_rename_ip(histo = TRUE) %>% 
@@ -139,7 +110,8 @@ strat_ip <-
                 group_total = "0", 
                 Negative = " ** ", Positive = " ** ", XNA = " ** ", 
                 stringsAsFactors = FALSE)) %>% 
-  arrange(desc(algorithm), desc(Primary), Histology) %>% nest_list_by_algo()
+  arrange(desc(algorithm), desc(Primary), Histology) %>% 
+  nest_list_by_algo()
 names(strat_ip[[2]]) <- paste("m", names(strat_ip[[2]]), sep = "_")
 
 ip_show <- 
@@ -149,12 +121,17 @@ ip_show <-
   back_up("ip_show_munged") 
 
 aair_strat <- 
-  papes$histo_age_over_time %>% filter(!is.na(cnt)) %>% 
+  papes$histo_age_over_time %>% 
+  filter(!is.na(cnt)) %>% 
   aair_by(which_algo_to_use, algo, which_cancer, the_strata) %>% 
-  rates_fn(gp_nms = c("Algorithm", "Primary", "Stratum")) %>% ungroup() %>% 
-  select(-crude) %>% spread(Algorithm, AAIR) %>% 
+  rates_fn(gp_nms = c("Algorithm", "Primary", "Stratum")) %>% 
+  ungroup() %>% 
+  select(-crude) %>% 
+  spread(Algorithm, AAIR) %>% 
   reorder_primary() %>% 
-  select(Primary, Stratum, SEER_SBM = seer_bm_01, Medicare_LBM = which_algo_to_use)
+  select(Primary, Stratum, 
+         SEER_SBM = seer_bm_01, 
+         Medicare_LBM = which_algo_to_use)
 
 
 aair_strat <- 
@@ -164,14 +141,17 @@ aair_strat <-
             aair_strat)
 
 ip_aair <- list(overall = list(), by_histo = list())
-ip_aair[["by_histo"]] <- bind_cols(ip_show, aair_strat[,-(1:2)]) %>% select_showvars()
+ip_aair[["by_histo"]] <- 
+  bind_cols(ip_show, aair_strat[,-(1:2)]) %>% select_showvars()
 
 #start site_ip=====      
 site_ip <- 
-  papes$histo_annum %>% do_ip(which_algo = which_algo_to_use) %>% 
+  papes$histo_annum %>% 
+  do_ip(which_algo = which_algo_to_use) %>% 
   select(which_cancer, algorithm, group_total, show, algo_v) %>% 
   spread_rename_ip() %>% 
-  arrange(desc(algorithm), desc(Primary)) %>% nest_list_by_algo()
+  arrange(desc(algorithm), desc(Primary)) %>% 
+  nest_list_by_algo()
 names(site_ip[[2]]) <- paste("m", names(site_ip[[2]]), sep = "_")
 
 site_ip_show <- bind_and_show(site_ip) %>% relabel_ip()
@@ -203,8 +183,8 @@ ip_aair <-
   modify_at("Histology", function(x) gsub("^1_", "", x)) %>% 
   filter(Total != 0) 
 
-#=======================================
-#crude stuff========================
+
+#crude ========================
 crude_df <- 
   papes$strata_only  %>% 
   clean_crude_sbm() %>% 
@@ -226,11 +206,12 @@ ip_aair[["SEER"]][ip_aair$Site == "Skin" & ip_aair$Histology == "0 To 4"] <-
    filter(which_cancer == "skin" & the_strata  == "0 To 4"))$IRS
 
 names(ip_aair) <- 
-  gsub_reduce(c("1$", "SEER",     "Medicare",     
-                "Present", "Absent", "Missing", "Total"), 
-              c("",   "SEER SBM", "Medicare LBM", 
-                "(+)", "\\(-)",  "NA", "At-risk"), 
-              names(ip_aair))
+  reduce2(c("1$", "SEER",     "Medicare",     
+            "Present", "Absent", "Missing", "Total"), 
+          c("",   "SEER SBM", "Medicare LBM", 
+            "(+)", "\\(-)",  "NA", "At-risk"), 
+          function(init, x, y) gsub(x, y, init),
+          .init = names(ip_aair))
 
 #in-text ip aair object ================================================
 ipa <- ip_aair
@@ -272,24 +253,18 @@ ipa <-
   data.frame(stringsAsFactors = FALSE) %>% 
   modify_at("ip", ~ sprintf(fmt = "%.1f", as.numeric(.x)))
 
-
-back_up(ipa)
-
-
-#====================================
-
 show_inc <- function(cncr, hsto, times) {
   ipa[with(ipa, which_cancer == cncr & histo == hsto & timing == times),]
 }
 
-histos <- ipa %>% group_by(which_cancer) %>% tidyr::nest()
-histos$hsts <- map(histos$data, function(x) gsub("\\ ", "_", (unique(x[["histo"]]))))
+ipah <- ipa %>% group_by(which_cancer) %>% tidyr::nest()
+ipah$hsts <- map(ipah$data, function(x) gsub("\\ ", "_", (unique(x[["histo"]]))))
 
 #make a function to retrieve incidence measures for each cancer/histology
 ip <- 
   lapply(c("lung", "breast", "skin"), function(cncr) {
-    hst_nms <- unlist(histos$hsts[histos$which_cancer == cncr])
-    tr <- #to_return 
+    hst_nms <- unlist(ipah$hsts[ipah$which_cancer == cncr])
+    tr <- 
       map(hst_nms, function(hsto) function(tms) {
         ipa %>% filter(which_cancer == cncr & histo == hsto & timing == tms)
       })
@@ -297,10 +272,12 @@ ip <-
     tr
   })
 names(ip) <- c("l", "b", "s")
-#ip[["lengths"]] <- map_int(ip[c("l", "b", "s")], length)
 
 names(ip$b) <- gsub("-", "n", names(ip$b))
 names(ip$b) <- gsub("\\+", "p", names(ip$b))
+names(ip$s) <- gsub("\\.", "", names(ip$s))
+names(ip$s) <- gsub("\\&_", "", names(ip$s))
+
 
 #exclusion tables ========================================================
 
@@ -310,7 +287,9 @@ med_e <- gen_e <- papes$exclusion
 med_e <- med_e[med_e$Vars %in% med_e_v,-1]
 
 med_e$Vars <- 
-  reduce2(med_e_v, med_e_nv, function(i, tr, r) gsub(tr, r, i), .init = med_e$Vars)
+  reduce2(med_e_v, med_e_nv, 
+          function(i, tr, r) gsub(tr, r, i), 
+          .init = med_e$Vars)
 rownames(med_e) <- NULL
 
 med_e <- med_e %>% select(-Values) %>% group_by(Vars) %>% 
