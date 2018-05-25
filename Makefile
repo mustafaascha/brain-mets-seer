@@ -1,20 +1,33 @@
-all: nch-dx-imaging.csv.gz              dme-dx-imaging.csv.gz\
-		 outsaf-dx-imaging.csv.gz           nch-icd-dx.csv.gz\
-		 nch-icd-dx-p.csv.gz                dme-icd-dx.csv.gz\
-		 dme-icd-dx-p.csv.gz                medpar-icd-dx.csv.gz\
-		 outsaf-icd-dx.csv.gz               cancers_loaded.rds\
+all: dir-cache\
+		 dir-dx-imaging\
+		 nch-dx-imaging.csv.gz              dme-dx-imaging.csv.gz\
+		 outsaf-dx-imaging.csv.gz\
+		 dir-diagnoses\
+		 nch-icd-dx.csv.gz                  nch-icd-dx-p.csv.gz\
+		 dme-icd-dx.csv.gz                  dme-icd-dx-p.csv.gz\
+		 outsaf-icd-dx.csv.gz               medpar-icd-dx.csv.gz\
+		 cancers_loaded.rds\
 		 cancers_joined-vars.csv.gz         cancers_prerecode.csv.gz\
 		 cancers_postrecode.csv.gz          cancers_before_exclusion.csv.gz\
-		 cancers.csv.gz                     paper_products.rds\
+		 cancers.csv.gz\
+		 paper_products.rds\
 		 lbm.pdf
 
-#.PHONY: doc rmobj
+.PHONY: doc rmobj
 
 R_OPTS=--vanilla
 
 VPATH = cache cache/dx-imaging cache/diagnoses extraction-scripts munge reports
 DXDIR = cache/diagnoses/
 IMGDIR = cache/dx-imaging/
+
+#extract data
+dir-cache: 
+  if [ ! -d"./cache" ]; then mkdir cache ; fi
+dir-diagnoses: 
+  if [ ! -d"./cache/diagnoses" ]; then mkdir -p cache/diagnoses ; fi
+dir-dx-imaging: 
+	if [ ! -d"./cache/dx-imaging" ]; then mkdir -p cache/dx-imaging; fi
 
 $(IMGDIR)nch-dx-imaging.csv.gz: cpt-img-nch.R
 	Rscript extraction-scripts/cpt-img-nch.R
@@ -65,10 +78,4 @@ paper_products.rds: misc.R load_exclude.R premanuscript.R
 lbm.pdf: lbm.Rmd misc.R load_exclude.R premanuscript.R manuscript.R
 	Rscript -e 'rmarkdown::render("lbm.Rmd", output_format = "all")'
 
-clean: 
-	rm lbm.bbl
-
-
-
-
-
+clean: rm -f *.aux *.bbl *.blg *.log *.bak *~ *.Rout */*~ */*.Rout */*.aux */*.log
