@@ -139,18 +139,15 @@ paper_products[[bot]][["sub"]] <-
 # Consider filtering for first primary...?
 
 varnames <- 
-  list(demos = c("age_dx", "age_cut", 
-                  #"mar_stat_v",
+  list(demos = c("age_dx", #"age_cut", 
                   "race_v"),
        primary = c("histo", 
-                   "beh03v",#"grade_v", 
+                   "beh03v",
                    "cs_size", "d_ssg00",
-                   "cs_mets",#"d_ajcc_t_v", "d_ajcc_n_v", "d_ajcc_m_v", 
-                   #"d_ajcc_s_v", 
-                   "eod10_pn", #"icd_c", 
+                   "cs_mets",
+                   "eod10_pn",
                    "csmetsdxb_pub_v", "csmetsdxliv_pub_v",   
                    "csmetsdxlung_pub_v"#, 
-                   #"csmetsdxbr_pub_v"
                    ),
        #breast: histo, tumor size/grade/stage/tnm
        breast = c("her2_v", "prstatus_v", "erstatus_v", 
@@ -218,9 +215,15 @@ paper_products[["histo_key"]] <-
 paper_products[["age_sex_race_strat"]] <-
   map(c("seer_bm_01", measure_vars),
       function(msr) {
+        if(msr == "seer_bm_01") {
+          the_df <- cancers_1013
+        }
+        else {
+          the_df <- cancers 
+        }
         tv <- c("age_cut", "which_cancer", "race_v",
                 "s_sex_v", "the_strata", msr)
-        filter(data.frame(table(cancers[,tv])), Freq != 0)
+        filter(data.frame(table(the_df[,tv])), Freq != 0)
   })
 
 names(paper_products[["age_sex_race_strat"]]) <-
