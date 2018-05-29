@@ -200,7 +200,6 @@ paper_products[["fiveyr_summary"]] <-
 #         -starts_with("medicare_dx")) %>% 
 #  map(sum)
 
-
 library(lubridate) 
 
 paper_products[["dx_vs_60dximg"]] <-
@@ -234,32 +233,4 @@ paper_products[["pop_counts"]] <-
 
 names(paper_products[["pop_counts"]]) <- c("selected", "past_ten", "full")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 write_rds(paper_products, "paper_products.rds")
-
-
-
-
-
-
-
-

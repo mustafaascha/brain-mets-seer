@@ -183,6 +183,10 @@ ip_aair <-
   modify_at("Histology", function(x) gsub("^1_", "", x)) %>% 
   filter(Total != 0) 
 
+single_digits <- c( "Present", "Absent", "Missing", "Present1", "Absent1")
+
+ip_aair[-1,single_digits] <- 
+  lapply(ip_aair[-1,single_digits], compose( function(x) sprintf("%.1f", x), as.double))
 
 #crude ========================
 crude_df <- 
@@ -199,17 +203,13 @@ ip_aair[["Total"]][ia_to_replace] <-
   apply(crude_df[,c("Absent", "Present", "Missing")], 1, sum)
 
 ip_aair[ia_to_replace,c("Present", "Absent", "Missing")] <-
-  lapply(crude_df[, c("IPP", "IPA", "IPM")], sprintf, fmt = "%.2f")
-
-ip_aair[["SEER"]][ip_aair$Site == "Skin" & ip_aair$Histology == "0 To 4"] <- 
-  (clean_crude_sbm(papes$strata_only) %>% 
-   filter(which_cancer == "skin" & the_strata  == "0 To 4"))$IRS
+  lapply(crude_df[, c("IPP", "IPA", "IPM")], sprintf, fmt = "%.1f")
 
 names(ip_aair) <- 
   reduce2(c("1$", "SEER",     "Medicare",     
             "Present", "Absent", "Missing", "Total"), 
           c("",   "SEER SBM", "Medicare LBM", 
-            "(+)", "\\(-)",  "NA", "At-risk"), 
+            "(+)", "\\(-)",  "N/A", "At risk"), 
           function(init, x, y) gsub(x, y, init),
           .init = names(ip_aair))
 
@@ -242,9 +242,11 @@ ipa <-
           }, 
          .init = ipa)
 
+# munge incidence proportion for in-text reference
 ipa <- 
   gather(ipa, msr, val, -which_cancer, -histo) %>% 
   modify_at("histo", function(z) gsub("triple\\ ", "triple", z)) %>% 
+  modify_at("histo", function(z) gsub("\\ |\\&", "", z)) %>% 
   separate(msr, c("which", "msr"), sep = "_") %>% 
   filter(histo != "") %>% 
   spread(which, val) %>% 
@@ -257,10 +259,12 @@ show_inc <- function(cncr, hsto, times) {
   ipa[with(ipa, which_cancer == cncr & histo == hsto & timing == times),]
 }
 
+# This is here for histocompatibility (to ensure histology names are consistently referred)
+# (that's an immunology joke)
 ipah <- ipa %>% group_by(which_cancer) %>% tidyr::nest()
 ipah$hsts <- map(ipah$data, function(x) gsub("\\ ", "_", (unique(x[["histo"]]))))
 
-#make a function to retrieve incidence measures for each cancer/histology
+# In-text reference function for incidence measures by each cancer/histology
 ip <- 
   lapply(c("lung", "breast", "skin"), function(cncr) {
     hst_nms <- unlist(ipah$hsts[ipah$which_cancer == cncr])
@@ -324,6 +328,7 @@ sc <- class_df$class$SEER_Count
 #in-text classification metrics stuff=====================
 cm <- 
   class_df$class$metrics %>% 
+  # Separate out the confidence intervals
   (function(df) {
     vls <- strsplit(df[["Kappa"]], split = "[^0-9.]")
     df["kli"] <- map_chr(vls, 3)
@@ -331,6 +336,7 @@ cm <-
     df[["Kappa"]] <- map_chr(vls, 1) 
     df
    }) %>% 
+  # Fill the columns back up (after perma_dupes)
   modify_at(c("Timing", "Primary_Cancer"), 
             function(vctr) {
               for (i in seq_along(vctr)) {
@@ -341,22 +347,26 @@ cm <-
               vctr
             }) %>% 
   rename(the_time = Timing, the_cancer = Primary_Cancer, codes = Claims_code) %>% 
+  # Make code algorithm names easier to reference in function
   modify_at("codes", function(vctr){
     vctr <- as.character(vctr)
     vctr[vctr == "CNS Metastasis"] <- "dx"
     vctr[vctr == "CNS Metastasis w/Diagnostic Imaging"] <- "dximg"
     vctr
   }) %>%  back_up("zzz2") %>% 
+  # Make code algorithm names easier to reference in function
   modify_at("the_time", function(vctr) {
     vctr[vctr == "Synchronous"] <- "sync"
     vctr[vctr == "Lifetime"] <- "life"
     vctr
   }) %>% 
+  # Format for printing
   modify_at(c("Sensitivity", "PPV", "Kappa", "kli", "kui"), 
             function(thing) sprintf("%.2f", as.numeric(thing)))
 
 #stopifnot(identical(cm[,4:7], class_df$class$metrics[,4:7]))
 
+# Make function for in-text classification metrics reference 
 get_cm <- function(which_cancer, timing, the_codes){
   cm[with(cm,the_time == timing & the_cancer == which_cancer & codes == the_codes),]
 }
@@ -371,27 +381,47 @@ class_fns <-
 
 #stratum-specific classification===============
 
-show_strat_class <- partial(primary_classification, df = papes$histo_metrics)
+add_second_name <- function(a_df) {
+  names(a_df)[2] <- "x"
+  a_df
+}
 
-sync_strat_class <- 
-  papes$histo_metrics %>% 
-  filter(measure %in% c("medicare_60_prim_dx_img", 
-                        "medicare_60_prim_dx_matches")) %>% 
-  modify_at("measure", ~ ifelse(.x == "medicare_60_prim_dx_img", 
-                                "CNS Mets. w/Diagnostic Imaging", 
-                                "CNS Metastasis")) %>% 
-  clean_strat_class()
-  
-  
-life_strat_class <- 
-  papes$histo_metrics %>% 
-  filter(measure %in% c("medicare_60_dx_img", 
-                        "medicare_00_dx_dx")) %>% 
-  modify_at("measure", ~ ifelse(.x == "medicare_60_dx_img", 
-                                "CNS Mets. w/Diagnostic Imaging", 
-                                "CNS Metastasis")) %>% 
-  clean_strat_class()
+rm_second_name <- function(a_df) {
+  names(a_df)[2] <- ""
+  a_df
+}
 
+ct_prep <- function(msr) {
+  papes$histo_metrics %>% 
+    filter(measure %in% c(msr)) %>% 
+    clean_strat_class() %>% 
+    add_second_name() %>% 
+    select(-Algorithm) %>% 
+    modify_at(c("Predicted", "True"), censor_few) %>% 
+    modify(as.character) %>% 
+    modify_at("x", clean_table_histonames)
+}
+
+classification_table_to_show  <- list(
+  label1 = new_ct_row("**Algorithm: Synchronous**"),
+  prim_dx_img = ct_prep("medicare_60_prim_dx_img"),
+  label2 = new_ct_row("**Algorithm: Lifetime**"),
+  spacer = new_ct_row("", ""),
+  dx_img = ct_prep("medicare_60_dx_img")
+) %>% 
+  reduce(bind_rows) %>% 
+  rm_second_name()
+
+supplementary_classification <- list(
+  label1 = new_ct_row("**Algorithm: Synchronous**"),
+  prim_dx_img = ct_prep("medicare_60_prim_dx_img"),
+  label2 = new_ct_row("**Algorithm: Lifetime**"),
+  spacer = new_ct_row("", ""),
+  dx_img = ct_prep("medicare_60_dx_img")
+) %>% 
+  reduce(bind_rows) %>% 
+  rm_second_name()
+  
 # For description of histology codes in methods =============================
 
 histo_key <- 
@@ -408,7 +438,7 @@ histo_key <-
   group_by(which_cancer, histo) %>% 
   nest()
 
-#I don't need to do this biggest/smallest stuff...
+#I don't need to do this biggest/smallest stuff...I need to remove it
 histo_key[["codes"]] <- 
   map_chr(histo_key[["data"]], 
           function(df) {
@@ -423,6 +453,7 @@ histo_key[["codes"]] <-
             }
           })  
 
+# Function for in-text reference
 hst_c <- function(cnc, hst) {
   if (is.numeric(hst)) { 
     which_hst <- hst
