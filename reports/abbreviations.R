@@ -16,7 +16,7 @@ abbreviations <-
       "Synchronous Brain Metastases", "Lifetime Brain Metastases", 
       "Average Annual Age-Adjusted Incidence Rate", 
       "Medicare Part A", "National Carrier Claims", "Durable Medical Equipment", 
-      "Outpatient standard analysis files", "Current PRocedural Terminology", 
+      "Outpatient standard analysis files", "Current Procedural Terminology", 
       "International Classification of Disease, Ninth Revision, Clinical Modification", 
       "White Non-Hispanic", "White Hispanic", 
       "International Classification of Diseases, Oncology, 3rd Revision", 
@@ -29,3 +29,6 @@ abbreviations <-
     stringsAsFactors = FALSE) %>% 
   arrange(Abbreviation) %>% 
   modify_at("Abbreviation", ~ paste("**", .x, "**", sep = ""))
+
+
+
