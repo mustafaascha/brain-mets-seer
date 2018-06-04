@@ -1,14 +1,20 @@
 all: dir-cache\
 		 dir-dx-imaging\
-		 nch-dx-imaging.csv.gz              dme-dx-imaging.csv.gz\
+		 nch-dx-imaging.csv.gz\
+		 dme-dx-imaging.csv.gz\
 		 outsaf-dx-imaging.csv.gz\
 		 dir-diagnoses\
-		 nch-icd-dx.csv.gz                  nch-icd-dx-p.csv.gz\
-		 dme-icd-dx.csv.gz                  dme-icd-dx-p.csv.gz\
-		 outsaf-icd-dx.csv.gz               medpar-icd-dx.csv.gz\
+		 nch-icd-dx.csv.gz\
+		 nch-icd-dx-p.csv.gz\
+		 dme-icd-dx.csv.gz\
+		 dme-icd-dx-p.csv.gz\
+		 outsaf-icd-dx.csv.gz\
+		 medpar-icd-dx.csv.gz\
 		 cancers_loaded.rds\
-		 cancers_joined-vars.csv.gz         cancers_prerecode.csv.gz\
-		 cancers_postrecode.csv.gz          cancers_before_exclusion.csv.gz\
+		 cancers_joined-vars.csv.gz\
+		 cancers_prerecode.csv.gz\
+		 cancers_postrecode.csv.gz\
+		 cancers_before_exclusion.csv.gz\
 		 cancers.csv.gz\
 		 paper_products.rds\
 		 lbm.pdf
@@ -23,9 +29,9 @@ IMGDIR = cache/dx-imaging/
 
 #extract data
 dir-cache: 
-  if [ ! -d"./cache" ]; then mkdir cache ; fi
+	if [ ! -d"./cache" ]; then mkdir cache ; fi
 dir-diagnoses: 
-  if [ ! -d"./cache/diagnoses" ]; then mkdir -p cache/diagnoses ; fi
+	if [ ! -d"./cache/diagnoses" ]; then mkdir -p cache/diagnoses ; fi
 dir-dx-imaging: 
 	if [ ! -d"./cache/dx-imaging" ]; then mkdir -p cache/dx-imaging; fi
 
