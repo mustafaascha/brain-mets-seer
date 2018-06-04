@@ -414,10 +414,10 @@ classification_table_to_show  <- list(
 
 supplementary_classification <- list(
   label1 = new_ct_row("**Algorithm: Synchronous**"),
-  prim_dx_img = ct_prep("medicare_60_prim_dx_img"),
+  prim_dx_img = ct_prep("medicare_60_prim_dx_matches"),
   label2 = new_ct_row("**Algorithm: Lifetime**"),
   spacer = new_ct_row("", ""),
-  dx_img = ct_prep("medicare_60_dx_img")
+  dx_img = ct_prep("medicare_00_dx_dx")
 ) %>% 
   reduce(bind_rows) %>% 
   rm_second_name()
