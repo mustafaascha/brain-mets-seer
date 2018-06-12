@@ -12,7 +12,7 @@
 #'
 select_dates_for_join <- function(claims_df) {
   names(claims_df) <- tolower(names(claims_df))
-  date_vars <- c("from_dtd", "from_dtm", "from_dty")
+  date_vars <- c("from_dtm", "from_dtd", "from_dty")
   alt_date_vars <- c("thru_dtm", "thru_dtd", "thru_dty")
   all_dates <- c(date_vars, alt_date_vars)
   mp_adm_vars <- c("adm_m", "adm_d", "adm_y")

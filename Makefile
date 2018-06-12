@@ -29,11 +29,15 @@ IMGDIR = cache/dx-imaging/
 
 #extract data
 dir-cache: 
-	if [ ! -d"./cache" ]; then mkdir cache ; fi
+	if [ ! -d "cache" ]; then mkdir cache ; fi
 dir-diagnoses: 
-	if [ ! -d"./cache/diagnoses" ]; then mkdir -p cache/diagnoses ; fi
+	cd cache;\
+	if [ ! -d "diagnoses" ]; then mkdir -p cache/diagnoses ; fi;\
+	cd ..
 dir-dx-imaging: 
-	if [ ! -d"./cache/dx-imaging" ]; then mkdir -p cache/dx-imaging; fi
+	cd cache;\
+	if [ ! -d "dx-imaging" ]; then mkdir -p cache/dx-imaging; fi;\
+	cd ..
 
 $(IMGDIR)nch-dx-imaging.csv.gz: cpt-img-nch.R
 	Rscript extraction-scripts/cpt-img-nch.R
