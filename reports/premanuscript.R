@@ -18,22 +18,7 @@ cancers_1013 <-
         (which_cancer != "breast" | brst_sub_v != "Not 2010+ Breast"))
 
 #these are from the "load-exclude" script
-paper_products[["pop_counts"]] <- paper_stuff[[1]]
 paper_products[["exclusion"]] <- paper_stuff[[2]]
-
-paper_products[["df_counts"]] <- 
-  imap_dfr(list(tentwelve = cancers_1013, 
-               seventwelve = cancers, 
-               full = cancers_full), 
-          function(df, nm) {
-            df %>% group_by(which_cancer) %>% 
-              summarise(count = n()) %>% mutate(df = nm)
-          }) %>% 
-  spread(df, count)
-     
-
-#source("reports/functions.R")
-
 
 measure_vars <-  
   c(
@@ -58,6 +43,21 @@ paper_products[["classifimetry"]] <-
   }) %>% 
   clean_paper_metrics(df_labels = measure_labels)
 
+no_a_c <- 
+  filter(cancers_1013, 
+         !grepl("autopsy", radiatn_v))
+
+#paper_products[["no_a_classifimetry"]] <- 
+#  map_df(measure_vars,
+#         partial(primary_classifimeter, df = no_a_c)) %>% 
+#  (function(df) {
+#    ts <- mutate(df, msr = measure_labels)
+#    ts <- bind_cols(ts[,c("which_cancer", "msr")], 
+#                    bind_rows(ts[["classification_metrics"]]))
+#    paper_products[["all_classifimetry"]] <<- ts
+#    df 
+#  }) %>% 
+#  clean_paper_metrics(df_labels = measure_labels)
 
 #by histo classification============================================
 paper_products[["histo_metrics"]] <- 
@@ -108,29 +108,8 @@ paper_products[["histo_age_over_time"]] <-
             gp_count(cancers, vr, which_cancer, age_cut, the_strata, dx_year)
         })
 
-paper_products[["histo_only_annum"]] <- 
-  map_dfr(class_vrs, function(vr) gp_count(cancers, vr, which_cancer, dx_year, histo))
-
-paper_products[["histo_only"]] <- 
-  map_dfr(class_vrs, function(vr) gp_count(cancers, vr, which_cancer, histo))
-
 paper_products[["strata_only"]] <- 
   map_dfr(class_vrs, function(vr) gp_count(cancers, vr, which_cancer, the_strata))
-
-
-
-bot <- "breast_over_time"
-paper_products[[bot]] <- list()
-paper_products[[bot]][["erstat"]] <- 
-  map(class_vrs, ~ gp_count(cancers %>% filter(which_cancer == "breast"), 
-                             vr = .x, erstatus_v, dx_year, age_cut))
-paper_products[[bot]][["prstat"]] <- 
-  map(class_vrs, ~ gp_count(cancers %>% filter(which_cancer == "breast"), 
-                             vr = .x, prstatus_v, dx_year, age_cut))
-
-paper_products[[bot]][["sub"]] <- 
-  map(class_vrs, ~ gp_count(cancers %>% filter(which_cancer == "breast"), 
-                             vr = .x, brst_sub_v, dx_year, age_cut))
 
 #table ones===============================================
 
@@ -151,20 +130,16 @@ varnames <-
                    ),
        #breast: histo, tumor size/grade/stage/tnm
        breast = c("her2_v", "prstatus_v", "erstatus_v", 
-                  "brst_sub_v"), 
+                  "brst_sub_v"))
        #consider excluding carcinoids? see goncalves 2016
        #consider excluding all regional/SBM 
-       lung = c(), 
-       skin = c(), 
-       disparate = c("insrec_pub_v", "urbrur", "race_v", 
-                     "census_pov_ ind"))
 
 to_numeric <- c("age_dx", "cs_size", "eod10_pn", "cs_mets")
 cancers[,to_numeric] <- lapply(cancers[,to_numeric], as.numeric)
 
 #I should do synchronous and lifetime....duh! Not SEER vs Medicare! 
 the_strata <- 
-  c("medicare_60_prim_dx_matches", "medicare_00_dx_dx", "medicare_60_dx_img",
+  c("medicare_60_dx_img",
     "seer_br_mets", "seer_medicare", "default")
 tbl_one_vrs <- with(varnames, c(demos, primary, breast))
 
@@ -191,16 +166,7 @@ paper_products[["table_ones"]] <- table_ones
 paper_products[["fiveyr_summary"]] <-
   tbl_one(cancers, with(varnames, c(demos, primary)), "which_cancer")
 
-#cancers %>% 
-#  select(starts_with("seer"), starts_with("medicare")) %>% 
-#  select(-seer_br_mets, -seer_medicare, -medicare_br_mets, 
-#         -starts_with("medicare_dx")) %>% 
-#  map(sum)
-
 library(lubridate) 
-
-paper_products[["dx_vs_60dximg"]] <-
-  table(year(cancers$date_dx_cpt_img), cancers$dx_year)
 
 paper_products <-
   modify_if(paper_products, is.data.frame,
@@ -229,11 +195,5 @@ paper_products[["age_sex_race_strat"]] <-
 names(paper_products[["age_sex_race_strat"]]) <-
   c("seer_bm_01", measure_vars)
 
-
-paper_products[["pop_counts"]] <-
-  map(list(cancers, cancers_1013, cancers_full),
-      ~ table(.x[,c("which_cancer", "dx_year")]))
-
-names(paper_products[["pop_counts"]]) <- c("selected", "past_ten", "full")
 
 write_rds(paper_products, "paper_products.rds")

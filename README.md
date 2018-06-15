@@ -11,13 +11,19 @@ Reproducibility repository for a manuscript on brain metastases frequencies and 
 
 # Notes  
 
-- It will take a few hours to run the whole project on a single processor 
+- It will take a few hours to run the whole project on a single processor   
+
+Roughly, this work follows the following steps: 
+
+1. Read through filetypes of interest and extract/write observations with matches in a particular column (e.g. extraction-scripts/icd-dx-nch.R)     
+2. Read through each of the matches and join relevant data to PEDSF     
+3. Munge/analyze/report     
 
 # Instructions 
 
 Reproducing this work approximately follows two steps: 
 - Put data in the correct folder
-- Run 'make'
+- Run 'make'   
 
 ## Getting the project
 

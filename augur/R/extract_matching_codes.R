@@ -60,7 +60,7 @@ scan_codes <- function(data_codes, ctp){
 #' 
 #' @export
 #' @return A dataframe as specified by `infile_df` and returned by `read_medicare`
-#' @seealso extract_all_diagnoses, extract_all_procedures
+#' @seealso extract_slice_codes 
 #' 
 #' @importFrom purrr map
 #' @importFrom pryr partial
