@@ -1,0 +1,150 @@
+---
+title: |
+  | Lifetime lung, breast, and skin cancer 
+  | brain metastases incidence:
+  | A reproducible SEER-Medicare study
+author: ""
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+header-includes:
+- \usepackage[fontsize=12pt]{scrextend}
+- \linespread{1.75}
+- \usepackage{lineno}
+- \renewcommand\linenumberfont{\normalfont\mdseries\scriptsize}
+geometry: margin=1in
+output: html_document
+---
+
+```{r setup, message = FALSE, warning = FALSE, echo = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+knitr::knit_hooks$set(inline = function(x) {
+  the_x <- trimws(x,"both")
+  if (all(grepl("[0-9]", unlist(strsplit(the_x, split = ""))))) {
+    prettyNum(round(as.numeric(the_x),2), big.mark = ",")
+  } else {
+    x
+  }
+})
+
+library(pander) 
+panderOptions('table.split.table', Inf)
+panderOptions('table.emphasize.rownames', TRUE)
+panderOptions("big.mark", ",")
+panderOptions("table.alignment.default", "left")
+set.caption(NULL)
+
+source("reports/manuscript.R")
+```  
+
+\linespread{1.5}
+\fontsize{11pt}{11pt}
+\selectfont
+
+Mustafa S Ascha^1^, Quinn T Ostrom^2^, Jeremy Bordeaux^3^, Andrew Sloan^4^, Frederick Schumacher^5^, Carol Kruchko^6^, Jill S Barnholtz-Sloan^5^
+
+1. 	Center for Clinical Investigation, Department of Population and Quantitative Health Sciences, Case Western Reserve University School of Medicine, Cleveland, Ohio
+2.	Baylor College of Medicine, Houston, Texas
+3.	University Hospitals Cleveland Medical Center, Department of Dermatology, Cleveland, Ohio
+4.	University Hospitals Cleveland Medical Center, Department of Neurosurgery, Cleveland, Ohio
+5.	Department of Population and Quantitative Health Sciences, Case Western Reserve University School of Medicine, Cleveland, Ohio
+6.  Central Brain Tumor Registry of the United States, Hinsdale, Illinois
+
+\pagebreak
+
+## Abbreviations  
+
+```{r}
+source("reports/abbreviations.R")
+pander(abbreviations, split.table = Inf)
+```
+
+# Tables
+
+## Table 1: Medicare claims brain metastasis classification accuracy   
+
+```{r classification metrics}
+pander(classification_table_to_show)
+```   
+
+\pagebreak
+
+## Table 2: Incidence of primary cancer associated with brain metastases  
+
+```{r condensed incidence table}
+old_names <- names(ip_aair)
+names(ip_aair) <- make.names(old_names, unique = T)
+condensed_ip <- map_df(ip_aair, function(x) gsub("\\ \\(.*", "", x))
+condensed_ip[["Site"]] <- perma_dupes(condensed_ip[["Site"]])
+names(condensed_ip) <- old_names
+pander(condensed_ip)
+```
+
+\pagebreak
+
+# Figures   
+
+```{r}
+source("reports/figures.R")
+```
+
+## Figure 1: Data sources and definitions     
+
+This figure has been redacted from reproducibility materials. 
+
+\pagebreak
+
+## Figure 2: Lung and breast cancer incidence proportions of brain metastases by race
+
+```{r, fig.height = 3.5, fig.width = 6.5}
+with(the_plots, arrange_plots(lung_race, breast_race))
+```
+
+\pagebreak
+
+## Figure 3: Lung and skin cancer incidence proportions by sex
+
+```{r, fig.height = 3.5, fig.width = 6.5}
+with(the_plots, arrange_plots(lung_sex, skin_sex))
+```
+
+\pagebreak
+\linespread{1.2}
+\fontsize{10pt}{10pt}
+\selectfont
+
+# Supplementary tables
+
+## Supplementary Table 1: Lung cancer demographics and clinical characteristics
+
+```{r lung tableone}
+pander_to(table_ones[["lung"]])
+```
+
+\pagebreak
+
+## Supplementary Table 2: Breast cancer demographics and clinical characteristics
+
+```{r breast tableone}
+pander_to(table_ones[["breast"]])
+```
+
+\pagebreak
+
+## Supplementary Table 3: Skin cancer demographics and clinical characteristics
+
+```{r skin tableone}
+pander_to(table_ones[["skin"]]))
+```
+
+\pagebreak
+
+## Supplementary Table 4: Diagnosis code-only algorithms performance   
+
+```{r}
+pander(supplementary_classification)
+```
+
+\pagebreak
+
+
+
