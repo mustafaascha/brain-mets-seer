@@ -205,6 +205,10 @@ ip_aair[["Total"]][ia_to_replace] <-
 ip_aair[ia_to_replace,c("Present", "Absent", "Missing")] <-
   lapply(crude_df[, c("IPP", "IPA", "IPM")], sprintf, fmt = "%.1f")
 
+ssr <- skin_suppress_r <- 15
+ssc <- skin_suppress_c <- c(3, 5:7)
+ip_aair[ssr,ssc] <- "**"
+
 names(ip_aair) <- 
   reduce2(c("1$", "SEER",     "Medicare",     
             "Present", "Absent", "Missing", "Total"), 
@@ -238,7 +242,7 @@ ipa <-
   reduce(to_sep, 
          function(df, rs) {
             c(to_s, in2, s_by) %<-% rs
-            separate(df, to_s, in2, s_by)
+            separate(df, to_s, in2, s_by, extra = "drop", fill = "left")
           }, 
          .init = ipa)
 
@@ -253,7 +257,7 @@ ipa <-
   gather(timing, value, -which_cancer, -histo, -msr) %>% 
   spread(msr, value) %>% 
   data.frame(stringsAsFactors = FALSE) %>% 
-  modify_at("ip", ~ sprintf(fmt = "%.1f", as.numeric(.x)))
+  modify_at("ip", ~ sprintf(fmt = "%.1f", quietly(as.numeric)(.x)[["result"]]))
 
 show_inc <- function(cncr, hsto, times) {
   ipa[with(ipa, which_cancer == cncr & histo == hsto & timing == times),]
