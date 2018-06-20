@@ -24,25 +24,6 @@ cancers$seer_br_mets <-
   with(cancers, 
        ifelse(csmetsdxbr_pub_v == "None", "SEER_Negative", 
          ifelse(csmetsdxbr_pub_v == "Yes", "SEER_Positive", NA)))
-cancers$medicare_br_mets <- 
-  ifelse(cancers$counts_dx_matches > 0, "Positive", "Negative")
-cancers$medicare_dx30 <- 
-  with(cancers, ifelse(medicare_br_mets == "Positive" & 
-                       days_prim_dx_matches <= 30, 1, 0)) 
-cancers$medicare_dx30 <- 
-  with(cancers, ifelse(medicare_dx30 == 1, "Code Present", "Not Present"))
-cancers$medicare_dx90 <- 
-  with(cancers, ifelse(medicare_br_mets == "Positive" & 
-                       days_prim_dx_matches <= 90, 1, 0))
-cancers$medicare_dx90 <- 
-  with(cancers, ifelse(medicare_dx90 == 1, "Code Present", "Not Present"))  
-
-cancers$counts_dx <- 
-  with(cancers, ifelse(counts_dx_matches < 1, "None", 
-                  ifelse(counts_dx_matches == 1, "One", 
-                    ifelse(counts_dx_matches == 2, "Two", 
-                      ifelse(counts_dx_matches > 2, "3 or more", 
-                             NA)))))
   
 n_day_fn <- function(df, v, n){
   counts_nm <- paste0("counts_", v)
@@ -63,35 +44,12 @@ apply_n_day_fn <- function(df, number){
   lapply(the_vars, function(x) n_day_fn(df, x, number))
 }
 
-cancers[,make_prim_names("30")] <- apply_n_day_fn(cancers, 30)
 cancers[,make_prim_names("60")] <- apply_n_day_fn(cancers, 60)
-cancers[,make_prim_names("90")] <- apply_n_day_fn(cancers, 90)
 
 
-#cancers[,make_prim_names("30")] <- 
-#  lapply(the_vars, function(x) n_day_fn(cancers, x, 30))
-#
-#cancers[,make_prim_names("60")] <- 
-#  lapply(the_vars, function(x) n_day_fn(cancers, x, 60))
-#
-#cancers[,make_prim_names("90")] <- 
-#  lapply(the_vars, function(x) n_day_fn(cancers, x, 90))
+cancers[["medicare_60_dx_img"]]  <- 
+  with(cancers, ifelse(days_dx_cpt_img <= 60, 1, 0))
 
-cancers[,c("medicare_30_dx_img", 
-           "medicare_60_dx_img", 
-           "medicare_90_dx_img")] <- 
-  lapply(c(30, 60, 90), 
-    function(x) with(cancers, ifelse(days_dx_cpt_img <= x, 1, 0)))
-
-
-#cancers[["medicare_30_dx_img"]] <- 
-#  with(cancers, ifelse(days_dx_cpt_img <= 30, 1, 0))
-#
-#cancers[["medicare_60_dx_img"]] <- 
-#  with(cancers, ifelse(days_dx_cpt_img <= 60, 1, 0))
-#
-#cancers[["medicare_90_dx_img"]] <- 
-#  with(cancers, ifelse(days_dx_cpt_img <= 90, 1, 0))
 
 write_csv(cancers, "cache/cancers.csv.gz")
 
