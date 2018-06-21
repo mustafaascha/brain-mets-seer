@@ -17,7 +17,7 @@ all: dir-cache\
 		 cancers_before_exclusion.csv.gz\
 		 cancers.csv.gz\
 		 paper_products.rds\
-		 lbm.pdf
+		 tables-and-figures.html
 
 .PHONY: doc rmobj
 
@@ -85,7 +85,7 @@ cache/cancers.csv.gz: misc.R exclusion-vars.R
 paper_products.rds: misc.R load_exclude.R premanuscript.R
 	Rscript reports/premanuscript.R
 
-lbm.pdf: lbm.Rmd misc.R load_exclude.R premanuscript.R manuscript.R
-	Rscript -e 'rmarkdown::render("lbm.Rmd", output_format = "all")'
+tables-and-figures.html: tables-and-figures.Rmd misc.R load_exclude.R premanuscript.R manuscript.R
+	Rscript -e 'rmarkdown::render("tables-and-figures.Rmd", output_format = "html_document")'
 
 clean: rm -f *.aux *.bbl *.blg *.log *.bak *~ *.Rout */*~ */*.Rout */*.aux */*.log

@@ -9,8 +9,11 @@ cancers <- read_csv("cache/cancers_prerecode.csv.gz", progress = FALSE)
 #    ifelse(is.na(cancers[["dx_code_count"]]), 0, cancers[["dx_code_count"]])
                                                                              
 seer_recode <- function(pedsf_df, key_var, df_var) {
-  p_recodes <- pedsf_utils$pedsf_recodes %>% distinct(Code, .keep_all = TRUE)
-  key_df <- p_recodes[p_recodes$Var == key_var, c("Code", "Meaning")]
+  p_recodes <- 
+    pedsf_utils$pedsf_recodes %>% 
+    distinct(Code, .keep_all = TRUE)
+  key_df <- 
+    p_recodes[p_recodes$Var == key_var, c("Code", "Meaning")]
   new_name <- paste0(df_var, "_v")
   names(key_df) <- c(df_var, new_name)
   to_return <- left_join(pedsf_df, key_df)
@@ -21,58 +24,89 @@ seer_recode <- function(pedsf_df, key_var, df_var) {
 
 cancers <- seer_recode(cancers, "payer_dx1", "payerdx")
 
-cancers$dod_flg <- 
-  factor(cancers$dod_flg, levels = c(0:5), #7),
-         labels = c("Not dead by 12/14", "Dead for both", "Dead and off by 1-3mos", 
-                    "Dead and off by 4-6mos", "Dead only in Medicare", 
-                    "Dead only in SEER"))#, "Dead but months missing in Medicare or SEER"))
-
 
 key_vars_to_recode <- 
-  c(                  "radbrn",          "csmetsdxliv_pub", 
-    "csmetsdxbr_pub", "csmetsdxb_pub",   "csmetsdxlung_pub", 
-    "grade",          "lat",             "radsurg", 
-    "rad",            "nosrg",           "vasinv", 
-    "nhiade",         "adjajc6t",        "adjajc6n", 
-    "adjajc6m",       "dajccm",          "origin", 
-    "cur_ent",        "dajccstg",        "dxconf", 
-    "erstat",         "histrec",         "intprim", 
-    "linkflag",       "m_sex",           "marst", 
-    "mat_type",       "med_stcd",        "numdigit", 
-    "odthclass",      "onco_rg1",        "onco_rns1", 
-    "dajcct",         "dajccn",          "dajccstg", 
-  # "onco_time1",     "origrecb",        "oseqcon1", 
-    "ositage1",       "other_tx1",       "prstat", 
-    "race",           "rsncd1",         #"reg_id",  
-    "sex",            "srvmflag",        "sssurg", 
-    "stat_rec",       "tumor1",          "tumor2", 
-    "tumor3",         "typefu",          "vrfydth", 
-    "yobflg1",        "her2rec",         "brstsub", 
-    "adjajc6t",       "adjajc6n",        "adjajc6m", 
-    "cs04sch")
+c("radbrn",
+"csmetsdxliv_pub",
+"csmetsdxbr_pub",
+"csmetsdxb_pub",
+"csmetsdxlung_pub",
+"grade",
+"radsurg",
+"rad",
+"nosrg",
+"nhiade",
+"adjajc6t",
+"adjajc6n",
+"adjajc6m",
+"origin",
+"dajccstg",
+"dxconf",
+"erstat",
+"histrec",
+"intprim",
+"linkflag",
+"m_sex",
+"marst",
+"mat_type",
+"med_stcd",
+"numdigit",
+"other_tx1",
+"prstat",
+"race",
+"rsncd1",
+"sex",
+"srvmflag",
+"sssurg",
+"stat_rec",
+"typefu",
+"vrfydth",
+"yobflg1",
+"her2rec",
+"brstsub"
+)
 
 df_vars_to_recode <- 
-  c(                  "rad_brn",         "csmetsdxliv_pub", 
-    "csmetsdxbr_pub", "csmetsdxb_pub",   "csmetsdxlung_pub", 
-    "grade",          "lateral",         "rad_surg", 
-    "radiatn",        "no_surg",         "vasinv", 
-    "nhiade",         "t_value",         "n_value", 
-    "m_value",        "d_ajcc_m",        "origin", 
-    "cur_ent",        "dajcc7stg",       "dx_conf", 
-    "erstatus",       "histrec",         "intprim", 
-    "linkflag",       "m_sex",           "mar_stat", 
-    "mat_type",       "med_stcd",        "numdigit", 
-    "o_dth_class",    "oncotype_rg",     "oncotype_rns", 
-    "d_ajcc_t",       "d_ajcc_n",        "d_ajcc_s", 
-  # "oncotype_time",  "origrecb",        "o_seqcon", 
-    "o_sitage",       "othr_rx",         "prstatus", 
-    "race",           "rsncd1",         #"reg_at_dx",      
-    "s_sex",          "srv_time_mon_flag","ss_surg", 
-    "stat_rec",       "tumor_1v",        "tumor_2v", 
-    "tumor_3v",       "typefup",         "vrfydth", 
-    "yobflg1",        "her2",            "brst_sub", 
-    "adjtm_6value",    "adjnm_6value",   "adjm_6value", 
-    "cs0204schema")
+c(                  
+"rad_brn",
+"csmetsdxliv_pub",
+"csmetsdxbr_pub",
+"csmetsdxb_pub",
+"csmetsdxlung_pub",
+"grade",
+"rad_surg",
+"radiatn",
+"no_surg",
+"nhiade",
+"t_value",
+"n_value",
+"m_value",
+"origin",
+"dajcc7stg",
+"dx_conf",
+"erstatus",
+"histrec",
+"intprim",
+"linkflag",
+"m_sex",
+"mar_stat",
+"mat_type",
+"med_stcd",
+"numdigit",
+"othr_rx",
+"prstatus",
+"race",
+"rsncd1",
+"s_sex",
+"srv_time_mon_flag",
+"ss_surg",
+"stat_rec",
+"typefup",
+"vrfydth",
+"yobflg1",
+"her2",
+"brst_sub"
+)
 
 #edit pedsf_utils to suit needs-------
 unique_recodes <- 

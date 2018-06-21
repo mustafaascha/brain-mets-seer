@@ -46,9 +46,8 @@ cancers[,grep("csmetsdx", names(cancers))] <-
         )
 
 names_grid <- 
-  expand.grid("medicare", c(30, 60, 90), 
-              c(paste("prim", c("dx_matches", "cpt_rad", 
-                                "biopsy", "cpt_img", "cpt_neu"), 
+  expand.grid("medicare", 60, 
+              c(paste("prim", c("dx_matches", "cpt_img"), 
                       sep = "_"), 
                 "dx_img"), 
               stringsAsFactors = FALSE)
@@ -179,17 +178,15 @@ cancers$seer_bm_01 <-
   with(cancers, 
        ifelse(is.na(seer_br_mets), NA, as.numeric(seer_br_mets == "SEER_Positive")))
 
-prim_to_dx_img <-
-  c("medicare_30_prim_dx_img", "medicare_60_prim_dx_img",
-    "medicare_90_prim_dx_img")
-cancers[,prim_to_dx_img] <- 
-  lapply(c(30, 60, 90), function(x) img_dx_test(cancers, x))
+prim_to_dx_img <- "medicare_60_prim_dx_img"
+
+cancers[,prim_to_dx_img] <- img_dx_test(cancers, 60)
 cancers$medicare_00_dx_dx <- as.numeric(cancers$counts_dx_matches >= 1)
                                                                           
 #differences between subjects diagnosed by seer compared to medicare         
 cancers$seer_br_2 <- with(cancers, ifelse(seer_bm_01 == 1, 2, seer_bm_01))   
 cancers$seer_medicare <-                                                     
-  factor(with(cancers, seer_br_2 + medicare_90_prim_dx_matches),             
+  factor(with(cancers, seer_br_2 + medicare_60_prim_dx_matches),             
          levels = 0:3,                                                       
          labels = c("None", "Medicare", "SEER", "Both"))                     
 

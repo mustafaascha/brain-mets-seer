@@ -47,18 +47,6 @@ no_a_c <-
   filter(cancers_1013, 
          !grepl("autopsy", radiatn_v))
 
-#paper_products[["no_a_classifimetry"]] <- 
-#  map_df(measure_vars,
-#         partial(primary_classifimeter, df = no_a_c)) %>% 
-#  (function(df) {
-#    ts <- mutate(df, msr = measure_labels)
-#    ts <- bind_cols(ts[,c("which_cancer", "msr")], 
-#                    bind_rows(ts[["classification_metrics"]]))
-#    paper_products[["all_classifimetry"]] <<- ts
-#    df 
-#  }) %>% 
-#  clean_paper_metrics(df_labels = measure_labels)
-
 #by histo classification============================================
 paper_products[["histo_metrics"]] <- 
   map(measure_vars, 
@@ -98,24 +86,26 @@ class_vrs <-
     "medicare_60_prim_dx_img")
 
 paper_products[["histo_annum"]] <- 
-  map_dfr(class_vrs, function(vr) gp_count(cancers, vr, which_cancer, dx_year, the_strata))
+  map_dfr(class_vrs, function(vr) {
+    gp_count(cancers, vr, which_cancer, dx_year, the_strata)
+  })
 
 paper_products[["age_over_time"]] <- 
-  map_dfr(class_vrs, function(vr) gp_count(cancers, vr, which_cancer, age_cut, dx_year))
+  map_dfr(class_vrs, function(vr) {
+    gp_count(cancers, vr, which_cancer, age_cut, dx_year)
+  })
 
 paper_products[["histo_age_over_time"]] <- 
   map_dfr(class_vrs, function(vr) {
-            gp_count(cancers, vr, which_cancer, age_cut, the_strata, dx_year)
-        })
+    gp_count(cancers, vr, which_cancer, age_cut, the_strata, dx_year)
+  })
 
 paper_products[["strata_only"]] <- 
-  map_dfr(class_vrs, function(vr) gp_count(cancers, vr, which_cancer, the_strata))
+  map_dfr(class_vrs, function(vr) {
+    gp_count(cancers, vr, which_cancer, the_strata)
+  })
 
 #table ones===============================================
-
-#to add: 
-# income, education, charlson, 
-# Consider filtering for first primary...?
 
 varnames <- 
   list(demos = c("age_dx", #"age_cut", 
@@ -132,7 +122,6 @@ varnames <-
        breast = c("her2_v", "prstatus_v", "erstatus_v", 
                   "brst_sub_v"))
        #consider excluding carcinoids? see goncalves 2016
-       #consider excluding all regional/SBM 
 
 to_numeric <- c("age_dx", "cs_size", "eod10_pn", "cs_mets")
 cancers[,to_numeric] <- lapply(cancers[,to_numeric], as.numeric)
@@ -145,26 +134,19 @@ tbl_one_vrs <- with(varnames, c(demos, primary, breast))
 
 grouped <- cancers_1013 %>% group_by(which_cancer) %>% tidyr::nest()
 
-tbl_strat <- function(strat) {                                                              
-  tbl_one_vars <- with(varnames, c(demos, primary))                                         
-  to_return <- map(grouped$data, function(gp_df) tbl_one(gp_df, tbl_one_vrs, strat))        
-  names(to_return) <- grouped$which_cancer                                                  
-  to_return                                                                                 
-}                                                                                           
+tbl_strat <- function(strat) { 
+  tbl_one_vars <- with(varnames, c(demos, primary))
+  to_return <- map(grouped$data, function(gp_df) tbl_one(gp_df, tbl_one_vrs, strat))
+  names(to_return) <- grouped$which_cancer 
+  to_return 
+} 
+
 table_ones <- map(the_strata, tbl_strat) 
 names(table_ones) <- the_strata
 
 table_ones <- purrr::transpose(table_ones)
 
-#check cancers are there
-#names(table_ones)
-#check rownames are the same for one of the cancers: 
-#reduce(map(tblo[[1]], rownames), intersect)
-
 paper_products[["table_ones"]] <- table_ones
-
-paper_products[["fiveyr_summary"]] <-
-  tbl_one(cancers, with(varnames, c(demos, primary)), "which_cancer")
 
 library(lubridate) 
 
