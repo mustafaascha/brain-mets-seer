@@ -133,7 +133,7 @@ pander_to(table_ones[["breast"]])
 ## Supplementary Table 3: Skin cancer demographics and clinical characteristics
 
 ```{r skin tableone}
-pander_to(table_ones[["skin"]]))
+pander_to(table_ones[["skin"]])
 ```
 
 \pagebreak
