@@ -1,112 +1,71 @@
 
 library(tidyverse)
 devtools::load_all("augur")
+devtools::load_all("frequencies")
 #load("cache/before_recode.RData")
 #library(tidyverse)
 cancers <- read_csv("cache/cancers_prerecode.csv.gz", progress = FALSE)
 
-#cancers[["dx_code_count"]] <-  
-#    ifelse(is.na(cancers[["dx_code_count"]]), 0, cancers[["dx_code_count"]])
-                                                                             
-seer_recode <- function(pedsf_df, key_var, df_var) {
-  p_recodes <- 
-    pedsf_utils$pedsf_recodes %>% 
-    distinct(Code, .keep_all = TRUE)
-  key_df <- 
-    p_recodes[p_recodes$Var == key_var, c("Code", "Meaning")]
-  new_name <- paste0(df_var, "_v")
-  names(key_df) <- c(df_var, new_name)
-  to_return <- left_join(pedsf_df, key_df)
-  #to_return <- to_return[,names(to_return) != df_var]
-  #names(to_return)[new_name == names(to_return)] <- df_var
-  to_return
-}
+seer_recode <- 
+  partial(recoder_fn, recode_df = pedsf_utils$pedsf_recodes)
 
 cancers <- seer_recode(cancers, "payer_dx1", "payerdx")
 
-
 key_vars_to_recode <- 
-c("radbrn",
-"csmetsdxliv_pub",
-"csmetsdxbr_pub",
-"csmetsdxb_pub",
-"csmetsdxlung_pub",
-"grade",
-"radsurg",
-"rad",
-"nosrg",
-"nhiade",
-"adjajc6t",
-"adjajc6n",
-"adjajc6m",
-"origin",
-"dajccstg",
-"dxconf",
-"erstat",
-"histrec",
-"intprim",
-"linkflag",
-"m_sex",
-"marst",
-"mat_type",
-"med_stcd",
-"numdigit",
-"other_tx1",
-"prstat",
-"race",
-"rsncd1",
-"sex",
-"srvmflag",
-"sssurg",
-"stat_rec",
-"typefu",
-"vrfydth",
-"yobflg1",
-"her2rec",
-"brstsub"
-)
+  c(
+    "radbrn",
+    "csmetsdxliv_pub",
+    "csmetsdxbr_pub",
+    "csmetsdxb_pub",
+    "csmetsdxlung_pub",
+    "grade",
+    "radsurg",
+    "rad",
+    "nhiade",
+    "erstat",
+    "intprim",
+    "marst",
+    "mat_type",
+    "med_stcd",
+    "numdigit",
+    "prstat",
+    "race",
+    "sex",
+    "srvmflag",
+    "stat_rec",
+    "typefu",
+    "vrfydth",
+    "her2rec",
+    "brstsub"
+  )
 
 df_vars_to_recode <- 
-c(                  
-"rad_brn",
-"csmetsdxliv_pub",
-"csmetsdxbr_pub",
-"csmetsdxb_pub",
-"csmetsdxlung_pub",
-"grade",
-"rad_surg",
-"radiatn",
-"no_surg",
-"nhiade",
-"t_value",
-"n_value",
-"m_value",
-"origin",
-"dajcc7stg",
-"dx_conf",
-"erstatus",
-"histrec",
-"intprim",
-"linkflag",
-"m_sex",
-"mar_stat",
-"mat_type",
-"med_stcd",
-"numdigit",
-"othr_rx",
-"prstatus",
-"race",
-"rsncd1",
-"s_sex",
-"srv_time_mon_flag",
-"ss_surg",
-"stat_rec",
-"typefup",
-"vrfydth",
-"yobflg1",
-"her2",
-"brst_sub"
-)
+  c(                  
+    "rad_brn",
+    "csmetsdxliv_pub",
+    "csmetsdxbr_pub",
+    "csmetsdxb_pub",
+    "csmetsdxlung_pub",
+    "grade",
+    "rad_surg",
+    "radiatn",
+    "nhiade",
+    "erstatus",
+    "intprim",
+    "mar_stat",
+    "mat_type",
+    "med_stcd",
+    "numdigit",
+    "prstatus",
+    "race",
+    "s_sex",
+    "srv_time_mon_flag",
+    "stat_rec",
+    "typefup",
+    "vrfydth",
+    "her2",
+    "brst_sub"
+  )
 
 #edit pedsf_utils to suit needs-------
 unique_recodes <- 
@@ -134,24 +93,7 @@ problem_value <-  "Unmarried or domestic partner (same sex or opposite sex or un
 unique_recodes$Meaning[unique_recodes$Meaning == problem_value] <- "Unmarried"
 
 unique_recodes$Meaning[unique_recodes$Meaning %in% c("B-cell", "T-cell")] <- NA
-#technique #1 --------------------------------------
 
-#for_recode <- function(vr, k_vr, k_df){
-#  k_df <- k_df[k_df$Var == k_vr, c("Code", "Meaning")]
-#  factor(factor(vr, levels = k_df$Code, labels = k_df$Meaning))
-#}
-#for_seer_recode <- pryr::partial(for_recode, k_df = unique_recodes)
-#
-#UNCOMMENT THESE TO RUN THE "for_recode" FUNCTIONS
-#cancers[,paste(df_vars_to_recode, "v", sep = "_")] <- 
-#cancers[,df_vars_to_recode] <- 
-#  map2(cancers[,df_vars_to_recode], key_vars_to_recode, for_seer_recode)
-
-#----------------------------------------------------------
-
-#technique #2 --------------------------------------
-
-#The general idea, written as pipes (with an extra gsub)
 cancers <- 
   pedsf_utils$pedsf_recodes %>% 
   filter(Var == "reg_id") %>% 
@@ -160,25 +102,10 @@ cancers <-
   right_join(cancers)
 
 
-keygen <- function(kdf, df_var, key_df_var) {
-  kdf <- kdf[kdf[["Var"]] == key_df_var,]
-  kdf <- kdf[!duplicated(kdf),c("Code", "Meaning")]
-  names(kdf) <- c(df_var, paste0(df_var, "_v"))
-  kdf
-}
 pedsf_keygen <- pryr::partial(keygen, kdf = unique_recodes)
 key_dfs <- map2(df_vars_to_recode, key_vars_to_recode, pedsf_keygen)
 
 library(zeallot)
-lj_coerce <- function(df1, df2){
-  join_by <- intersect(names(df1), names(df2))
-  if(length(join_by) != 1) {
-    stop("Can't coerce more than one 'by' column")
-  }
-  c(df1[[join_by]], df2[[join_by]]) %<-%
-    lapply(list(df1[[join_by]], df2[[join_by]]), as.character)
-  left_join(df1, df2)
-}
 
 cancers <- reduce(key_dfs, lj_coerce, .init = cancers)
 
@@ -200,11 +127,15 @@ cancers$beh03v <-
   as.character
 
 ssg_labels <-
-  c("In situ", "Localized", "Regional, direct", "Regional, LN",
-    "Regional, ext", "Regional, NOS", "Distant", "Unknown")
 cancers$d_ssg00 <-
-  factor(cancers$d_ssg00, levels = c(0:5, 7, 9), labels = ssg_labels)
-rm(ssg_labels)
+  factor(cancers$d_ssg00, 
+         levels = c(0:5, 7, 9), 
+         labels = c("In situ", "Localized", 
+                    "Regional, direct", "Regional, LN",
+                    "Regional, ext", "Regional, NOS", 
+                     "Distant", "Unknown")
+
+        )
 
 cancers$eod10_pn[cancers$eod10_pn == 99] <- NA
 cancers$eod10_pn[cancers$eod10_pn == 98] <- NA
@@ -212,8 +143,6 @@ cancers$eod10_pn[cancers$eod10_pn == 97] <- NA
 cancers$cs_mets[cancers$cs_mets == 99] <- NA
 cancers$cs_mets[cancers$cs_mets == 98] <- NA
 cancers$cs_size[as.numeric(cancers$cs_size) >= 988] <- NA
-
-
 
 #histo_url <- "https://seer.cancer.gov/icd-o-3/sitetype.icdo3.d20150918.xls"
 #download.file(histo_url, "~/brain-metastases/documentation/seer_histo.xls")
