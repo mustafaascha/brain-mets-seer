@@ -177,5 +177,10 @@ paper_products[["age_sex_race_strat"]] <-
 names(paper_products[["age_sex_race_strat"]]) <-
   c("seer_bm_01", measure_vars)
 
+paper_products[["pop_counts"]] <-
+  map(list(cancers, cancers_1013, cancers_full),
+      ~ table(.x[,c("which_cancer", "dx_year")]))
+
+names(paper_products[["pop_counts"]]) <- c("selected", "past_ten", "full")
 
 write_rds(paper_products, "paper_products.rds")
