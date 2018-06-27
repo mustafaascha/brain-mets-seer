@@ -19,7 +19,7 @@ all: dir-cache\
 		 paper_products.rds\
 		 tables-and-figures.html
 
-.PHONY: doc rmobj
+.PHONY: doc rmobj dir-cache dir-diagnoses dir-dx-imaging
 
 R_OPTS=--vanilla
 
@@ -27,18 +27,18 @@ VPATH = cache cache/dx-imaging cache/diagnoses extraction-scripts munge reports
 DXDIR = cache/diagnoses/
 IMGDIR = cache/dx-imaging/
 
-#extract data
-dir-cache: 
+dir-cache:
 	if [ ! -d "cache" ]; then mkdir cache ; fi
-dir-diagnoses: 
+dir-diagnoses:
 	cd cache;\
 	if [ ! -d "diagnoses" ]; then mkdir -p cache/diagnoses ; fi;\
 	cd ..
-dir-dx-imaging: 
+dir-dx-imaging:
 	cd cache;\
 	if [ ! -d "dx-imaging" ]; then mkdir -p cache/dx-imaging; fi;\
 	cd ..
 
+#extract data
 $(IMGDIR)nch-dx-imaging.csv.gz: cpt-img-nch.R
 	Rscript extraction-scripts/cpt-img-nch.R
 $(IMGDIR)dme-dx-imaging.csv.gz: cpt-img-dme.R
