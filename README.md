@@ -4,7 +4,7 @@ Reproducibility repository for a manuscript on brain metastases frequencies and 
 
 # Notes  
 
-Using a 64GB machine, this project will take several hours to run.    
+This project will take several hours to run on a single-processor machine with 64GB of memory.    
 
 Roughly, this work follows the following steps: 
 
@@ -16,20 +16,20 @@ Roughly, this work follows the following steps:
 
 - `augur` - This R package reads SEER-Medicare data and extracts relevant rows from the claims data   
 
-`documentation` - These tables are used to recode e.g. histology, diagnoses    
+- `documentation` - These tables are used to recode e.g. histology, diagnoses    
 
-`extraction-scripts` - This folder contains R scripts to extract relevant claims data     
+- `extraction-scripts` - This folder contains R scripts to extract relevant claims data     
 
-`frequencies` - This R package supports analysis and manuscript preparation    
+- `frequencies` - This R package supports analysis and manuscript preparation    
 
-`munge` - These scripts convert the data to an analyzable format     
+- `munge` - These scripts convert the data to an analyzable format     
 
-`reports` - These scripts are the last step before results are presentable and can be integrated into Rmarkdown
+- `reports` - These scripts are the last step before results are presentable and can be integrated into Rmarkdown
 
 # Instructions 
 
 Reproducing this work approximately follows two steps: 
-- Put data in the correct folder
+- Put lung, breast, and skin cancers data in the correct folder (`seerm`)
 - Run 'make'   
 
 ## Getting the project
