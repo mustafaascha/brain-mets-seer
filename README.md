@@ -1,23 +1,30 @@
-# freq-paper   
+# Reproducibility repository for a SEER-Medicare study of brain metastases
+
 Reproducibility repository for a manuscript on brain metastases frequencies and classification accuracy of medicare claims thereof
-
-# Requirements   
-
-- R Version 3.4.
-  - tidyverse
-  - pandoc
-- GNU Make 3.82 (Copyright (C) 2010 Free Software Foundation, Inc)
-- Git (optional)
 
 # Notes  
 
-- It will take a few hours to run the whole project on a single processor   
+Using a 64GB machine, this project will take several hours to run.    
 
 Roughly, this work follows the following steps: 
 
-1. Read through filetypes of interest and extract/write observations with matches in a particular column (e.g. extraction-scripts/icd-dx-nch.R)     
-2. Read through each of the matches and join relevant data to PEDSF     
+1. Read through filetypes of interest and extract observations with matches in a particular column (e.g. extraction-scripts/icd-dx-nch.R)     
+2. Read through extracted observations and join relevant data to PEDSF     
 3. Munge/analyze/report     
+
+# Contents
+
+- `augur` - This R package reads SEER-Medicare data and extracts relevant rows from the claims data   
+
+`documentation` - These tables are used to recode e.g. histology, diagnoses    
+
+`extraction-scripts` - This folder contains R scripts to extract relevant claims data     
+
+`frequencies` - This R package supports analysis and manuscript preparation    
+
+`munge` - These scripts convert the data to an analyzable format     
+
+`reports` - These scripts are the last step before results are presentable and can be integrated into Rmarkdown
 
 # Instructions 
 
@@ -27,7 +34,7 @@ Reproducing this work approximately follows two steps:
 
 ## Getting the project
 
-Either download the project [here](link), or use `git clone https://github.com/mustafaascha/freq-paper` to clone this repository. 
+Either download the project [here](link), or use `git clone https://github.com/mustafaascha/brain-mets-seer` to clone this repository. 
 
 ## Data  
 
