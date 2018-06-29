@@ -1,23 +1,23 @@
 all: dir-cache\
-		 dir-dx-imaging\
-		 nch-dx-imaging.csv.gz\
-		 dme-dx-imaging.csv.gz\
-		 outsaf-dx-imaging.csv.gz\
-		 dir-diagnoses\
-		 nch-icd-dx.csv.gz\
-		 nch-icd-dx-p.csv.gz\
-		 dme-icd-dx.csv.gz\
-		 dme-icd-dx-p.csv.gz\
-		 outsaf-icd-dx.csv.gz\
-		 medpar-icd-dx.csv.gz\
-		 cancers_loaded.rds\
-		 cancers_joined-vars.csv.gz\
-		 cancers_prerecode.csv.gz\
-		 cancers_postrecode.csv.gz\
-		 cancers_before_exclusion.csv.gz\
-		 cancers.csv.gz\
-		 paper_products.rds\
-		 tables-and-figures.html
+     dir-dx-imaging\
+     nch-dx-imaging.csv.gz\
+     dme-dx-imaging.csv.gz\
+     outsaf-dx-imaging.csv.gz\
+     dir-diagnoses\
+     nch-icd-dx.csv.gz\
+     nch-icd-dx-p.csv.gz\
+     dme-icd-dx.csv.gz\
+     dme-icd-dx-p.csv.gz\
+     outsaf-icd-dx.csv.gz\
+     medpar-icd-dx.csv.gz\
+     cancers_loaded.rds\
+     cancers_joined-vars.csv.gz\
+     cancers_prerecode.csv.gz\
+     cancers_postrecode.csv.gz\
+     cancers_before_exclusion.csv.gz\
+     cancers.csv.gz\
+     paper_products.rds\
+     tables-and-figures.html
 
 .PHONY: doc rmobj dir-cache dir-diagnoses dir-dx-imaging
 
@@ -28,14 +28,14 @@ DXDIR = cache/diagnoses/
 IMGDIR = cache/dx-imaging/
 
 dir-cache:
-	if [ ! -d "cache" ]; then mkdir cache ; fi
+	if [ ! -e "cache" ]; then mkdir cache ; fi
 dir-diagnoses:
 	cd cache;\
-	if [ ! -d "diagnoses" ]; then mkdir -p cache/diagnoses ; fi;\
+	if [ ! -e "diagnoses" ]; then mkdir diagnoses ; fi;\
 	cd ..
 dir-dx-imaging:
 	cd cache;\
-	if [ ! -d "dx-imaging" ]; then mkdir -p cache/dx-imaging; fi;\
+	if [ ! -e "dx-imaging" ]; then mkdir dx-imaging; fi;\
 	cd ..
 
 #extract data
@@ -60,10 +60,10 @@ $(DXDIR)outsaf-icd-dx.csv.gz: icd-dx-out.R
 	Rscript extraction-scripts/icd-dx-out.R
 
 cache/cancers_loaded.rds: cpt-img-nch.R   cpt-img-dme.R\
-			      							cpt-img-out.R   icd-dx-nch.R\
-													icd-dx-nch-p.R	icd-dx-dme.R\
-													icd-dx-dme-p.R	icd-dx-mpr.R\
-													icd-dx-out.R    load-data.R
+                          cpt-img-out.R   icd-dx-nch.R\
+                          icd-dx-nch-p.R	icd-dx-dme.R\
+                          icd-dx-dme-p.R	icd-dx-mpr.R\
+                          icd-dx-out.R    load-data.R
 	Rscript munge/load-data.R
 
 cache/cancers_joined-vars.csv.gz: claims-vars.R load-data.R
