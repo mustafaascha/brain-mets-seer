@@ -1,6 +1,6 @@
 # Reproducibility repository for a SEER-Medicare study of brain metastases
 
-Reproducibility repository for a manuscript on brain metastases frequencies and classification accuracy of medicare claims thereof
+Reproducibility repository for a manuscript on brain metastases frequencies and classification accuracy of Medicare claims for identifying brain metastasis status during cancer staging workup
 
 # Notes  
 
