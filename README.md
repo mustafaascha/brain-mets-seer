@@ -1,6 +1,8 @@
 # Reproducibility repository for a SEER-Medicare study of brain metastases
 
-Reproducibility repository for a manuscript on brain metastases frequencies and classification accuracy of Medicare claims for identifying brain metastasis status during cancer staging workup
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1300053.svg)](https://doi.org/10.5281/zenodo.1300053)
+
+This is a repository enabling reproduction of a manuscript on brain metastases frequencies and classification accuracy of Medicare claims for identifying brain metastasis status during cancer staging workup
 
 # Notes  
 
