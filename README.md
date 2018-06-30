@@ -6,7 +6,7 @@ This is a repository enabling reproduction of a manuscript on brain metastases f
 
 # Notes  
 
-This project will take several hours to run on a single-processor machine with 64GB of memory.    
+This project will take several hours to run on a single-processor machine with 64GB of memory. You can run `make` with the `-jN` option (where N is some integer) to go through claims files in parallel, but that's not recommended because it's best to have all claims evaluated before letting a thread start munging.     
 
 Roughly, this work follows the following steps: 
 
