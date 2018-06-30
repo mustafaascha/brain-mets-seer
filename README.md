@@ -62,7 +62,7 @@ File structure is loosely organized so that there are two R packages, `augur` to
 ├── reports    
 │   └── ...    
 ├── seerm     
-└── years.png    
+└── tables-and-figures.Rmd      
   
 After adding the data, it will appear as follows: 
 
@@ -103,7 +103,7 @@ After adding the data, it will appear as follows:
 │   ├── pedsf.lung.cancer.file02.txt.gz    
 │   ├── pedsf.breast.cancer.file01.txt.gz    
 │   └── CCflag07.txt.gz    
-└── years.png    
+└── tables-and-figures.Rmd       
 
 At that point, use the command `make`. Depending on how much data you have, it may take a computer with 40GB or more to run. 
 
