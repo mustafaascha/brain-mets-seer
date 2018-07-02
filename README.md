@@ -4,17 +4,11 @@
 
 This is a repository enabling reproduction of results from a manuscript on brain metastases. The manuscript examines frequencies (incidence proportions) and classification accuracy of Medicare claims for identifying brain metastasis status during cancer staging workup.
 
-# Notes  
+## Notes  
 
 This project will take several hours to run on a single-processor machine with 64GB of memory. You can run `make` with the `-jN` option (where N is some integer) to go through claims files in parallel, but that's not recommended because it's best to have all claims evaluated before letting a thread start munging. Manuscript analysis was run on Red Hat Enterprise 7.4 (Maipo).     
 
-Roughly, this work follows the following steps: 
-
-1. Read through filetypes of interest and extract observations with matches in a particular column (e.g. extraction-scripts/icd-dx-nch.R)     
-2. Read through extracted observations and join relevant data to PEDSF     
-3. Munge/analyze/report     
-
-# Contents
+## Contents
 
 - `augur` - This R package reads SEER-Medicare data and extracts relevant rows from the claims data.      
 
@@ -26,15 +20,15 @@ Roughly, this work follows the following steps:
 
 - `munge` - These scripts convert the data to an analyzable format.     
 
-- `reports` - These scripts are the last step before results are presentable and can be integrated into Rmarkdown.    
+- `reports` - These scripts are the last step before results are presentable and can be easily used in RMarkdown.    
 
-# Instructions 
+## Instructions 
 
 Reproducing this work approximately follows two steps: 
 - Put lung, breast, and skin cancers data in the correct folder (`seerm`)
-- Run 'make'   
+- Run `make`. To see what will be run, use `make --just-print`.      
 
-# Depends
+## Depends
 
 In addition to R 3.4.2 (2017-09-28) and a variety of R packages, this work depends on GNU `make` 4.2.1 and `pandoc` 1.19.2.1.          
 
