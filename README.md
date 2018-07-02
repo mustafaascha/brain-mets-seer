@@ -8,20 +8,6 @@ This is a repository enabling reproduction of results from a manuscript on brain
 
 This project will take several hours to run on a single-processor machine with 64GB of memory. You can run `make` with the `-jN` option (where N is some integer) to go through claims files in parallel, but that's not recommended because it's best to have all claims evaluated before letting a thread start munging. Manuscript analysis was run on Red Hat Enterprise 7.4 (Maipo).     
 
-## Contents
-
-- `augur` - This R package reads SEER-Medicare data and extracts relevant rows from the claims data.      
-
-- `documentation` - These tables are used to recode e.g. histology, diagnoses.     
-
-- `extraction-scripts` - This folder contains R scripts to extract relevant claims data.     
-
-- `frequencies` - This R package supports analysis and manuscript preparation.    
-
-- `munge` - These scripts convert the data to an analyzable format.     
-
-- `reports` - These scripts are the last step before results are presentable and can be easily used in RMarkdown.    
-
 ## Instructions 
 
 Reproducing this work approximately follows two steps: 
@@ -40,7 +26,22 @@ Either download the project [here](https://github.com/mustafaascha/brain-mets-se
 
 Data is not provided, though data files may be placed in the `seerm` folder to reproduce this analysis. 
 
-File structure is loosely organized so that there are two R packages, `augur` to read the files and `frequencies` to make the manuscript. Noting that `seerm` is an empty directory where we will place the data, the structure looks like this: 
+
+## Contents
+
+- `augur` - This R package reads SEER-Medicare data and extracts relevant rows from the claims data.      
+
+- `documentation` - These tables are used to recode e.g. histology, diagnoses.     
+
+- `extraction-scripts` - This folder contains R scripts to extract relevant claims data.     
+
+- `frequencies` - This R package supports analysis and manuscript preparation.    
+
+- `munge` - These scripts convert the data to an analyzable format.     
+
+- `reports` - These scripts are the last step before results are presentable and can be easily used in RMarkdown.    
+
+Noting that `seerm` is an empty directory where we will place the data, the structure looks like this: 
 
 (top level)   
 ├── augur    
@@ -102,17 +103,5 @@ After adding the data, it will appear as follows:
 └── tables-and-figures.Rmd       
 
 At that point, use the command `make`. Depending on how much data you have, it may take a computer with 40GB or more to run. 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
