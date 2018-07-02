@@ -45,7 +45,6 @@ File structure is loosely organized so that there are two R packages, `augur` to
 (top level)   
 ├── augur    
 │   └── ...    
-├── bibliography.bib    
 ├── documentation    
 │   └── ...    
 ├── extraction-scripts    
@@ -68,7 +67,6 @@ After adding the data, it will appear as follows:
 (top level)    
 ├── augur     
 │   └── ...     
-├── bibliography.bib    
 ├── documentation    
 │   └── ...    
 ├── extraction-scripts    
