@@ -31,7 +31,6 @@ expected_cancers_full <-
 names(expected_cancers_full) <- paste("x", expected_whocodes, sep = "")
 
  #  we're working with lung, skin, and breast cancers
- #  is this necssaru pr correct?                 
 paper_products[["not_right_cancer"]] <- 
   list(cancers = expected_cancers, 
        cancers_full = expected_cancers_full)
@@ -69,7 +68,6 @@ vfe <- vars_for_exclusion <-
     c("hmocnt", "age_dx", "dx_year", "typefup",
       "med_stcd", "med_stcd", "med_stcd", 
       "med_stcd", "race",  "srv_time_mon",
-     #"hmocnt1991_2015", "age_dx_e",
       "vrfydth", "payerdx_v",
       "payerdx_v"
       #, "all_same_cancer"
@@ -79,7 +77,6 @@ vte <- values_to_exclude <-
       "Autopsy/Death Certificate",
       "ESRD only", "Aged with ESRD", "Disabled",
       "Disabled with ESRD", "Unknown", "9999",
-     #"Used HMO", "Age < 65", 
       "No", "Insurance status unknown",
       "Not insured"
       #, "Unaccounted primaries present"
