@@ -29,6 +29,7 @@ show_classification <- function(df, which_primary) {
            Count,
            Sensitivity,
            PPV,
+           Specificity,
            Kappa)
   suppress_repeat <- function(vctr) {
     vctr <- as.character(vctr)
@@ -73,7 +74,6 @@ make_table <- function(tbl_list, which_algo) {
   to_return
 }
 
-
 rm_rnm_rws <- function(to, to_rm) {
   to <- to[-to_rm,]
   rownames(to) <- NULL
@@ -86,17 +86,19 @@ rm_rnm_rws <- function(to, to_rm) {
               "histo",    
               "prstatus_v", "erstatus_v", "her2_v", "brst_sub_v",
               "csmetsdxb_pub_v", "csmetsdxliv_pub_v", "csmetsdxlung_pub_v",
+              "Regional\\,\\ ext", "Regional\\,\\ LN",
               "_",        "\\ ="
     ),
     c("", 
-      "Age (continuous)", "Age (categorical)", 
+      "Age - continuous", "Age - categorical", 
       "Number of metastases found at primary diagnosis", 
       "Number of metastasis-positive nodes at primary diagnosis", 
-      "Behavior", "Size (mm)",
+      "Behavior", "Size in mm",
       "SEER Stage", "Race",
       "Histology", 
       "PR Status", "ER Status", "HER2 Status", "SEER Subtype",
       "Bone metastases", "Liver metastases", "Lung metastases",
+      "Regional, extension and nodes", "Regional, lymph nodes only",
       " ", ":"
     ), 
     function(init, rp, repl) { gsub(rp, repl, init) },
@@ -128,54 +130,6 @@ suppress_columns <- function(df, which_columns) {
   df
 }
 
-
-
-#' #' Title
-#' #'
-#' #' @return
-#' #' @export
-#' #'
-#' #' @examples
-#' prep_weights <- function() {
-#'   library(magrittr)
-#'   adj <- list()
-#'   adj[["seer2000"]] <-
-#'     seer_adj_example %>% slice(15:n()) %>%
-#'     modify_at("Age", function(z)
-#'       gsub("\\-",  " to ", z)) %>% rename(pop = Age) %>%
-#'     select(pop, count = U.S._2000_Standard_Populations) %>%
-#'     modify_at("count", as.numeric) %>%
-#'     mutate(weight = count / sum(count, na.rm = TRUE))
-#'   #browser()
-#'   adj[["census2010"]] <-
-#'     augur::census2010 %>%
-#'     select(pop, count = count_2010) %>%
-#'     slice(c(4, 5, 7, 8, 9, 12)) %>%
-#'     gather(v, k,-pop) %>%
-#'     modify_at("k", as.numeric) %>%
-#'     spread(v, k)
-#'   adj$census2010[["weight"]] <-
-#'     adj$census2010$count / sum(adj$census2010$count)
-#'   adj$census2010 <-
-#'     rbind(
-#'       adj$census2010[1:4, ],
-#'       data.frame(
-#'         pop = "85+",
-#'         count = sum(adj$census2010$count[5:6]),
-#'         weight = sum(adj$census2010$weight[5:6]),
-#'         stringsAsFactors = FALSE
-#'       )
-#'     )
-#'   adj$census2010$pop <- gsub("\\ years", "", adj$census2010$pop)
-#'   
-#'   adj[["totals"]] <-
-#'     augur::census2010 %>% select(-ends_with("all")) %>% slice(2)
-#'   #make sure the right rows were selected
-#'   stopifnot(adj$census2010$count %>% sum == adj$total_65_above$count_2010)
-#'   adj
-#' }
-
-
 #' Winnow down classification metrics into something more manageable
 #'
 #' @param df 
@@ -202,6 +156,7 @@ prep_classifimetry <- function(df, keep_these = NULL) {
       c("Primary_Cancer",   "Timing",
         "Claims_code",      "Count",
         "Sensitivity",      "PPV",
+        "Specificity",
         "Kappa")
   } else {
     keepers <- keep_these
@@ -220,8 +175,6 @@ prep_classifimetry <- function(df, keep_these = NULL) {
   list(SEER_Count = seer_df,
        metrics = df[, keepers])
 }
-
-
 
 #' Work with the `histo_annum` df
 #'
@@ -290,45 +243,6 @@ group_ip <- function(df, ...) {
   df
 }
 
-#' #' Estimate adjusted incidence rate for a list of pop count dataframes, 
-#' #' using 2000 and 2010 65+ population weights
-#' #'
-#' #' @param df A dataframe containing a list-column of `munge_counts` dataframes
-#' #'
-#' #' @return
-#' #' @export
-#' #' 
-#' #' @importFrom dplyr `%>%` 
-#' #' @importFrom purrr map imap_dfc reduce
-#' #' @importFrom rlang enquo quo_name
-#' #' 
-#' #' @examples
-#' ageadj_munged_df <- function(df) {
-#'   df_nm <- quo_name(enquo(df))
-#'   list_col_data <- df[["data"]] %>% back_that_up("aair_listcol")
-#'   #browser()
-#'   age_adj <- function(rates, std_df) {
-#'     #stopifnot(nrow(rates) == nrow(std_df))
-#'     ageadjust(rates[["crude_count"]], rates[["total"]], std_df[["count"]])
-#'   }
-#'   
-#'   wts <- prep_weights()
-#'   
-#'   list(adj_00 = wts$seer2000,
-#'        adj_10 = wts$census2010) %>%                      
-#'     map( ~ map(list_col_data, age_adj, std_df = .x)) %>%  
-#'     map( ~ reduce(.x, bind_rows)) %>%                     
-#'     imap_dfc(function(df, df_nm) {
-#'       names(df) <-
-#'         paste(gsub("\\.", "_", names(df)),
-#'               gsub("[^0-9]", "", df_nm),
-#'               sep = "_")
-#'       df
-#'     })
-#' }
-
-
-
 #' Show one of the clinical/demographic characteristics tables
 #'
 #' @param x The table
@@ -346,8 +260,6 @@ pander_to <- function(x, extras = NULL, ...) {
   }
   pander(x, caption = table_one_caption, ...)
 }
-
-
 
 #' Back up pipe intermediates for later inspection
 #'
@@ -401,6 +313,7 @@ primary_classification <- function(df, which_primary, ...) {
     select(Timing,      Primary_Cancer,
            Claims_code, Count,
            Sensitivity, PPV,
+           Specificity,
            Kappa)
 
   list(class = to_show, caption = classification_metrics_caption)
@@ -432,6 +345,7 @@ strata_classification <- function(df, which_primary) {
     select(Timing,      Primary_Cancer,
            Claims_code, Count,
            Sensitivity, PPV,
+           Specificity,
            Kappa)
   suppress_repeat <- function(vctr) {
     vctr <- as.character(vctr)
@@ -449,34 +363,6 @@ strata_classification <- function(df, which_primary) {
   list(class = to_show, caption = classification_metrics_caption)
 }
 
-
-#' #' Make a demographics/patient characteristics manuscript table from the
-#' #' multiple similar tables created using the same process but with different
-#' #' strata.
-#' #'
-#' #' @param tbl_list
-#' #' @param which_algo
-#' #'
-#' #' @return
-#' #' @export
-#' #'
-#' #' @examples
-#' make_table <- function(tbl_list, which_algo) {
-#'   if (length(unique(map_int(tbl_list, nrow))) != 1) {
-#'     stop("Tables should have the same number of rows!")
-#'   }
-#'   to_return <-
-#'     data.frame(
-#'       Variable = rownames(tbl_list[[1]]),
-#'       `Overall` = tbl_list[["default"]][, 1],
-#'       `SEER Synchronous` = tbl_list[["seer_br_mets"]][, 2],
-#'       `Medicare Lifetime` = tbl_list[[which_algo]][, 2],
-#'       stringsAsFactors = FALSE
-#'     )
-#'   rownames(to_return) <- NULL
-#'   to_return
-#' }
-
 #' Make standardized population weights
 #'
 #' @return
@@ -489,7 +375,6 @@ strata_classification <- function(df, which_primary) {
 #'
 #' @examples
 prep_weights <- function() {
-  library(magrittr)
   adj <- list()
   adj[["seer2000"]] <-
     augur::seer_adj_example %>% slice(15:n()) %>%
@@ -526,71 +411,6 @@ prep_weights <- function() {
   stopifnot(adj$census2010$count %>% sum == adj$total_65_above$count_2010)
   adj
 }
-
-
-#' #' Winnow down classification metrics into something more manageable
-#' #'
-#' #' @param df 
-#' #'
-#' #'@export
-#' prep_classifimetry <- function(df) {
-#'   df <- df %>% arrange(desc(which_cancer, synchronous, claims_code))
-#'   rows_to_switch <-
-#'     which(df$synchronous == "Lifetime" &
-#'             df$claims_code == "CNS + imaging")
-#'   for (row_num in rows_to_switch) {
-#'     old_order <- c(rows_to_switch, rows_to_switch + 1)
-#'     new_order <- rev(old_order)
-#'     df[old_order, ] <- df[new_order, ]
-#'   }
-#'   names(df) <-
-#'     c(
-#'       "Primary_Cancer",
-#'       "Timing",
-#'       "Claims_code",
-#'       "Count",
-#'       "SEER_Count",
-#'       "Sensitivity",
-#'       "PPV",
-#'       "Specificity",
-#'       "Kappa"
-#'     )
-#'   keepers <-
-#'     c("Primary_Cancer",
-#'       "Timing",
-#'       "Claims_code",
-#'       "Count",
-#'       "Sensitivity",
-#'       "PPV",
-#'       "Kappa")
-#' 
-#'   df[["Claims_code"]][
-#'     df[["Claims_code"]] == "CNS + imaging"] <-
-#'     "CNS Metastasis w/Diagnostic Imaging"
-#'   
-#'   df[["Claims_code"]][
-#'     df[["Claims_code"]] == "CNS"] <- 
-#'     "CNS Metastasis"
-#'   
-#'   df[["Claims_code"]] <-
-#'     relevel(factor(df[["Claims_code"]]), 
-#'             ref = "CNS Metastasis w/Diagnostic Imaging")
-#'   
-#'   df[["Primary_Cancer"]] <-
-#'     factor(df[["Primary_Cancer"]], 
-#'            levels = c("lung", "breast", "skin"))
-#'   
-#'   seer_df <-
-#'     df %>% 
-#'     select(Primary_Cancer, SEER_Count) %>% 
-#'     distinct() %>% 
-#'     arrange(Primary_Cancer)
-#'   
-#'   list(SEER_Count = seer_df,
-#'        metrics = df[, keepers])
-#' }
-
-
 
 #' Work with the `histo_annum` df
 #'
@@ -659,8 +479,6 @@ nest_to_list <- function(nested_df){
 }
 
 #' Replace any duplicate with "", leaving only the first occurrence in place
-#'
-#' @param vctr 
 #'
 #'@export
 perma_dupes <- function(vctr) {
@@ -918,16 +736,6 @@ clean_table_histonames <- function(histonames) {
   )
 }
 
-  
-#' Title
-#'
-#' @param show_counts_df 
-#' @param histo 
-#'
-#' @return
-#' @export
-#'
-#' @examples
 relabel_ip <- function(show_counts_df, histo = FALSE) {
   gsub_this <- function(init, x, y) gsub(x, y, init)
   gsub_reduce <- function(a, b, z) reduce2(a, b, gsub_this, .init = z)
@@ -940,7 +748,6 @@ relabel_ip <- function(show_counts_df, histo = FALSE) {
     lapply(show_counts_df[, grepl("\\%", names(show_counts_df))],
            function(props) gsub("\\%", "", props))
   
-  #=====================
   subcol_labels <-
     gsub_reduce(
       c("_?(Neg|Pos)_?", "m_group_total",
@@ -989,92 +796,6 @@ relabel_ip <- function(show_counts_df, histo = FALSE) {
   show_counts_df
 }
 
-
-#' Title
-#'
-#' @param df 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-make_plot_ips <- function(df) {
-  df <- 
-    df %>% 
-    group_by(Present) %>% 
-    summarise(Freq = sum(Freq)) %>% 
-    spread(Present, Freq, fill = 0)
-  if(length(df) == 1) {
-    df[["1"]] <- 0
-  }
-  names(df) <- c("absent", "present")
-  df[["total"]] <- df[["absent"]] + df[["present"]]
-  df[["IP"]] <- df[["present"]] / df[["total"]]
-  df[["IP"]] <- ifelse(df[["present"]] < 11, 0, df[["IP"]])
-  #df[,c("absent", "present", "total")] <- NULL
-  df[,c("absent", "total")] <- NULL
-  df
-}
-
-#' Title
-#'
-#' @param x 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-recode_strata <- function(x){
-  forcats::fct_recode(gsub("\\, Nos", "", as.character(x)), 
-                      NSCLC = "Non-Small Cell Carcinoma", 
-                      SCLC  = "Small Cell Carcinoma", 
-                      `Squamous CC` = "Squamous Cell Carcinoma")
-}
-
-#' Title
-#'
-#' @param plot_df 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-make_by_sex <- function(plot_df){
-  by_sex <- 
-    group_by(plot_df, which_cancer, s_sex_v, the_strata, measure) %>% 
-    tidyr::nest() 
-  by_sex[["data"]] <- map(by_sex[["data"]], make_plot_ips)
-  by_sex <- unnest(by_sex)
-  by_sex[["the_strata"]] <- recode_strata(by_sex[["the_strata"]])
-  by_sex
-}
-
-
-make_by_race <- function(plot_df) {
-  by_race <- 
-    group_by(plot_df, which_cancer, race_v, the_strata, measure) %>% 
-    tidyr::nest() 
-  by_race[["data"]] <- map(by_race[["data"]], make_plot_ips)
-  by_race <- unnest(by_race)
-  
-  by_race[["the_strata"]] <- 
-    forcats::fct_recode(gsub("\\, Nos", "", as.character(by_race[["the_strata"]])), 
-                        NSCLC = "Non-Small Cell Carcinoma", 
-                        SCLC  = "Small Cell Carcinoma", 
-                        `Squamous CC` = "Squamous Cell Carcinoma")
-  by_race[["race_v"]] <- 
-    forcats::fct_recode(as.character(by_race[["race_v"]]), 
-                        AI = "American Indian",
-                        WNH = "White Non-Hispanic", 
-                        WH  = "White Hispanic", 
-                        API = "Asian/Pacific Islander")
-  by_race
-}
-
-gp_cncr <- function(a_df) {
-  nest_to_list(tidyr::nest(dplyr::group_by(a_df, which_cancer)))
-}
-
 #' Group a dataframe by `algorithm` and make a list whose names are the algo
 #'
 #' @param df A data frame containing an `algorithm` column
@@ -1089,15 +810,6 @@ nest_list_by_algo <- function(df){
     group_by(algorithm) %>% tidyr::nest() %>% nest_to_list()
 }
 
-#' Title
-#'
-#' @param df_list 
-#' @param histo 
-#'
-#' @return
-#' @export
-#'
-#' @examples
 bind_and_show <- function(df_list, histo = FALSE) {
   df <- bind_cols(df_list)
   if (histo) {
@@ -1113,15 +825,6 @@ bind_and_show <- function(df_list, histo = FALSE) {
     separate("m_Positive", c("LBM_IP", "LBM Count"), "\\*\\*")
 }
 
-#' Title
-#'
-#' @param df 
-#' @param histo 
-#'
-#' @return
-#' @export
-#'
-#' @examples
 spread_rename_ip <- function(df, histo = FALSE) {
   tr <- df %>%
     spread(algo_v, show) %>%
@@ -1140,14 +843,6 @@ spread_rename_ip <- function(df, histo = FALSE) {
   }
 }
 
-#' Title
-#'
-#' @param df 
-#'
-#' @return
-#' @export
-#'
-#' @examples
 select_showvars <- function(df) {
   select(
     df,
@@ -1165,14 +860,6 @@ select_showvars <- function(df) {
   )
 }
 
-#' Title
-#'
-#' @param df 
-#'
-#' @return
-#' @export
-#'
-#' @examples
 reorder_primary <- function(df) {
   df %>%
     modify_at("Primary",  function(x)
@@ -1189,8 +876,8 @@ reorder_primary <- function(df) {
 clean_strat_class <- function(df) {
   df %>% 
     select(which_cancer, the_strata, measure, predicted_positives, actual_positives, 
-           sensitivity, PPV, kappa, kappa_lci, kappa_hci) %>% 
-    modify_at(c("sensitivity", "PPV", "kappa", "kappa_lci", "kappa_hci"), 
+           sensitivity, PPV, specificity, kappa, kappa_lci, kappa_hci) %>% 
+    modify_at(c("sensitivity", "PPV", "specificity", "kappa", "kappa_lci", "kappa_hci"), 
               ~ sprintf("%.2f", .x)) %>% 
     modify_at("which_cancer", function(z) factor(z, levels = c("lung", "breast", "skin"))) %>% 
     arrange(which_cancer, the_strata) %>% 
@@ -1203,10 +890,10 @@ clean_strat_class <- function(df) {
           }
         }
        }
-      names(df)[1:6] <- 
+      names(df)[1:8] <- 
         c("Primary",   "", 
           "Algorithm", "Predicted", 
-          "True",  "Sens.")
+          "True",  "Sens.", "PPV", "Specificity")
       df[["Kappa"]] <- 
         with(df, paste(kappa, paste("(", kappa_lci, " - ", kappa_hci, ")", sep = "")))
       df[,c("kappa", "kappa_lci", "kappa_hci")] <- NULL
@@ -1221,7 +908,6 @@ clean_strat_class <- function(df) {
 #'
 #' @return
 #' @export
-
 clean_crude_sbm <- function(df) {
   df %>% 
     spread(algo_value, cnt) %>% 
@@ -1246,7 +932,7 @@ clean_crude_sbm <- function(df) {
 #'
 #' @return
 #' @export
-rle_hyp <- function(vctr) {
+rle_hyphenate <- function(vctr) {
   diff_1 <- function(x) as.numeric(diff(as.integer(as.character(x))) != 1)
   rle_diff <- function(x) rle(cumsum(c(0, diff_1(x))))[["lengths"]]
   consecs <- rle_diff(vctr)
@@ -1266,41 +952,63 @@ rle_hyp <- function(vctr) {
   paste(hyphenates, collapse = ", ")
 }
 
-make_text_y <- function(df, seer, medicare) {
-  mutate(df, 
-         text_y = ifelse(measure == "SEER SBM", seer, medicare))
+hyphenate_histocodes <- function(df) {
+  df[["hist03v"]] <- as.numeric(as.character(df[["hist03v"]]))
+  df <- arrange(df, hist03v)
+  biggest <- max(df[["hist03v"]], na.rm = TRUE)
+  smallest <- min(df[["hist03v"]], na.rm = TRUE)
+  if (biggest == (smallest + nrow(df) - 1) &
+      nrow(df) > 1) {
+    return(paste(smallest, biggest, sep = "-"))
+  } else {
+    rle_hyphenate(df[["hist03v"]])
+  }
 }
 
-plot_lung_df <- function(dfs, seer_y, medicare_y) {
-  dfs[["lung"]] %>% 
-    make_text_y(seer = seer_y, medicare = medicare_y) %>% 
-    modify_at("present", censor_few) %>% 
-    modify_at("the_strata", 
-              ~ factor(.x, levels = c("Adenocarcinoma", "Carcinoma", 
-                                      "SCLC", "NSCLC", "Squamous CC")))
+
+bind_ct_tables <- function(a_list) {
+  reduce(a_list, bind_rows) %>% rm_second_name()  
 }
 
-bp_this <- function(df, the_fill, sz = 4) {
-  the_fill <- enquo(the_fill)
-  ggplot(df, aes(x = the_strata, y = IP * 100, 
-                 fill = eval_tidy(the_fill, data = df))) + 
-    facet_wrap(~ measure, scales = "free_x") + 
-    geom_bar(stat = "identity", position = position_dodge(), color = "black") #+ 
-    # geom_text(aes(label = present, y = text_y), 
-    #           size = sz,
-    #           position = position_dodge(width = 1)) + 
-#    coord_flip()
+prepare_classification_selector <- 
+  function(histo_df) {
+    function(msr) {
+      histo_df %>% 
+        filter(measure %in% c(msr)) %>% 
+        clean_strat_class() %>% 
+        add_second_name() %>% 
+        select(-Algorithm) %>% 
+        modify_at(c("Predicted", "True"), censor_few) %>% 
+        modify(as.character) %>% 
+        modify_at("x", clean_table_histonames)
+    }
 }
 
-label_this <- function(this, that) {
-  labs(y = "Incidence Proportion (%)", x = "", 
-       title = paste(this, "cancers"), 
-       fill = that)
-}
 
+prepare_histo_key <- function(histo_key_df) {
+  fix_mel_names <- 
+    function(z) tolower(gsub("Mal\\.\\ Mel\\.\\ In\\ Junct\\.\\ Nevus", 
+                             "malignant Melanoma in junctional nevus", z))
+  rm_nos <- function(z) str_to_title(gsub("\\,\\ NOS$", "", z))
+  shorten_car <- function(z) gsub("ca\\.$", "carcinoma", z)
+  histo_key_df <- 
+    histo_key_df %>% 
+    rename(histo = hist03v_v) %>% 
+      select(-Freq) %>% 
+      # modify_at("histo", rm_nos) %>% 
+      # modify_at("histo", fix_mel_names) %>% 
+      modify_at("histo", compose(shorten_car, fix_mel_names, rm_nos)) %>% 
+      group_by(which_cancer, histo) %>% 
+      nest()
+  
+  #I don't need to do this biggest/smallest stuff...I need to remove it
+  histo_key_df[["codes"]] <-
+    map_chr(histo_key_df[["data"]], hyphenate_histocodes)
+  
+  histo_key_df
+}
 
 censor_few <- function(z) {
-  #ifelse(z <= 11 & z != 0, "*", "")
   ifelse(z <= 11 & z != 0, "*", paste(z, "   "))
 }
 
@@ -1309,23 +1017,238 @@ add_ci <- function(kappa_calc) {
   paste(strings[[1]], "(95% CI:", strings[[2]], collapse = "")
 }
 
-
-arrange_plots <- function(...) {
-  cowplot::plot_grid(..., labels = c("a.", "b."), label_fontface = "plain")
-}
-
-
-new_ct_row <- function(lbl, primary = "") {
+new_ct_row <- function(lbl) {
   data.frame(
-    Primary = primary, 
+    Primary = "", 
     x = lbl, 
     Predicted = "", 
     True = "", 
     Sens. = "", 
     PPV = "", 
+    Specificity = "",
     Kappa = "", 
     stringsAsFactors = FALSE
   ) 
+}
+
+add_second_name <- function(a_df) {
+  names(a_df)[2] <- "x"
+  a_df
+}
+
+rm_second_name <- function(a_df) {
+  names(a_df)[2] <- ""
+  a_df
+}
+
+in_text_cm <-   function(cm_df) {
+  # Separate out the confidence intervals
+  cm_df %>% 
+  (function(df) {
+    vls <- strsplit(df[["Kappa"]], split = "[^0-9.]")
+    df["kli"] <- map_chr(vls, 3)
+    df["kui"] <- map_chr(vls, 6)
+    df[["Kappa"]] <- map_chr(vls, 1) 
+    df
+  }) %>% 
+  # Fill the columns back up (after perma_dupes)
+  modify_at(c("Timing", "Primary_Cancer"), 
+            function(vctr) {
+              for (i in seq_along(vctr)) {
+                if (vctr[i] == "") {
+                  vctr[i] <- vctr[i - 1]
+                }
+              }
+              vctr
+            }) %>% 
+  rename(the_time = Timing, the_cancer = Primary_Cancer, codes = Claims_code) %>% 
+  # Make code algorithm names easier to reference in function
+  modify_at("codes", function(vctr){
+    vctr <- as.character(vctr)
+    vctr[vctr == "CNS Metastasis"] <- "dx"
+    vctr[vctr == "CNS Metastasis w/Diagnostic Imaging"] <- "dximg"
+    vctr
+  }) %>%  back_up("zzz2") %>% 
+  # Make code algorithm names easier to reference in function
+  modify_at("the_time", function(vctr) {
+    vctr[vctr == "Synchronous"] <- "sync"
+    vctr[vctr == "Lifetime"] <- "life"
+    vctr
+  }) %>% 
+  # Format for printing
+  modify_at(c("Sensitivity", "PPV", "Kappa", "kli", "kui"), 
+            function(thing) sprintf("%.2f", as.numeric(thing)))
+}
+
+intxt_cm_fn_fctry <- function(cm_df) {
+  # Make function for in-text classification metrics reference 
+  function(which_cancer, timing, the_codes){
+    cm_df[with(cm_df,
+                 the_time == timing & 
+                 the_cancer == which_cancer & 
+                 codes == the_codes),
+          ]
+  }
+}
+
+munge_ip_for_intext <- function(ip_aair_df) {
+  ipa <- ip_aair_df
+  
+  names(ipa) <- 
+    c("which_cancer", "histo", "sbm_aair", "sbm_cnt", "sbm_ip", 
+      "sbm_neg", "sbm_na", "lbm_aair", "lbm_cnt", "lbm_ip", "lbm_neg")
+  
+  ipa <- ipa %>% slice(-1) %>% 
+    modify_at( c("sbm_aair", "lbm_aair"), 
+               function(aair_vct) gsub("\\)", "", aair_vct)) %>% 
+    modify_at(c("which_cancer", "histo"), tolower) %>% 
+    modify_at("histo", function(x) gsub("(\\(|\\/).*", "", x))
+  
+  ipa <- 
+    reduce(    
+          list(
+              list("sbm_aair", c("sbm_aair", "sbm_ci"), "\\ \\("), 
+              list("sbm_ci",   c("sbm_lci", "sbm_hci"), "-"), 
+              list("lbm_aair", c("lbm_aair", "lbm_ci"), "\\ \\("), 
+              list("lbm_ci",   c("lbm_lci", "lbm_hci"),  "-")
+              ), 
+           function(df, rs) {
+             #separate this, separate into, separate by
+             c(to_s, in2, s_by) %<-% rs
+             separate(df, to_s, in2, s_by, extra = "drop", fill = "left")
+           }, 
+           .init = ipa
+          )
+  
+  gather(ipa, msr, val, -which_cancer, -histo) %>% 
+    modify_at("histo", function(z) gsub("triple\\ ", "triple", z)) %>% 
+    modify_at("histo", function(z) gsub("\\ |\\&", "", z)) %>% 
+    separate(msr, c("which", "msr"), sep = "_") %>% 
+    filter(histo != "") %>% 
+    spread(which, val) %>% 
+    gather(timing, value, -which_cancer, -histo, -msr) %>% 
+    spread(msr, value) %>% 
+    data.frame(stringsAsFactors = FALSE) %>% 
+    modify_at("ip", ~ sprintf(fmt = "%.1f", quietly(as.numeric)(.x)[["result"]]))
+}
+
+histo_key_fn_fctry <- function(histo_key_df) {
+  histo_key_df <- prepare_histo_key(histo_key_df)
+  function(cnc, hst) {
+    if (is.numeric(hst)) {
+      which_hst <- hst
+    } else if (is.character(hst)) {
+      which_hst <-
+        grep(hst, histo_key_df$histo[histo_key_df$which_cancer == cnc])
+    }
+    hst <- histo_key_df$histo[histo_key_df$which_cancer == cnc][which_hst]
+    with(histo_key_df,
+         list(h = hst, c = codes[which_cancer == cnc & histo == hst]))
+  }
+}
+
+ip_aair_names_fn <- function(vctr) {
+  reduce2(c("1$", "SEER",     "Medicare",     
+            #"Present", "Absent", 
+            "Missing", "Total"), 
+          c("",   "SEER SBM", "Medicare LBM", 
+            #"(+)", "\\(-)",  
+            "N/A", "At risk"), 
+          function(init, x, y) gsub(x, y, init),
+          .init = vctr)
+}
+
+aair <- function(aair_df, nms, ...) {
+  dots_nms <- deparse(substitute(...))
+  #browser()
+  # if (rlang::dots_n(...) > 0) {
+  if (any("the_strata" %in% dots_nms)){ 
+    selector <- function(p_df) {
+      select(p_df,
+             Primary, Stratum, 
+             SEER_SBM = seer_bm_01, 
+             Medicare_LBM = which_algo_to_use)
+    }
+  } else {
+    selector <- function(p_df) {
+      select(p_df,
+             Primary,
+             SEER_SBM = seer_bm_01, 
+             Medicare_LBM = which_algo_to_use)
+    }
+  }
+  rtrn <- 
+    filter(aair_df, !is.na(cnt)) %>% 
+      aair_by(which_algo_to_use, algo, which_cancer, ...) %>% 
+      rates_fn(gp_nms = nms) %>% 
+      ungroup() %>% 
+      select(-crude) %>% 
+      spread(Algorithm, AAIR) %>% 
+      reorder_primary()
+  
+  selector(rtrn)
+}
+
+rm_rows_finder <- function(the_table_ones) {
+  grep_it <- function(cncr) {
+    function(a, z) c(a, grep(z, the_table_ones[[cncr]][["Variable"]]))
+  }
+  list(
+    breast_rows_to_rm =   
+      reduce(c("llt",     "other", "ulf", "icd_c", "HER2",
+               "cs_mets", "eod10_pn", "beh03v"), 
+             grep_it("breast"), 
+             .init = c()), 
+    lung_rows_to_rm =   
+      reduce( c("brst_sub", "PR",       "HER2",  "ER",  
+                "her2_v",   "llt",      "other", "ulf", 
+                "icd_c",    "status",   "csmetsdxlung_pub_v", 
+                "cs_mets",  "eod10_pn", "beh03v"), 
+              grep_it("lung"), 
+              .init = c()), 
+    skin_rows_to_rm =
+      reduce(c("brst_sub", "PR",       "HER2",  "ER",  
+               "her2_v",   "llt",      "other", "ulf", 
+               "icd_c",    "status",   "csmetsdxlung_pub_v", 
+               "cs_mets",  "eod10_pn", "beh03v"), 
+             grep_it("skin"), 
+             .init = c())
+  )  
+}
+
+breast_renamer <- function(the_table, ptrn, replacement) {
+  the_table[["Variable"]] <- 
+    ifelse(grepl(ptrn, the_table[["Variable"]]), 
+           replacement, the_table[["Variable"]])
+  the_table
+}
+
+ipa_shower <- function(ipa_df) {
+  function(cncr, hsto, times) {
+    ipa_df[with(ipa_df, 
+                which_cancer == cncr & 
+                  histo == hsto & 
+                  timing == times),
+           ]
+  }
+}
+
+t_o_fn <- function(df){
+  #names reflect: Variable, Overall, SEER SBM, Medicare LBM
+  names(df) <- c("v", "o", "s", "m")
+  qs <- function(df, x, y) {
+    quietly(separate
+    )(data = df, col = x, into = y, 
+      sep = "\\ \\(\\ {0,4}")[["result"]]
+  }
+  df <- 
+    reduce2(c("o", "s", "m"), 
+            list(c("on", "op"), c("sn", "sp"), c("mn", "mp")), 
+            qs, .init = df) 
+  to_fx <- c("op", "sp", "mp")
+  df[,to_fx] <- 
+    lapply(df[,to_fx], function(z) gsub("\\)", "", z))
+  df
 }
 
 

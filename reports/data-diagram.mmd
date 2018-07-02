@@ -1,0 +1,17 @@
+graph LR
+ title[Data availability<br/> and usage</br>]
+ twe("Primary diagnosis: </br>2008-2012<br/>")
+ ttt("Primary diagnosis: </br>2010-2012<br/>")
+ subgraph  Overall and Stratified Estimates
+ mlc(LBM) --> la("Lung, Skin")
+ end
+ mlc(LBM) --> ba("Breast (Overall)")
+ twe -- Medicare claims:</br> 2007-2014</br> -->  mlc
+ ttt -- SEER SBM available:</br> 2010-2012</br> --> ssb(SBM) 
+ subgraph Overall and Stratified Estimates
+ ssb --> lb("Lung, Breast, Skin")
+ end
+ ttt--"</br></br>Molecular subtype </br>available: 2010-2012</br><br/> Medicare claims: 2007-2014</br>"--> mlb(LBM)
+ mlb --> bs("Breast (Stratified)")
+ 
+
