@@ -119,14 +119,6 @@ plot_lung_df <- function(dfs, seer_y, medicare_y) {
               ~ factor(.x, levels = lvls))
 }
 
-ip_by_num_years <- function(a_df) {
-  a_df[a_df$measure == "SEER SBM", "present"] <- 
-    round(a_df[a_df$measure == "SEER SBM", "present"] / 3)
-  a_df[a_df$measure == "Medicare LBM", "present"] <- 
-    round(a_df[a_df$measure == "Medicare LBM", "present"] / 5)
-  a_df
-}
-
 vctr_or <- function(vctr, fn_1, fn_2) {
   fn_1(vctr) | fn_2(vctr)
 }

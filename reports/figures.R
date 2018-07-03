@@ -15,14 +15,15 @@ plot_df <-
       ) %>% 
   bind_relevel_filter_pdf()
 
-gp_map_div_by_years <- . %>% 
-  gp_cncr() %>% 
-  map(ip_by_num_years)
+#gp_map_div_by_years <- . %>% 
+#  gp_cncr() %>% 
+#  map(ip_by_num_years)
 
 #summarize by measures of interest, get crude per annum
 c(by_sex, by_race)  %<-% 
-  map(list(make_by_sex(plot_df), make_by_race(plot_df)), 
-      gp_map_div_by_years)
+  map(list(make_by_sex, make_by_race), ~ gp_cncr(.x(plot_df)))
+#  map(list(make_by_sex(plot_df), make_by_race(plot_df)), 
+#      gp_map_div_by_years)
 
 bp_theme <-
     theme_bw() + 
