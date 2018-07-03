@@ -12,7 +12,14 @@ This project will take several hours to run on a single-processor machine with 6
 
 Reproducing this work approximately follows two steps: 
 - Put lung, breast, and skin cancers data in the correct folder (`seerm`)
-- Run `make`. To see what will be run, use `make --just-print`.      
+- Run `make`. To see what will run without actually executing it, use `make --just-print`.
+
+If you are on a Mac or a Linux distribution, you can take these steps to try `--just-print` this work:   
+- [Download and install R](https://cran.case.edu/)    
+- Download and unzip the project folder   
+- Open your terminal       
+- In the terminal write `cd {project/folder/path}`, where `{project/folder/path}` is your project folder path. This will probably be something like `/Users/your-user-name/Downloads/brain-mets-seer-master/`    
+- Run `make --just-print`.     
 
 ## Depends
 
