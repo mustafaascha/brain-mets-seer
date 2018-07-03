@@ -152,7 +152,23 @@ days_between_claims <- function(claims_df1, claims_df2, nm){
 }
 
 
-
+n_day_fn <- function(df, v, n){ 
+  counts_nm <- paste0("counts_", v)
+  days_nm <- paste0("days_prim_", v)
+  ifelse(df[[counts_nm]] > 0 & df[[days_nm]] <= n,
+         1, 0)
+}
+                                                                               
+make_prim_names <- function(number) {
+  the_vars <- c("dx_matches", "cpt_img", "cpt_rad", "cpt_neu", "biopsy")
+  paste0("medicare_", number, "_prim_", the_vars)
+}
+                                                                               
+apply_n_day_fn <- function(df, number){ 
+  the_vars <- c("dx_matches", "cpt_img", "cpt_rad", "cpt_neu", "biopsy")       
+  lapply(the_vars, function(x) n_day_fn(df, x, number)) 
+}
+                                                                               
 
 
 

@@ -25,25 +25,6 @@ cancers$seer_br_mets <-
        ifelse(csmetsdxbr_pub_v == "None", "SEER_Negative", 
          ifelse(csmetsdxbr_pub_v == "Yes", "SEER_Positive", NA)))
   
-n_day_fn <- function(df, v, n){
-  counts_nm <- paste0("counts_", v)
-  days_nm <- paste0("days_prim_", v)
-  ifelse(df[[counts_nm]] > 0 & df[[days_nm]] <= n, 
-         1, 0)
-}
-
-n_day_cancers <- pryr::partial(n_day_fn, df = cancers)
-
-make_prim_names <- function(number) {
-  the_vars <- c("dx_matches", "cpt_img", "cpt_rad", "cpt_neu", "biopsy")
-  paste0("medicare_", number, "_prim_", the_vars)
-}
-
-apply_n_day_fn <- function(df, number){
-  the_vars <- c("dx_matches", "cpt_img", "cpt_rad", "cpt_neu", "biopsy")
-  lapply(the_vars, function(x) n_day_fn(df, x, number))
-}
-
 cancers[,make_prim_names("60")] <- apply_n_day_fn(cancers, 60)
 
 
