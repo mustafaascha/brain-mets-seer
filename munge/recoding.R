@@ -112,11 +112,6 @@ cancers <- reduce(key_dfs, lj_coerce, .init = cancers)
 #more specific recoding=====================================
 
 
-cancers$urbrur <-
-  factor(as.numeric(cancers$urbrur), levels = c(1:5,9),
-        labels = c("Big Metro", "Metro", "Urban",
-                  "Less Urban", "Rural", "Unknown")) %>% as.character()
-
 cancers$insrec_pub <-
   factor(cancers$insrec_pub, levels = 1:4,
          labels = c("Uninsured", "Medicaid", "Insured", "Insured Nonspecific")) %>%
@@ -177,11 +172,6 @@ histocodes <-
                stringsAsFactors = FALSE)
   )
 
-#These warnings may indicate incompatibility with R3.4
-#cancers$hist03v_v <-
-#  suppressWarnings(
-#    factor(cancers$hist03v, levels = histocodes$hist03v,
-#         labels = histocodes$histodesc))
 
 histo_key <- with(histocodes, setNames(hist03v, histodesc))
 
@@ -211,105 +201,6 @@ cancers$grade_v[cancers$grade_v == "N K cell (natural killer cell)"] <- NA
 
 cancers$mar_stat_v[cancers$mar_stat_v %in% c("Unknown", "Unmarried", "Separated")] <- 
   "Unknown or other"
-
-
-
-
-#site_url <- "https://www.cms.gov/Medicare/Coding/ICD10/Downloads/2016-Code-Descriptions-in-Tabular-Order.zip"
-#download.file(site_url, "~/brain-metastases/documentation/icd/icd10.zip")
-#!/bin/bash
-#cd documentation
-#unzip icd10.zip
-#cd ..
-
-#cancers <- 
-#  left_join(cancers,
-#    read_table("documentation/icd/icd10cm_codes_2016.txt", 
-#              col_names = c("icdot10v", "icd10")))
-
-#cancers$site <-
-#  gsub("(Malignant\\ neoplasm\\ of|Carcinoma|Melanoma|Malignant\\ Melanoma)(\\ in\\ situ)?(\\ of)?\\ ", 
-#    "", cancers$icd10)
-#
-#cancers <- left_join(cancers, site_conversions)
-
-#using ICD data from GNUHealth 
-# http://health.gnu.org/
-# file:///home/mustafa/Downloads/gnuhealth-3.2.9/health_icd10/data/diseases.xml
-
-library(XML)
-
-dx_xml <- xmlParse("documentation/diseases.xml", useInternalNodes = TRUE)
-dx_xml <- xmlToList(dx_xml)[[1]] 
-dx_xml <- dx_xml[-length(dx_xml)]
-
-diseases <- 
-  data.frame(icdot10v = gsub("\\.", "", map_chr(dx_xml, function(x) x[[2]][[1]])), 
-             icd10 = map_chr(dx_xml, function(x) x[[1]][[1]]), 
-             stringsAsFactors = FALSE)
-
-cancers <- left_join(cancers, diseases)
-
-#cancers$site <-
-#  gsub("(Malignant\\ neoplasm\\ of|Carcinoma|Melanoma|Malignant\\ Melanoma)(\\ in\\ situ)?(\\ of)?\\ ", 
-#    "", cancers$icd10)
-
-
-rep_pat <- "(Malignant\\ neoplasm\\:|Carcinoma\\ in\\ situ|Malignant\\ neoplasm\\ of\\ other\\ and\\ ill-defined\\ sites\\:)\\ (of)?"
-cancers$icd <- gsub(rep_pat, "", cancers$icd10)
-stems <- 
-  list(mis = c("(Melanoma", "in", "situ)"), 
-       malm = c("(Malignant", "melanoma)"),
-       olo = c("(Overlapping", "lesion)"), 
-       cars = c("(Carcinoma", "in", "situ)"), 
-       cst = c("(Connective", "and", "soft", "tissue)"), 
-       mnp = c("(Malignant", "neoplasm)"), 
-       qdrnt = "(^.*quadrant)",
-       lobe = "(^.*lobe)",
-       inc = "(including.*$)", 
-       unsp = "(unspecified$)", 
-       oth = "(other", "and", "unspecified", "parts)"
-       )
-to_replace <- 
-  c(paste0(map(stems, function(x) paste0(tolower(x), collapse = "\\ ")), 
-    collapse = "|"), 
-    "\\,|of\\ |:\\ ", 
-    "skin",  
-    "\\ +")
-replacements <- 
-  c("", "", 
-    "", 
-    "\\ ")
-
-cancers$icd <- 
-  reduce2(to_replace, replacements, 
-          function(starting, fst, snd) {
-            new_x <- trimws(tolower(starting), "both")
-            gsub(pattern = fst, replacement = snd, x = new_x)
-          }, 
-          .init = cancers$icd)
-
-cancers$icd[cancers$icd == ""] <- NA
-#cancers$icd <- ifelse(grepl("[lL]ower\\ [lL]imb", cancers$icd), "llt", cancers$icd)
-#cancers$icd <- ifelse(grepl("[tT]run[ck](al)?", cancers$icd), "llt", cancers$icd)
-#cancers$icd <- ifelse(grepl("[Ff]ace", cancers$icd), "ulf", cancers$icd)
-#cancers$icd <- ifelse(grepl("[uU]pper\\ [lL]imb", cancers$icd), "ulf", cancers$icd)
-to_reps <- 
-  c("[lL]ower\\ [lL]imb", "[tT]run[ck](al)?", "[Ff]ace", "[uU]pper\\ [lL]imb", 
-    "[sS]calp|[nN]eck|[eE]ar|[eE]ye|[lL]ip")
-replacements <- c("llt", "llt", "ulf", "ulf", "ulf") 
-
-cancers <- 
-  reduce2(to_reps, replacements, 
-    function(df, to_rep, repmnt) {
-      df[["icd"]] <- ifelse(grepl(to_rep, df[["icd"]]), repmnt, df[["icd"]])
-      df
-    },
-    .init = cancers)  
-skins <- which(cancers$which_cancer == "skin")
-cancers$icd_c[skins] <- 
-  ifelse((cancers$icd[skins] %in% c("llt", "ulf")), cancers$icd, "other")
-  
 
 cancers$rac_recy_v <-
   as.character(
