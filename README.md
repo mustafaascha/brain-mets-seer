@@ -14,7 +14,7 @@ Reproducing this work approximately follows two steps:
 - Put lung, breast, and skin cancers data in the correct folder (`seerm`)
 - Run `make`. To see what will run without actually executing it, use `make --just-print`.
 
-If you are on a Mac or a Linux distribution, you can take these steps to try `--just-print` this work:   
+If you are on a Mac or a Linux distribution, you can take these steps to `--just-print` this work:   
 - [Download and install R](https://cran.case.edu/)    
 - Download and unzip the project folder   
 - Open your terminal       
