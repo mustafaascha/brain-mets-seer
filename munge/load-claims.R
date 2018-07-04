@@ -1,6 +1,7 @@
 
 
 library(tidyverse)          
+library(zeallot)
 devtools::load_all("augur") 
                             
 
@@ -23,10 +24,31 @@ names(lung) <- tolower(names(lung))
 skin <- read_medicare("seerm/pedsf.skin.cancer.txt.gz", pedsf_infile)
 names(skin) <- tolower(names(skin))
 
-cancers <- list(breast = breast, lung = lung, skin = skin)
+cancers <- 
+  list(breast = breast, lung = lung, skin = skin) %>% 
+  imap_dfr(function(cncr_df, the_cancer) {
+      cncr_df[["which_cancer"]] <- the_cancer 
+      cncr_df
+    }  
+  )
 
-#rm(breast, lung, skin)
+dx_matches <- read_matches("cache/diagnoses")
+cancers <- join_claims(cancers, dx_matches)
+rm(dx_matches)
 
-write_rds(cancers, "cache/cancers_loaded.rds")
+cpt_img <- read_matches("cache/dx-imaging")
+cancers <- join_claims(cancers, cpt_img)
+rm(cpt_img)
+
+dx_matches <- claims_dates_df("cache/diagnoses")
+img_df <- claims_dates_df("cache/dx-imaging")
+date_differences <- days_between_claims(dx_matches, img_df, "cpt_img")
+rm(dx_matches, img_df)
+
+cancers <- left_join(cancers, date_differences)
+
+#=============================================
+
+write_csv(cancers, "cache/cancers_prerecode.csv.gz")
 
 
