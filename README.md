@@ -104,8 +104,7 @@ After adding the data, it will appear as follows:
 │   ├── pedsf.breast.cancer.file02.txt.gz    
 │   ├── pedsf.lung.cancer.file01.txt.gz    
 │   ├── pedsf.lung.cancer.file02.txt.gz    
-│   ├── pedsf.breast.cancer.file01.txt.gz    
-│   └── CCflag07.txt.gz    
+│   └── pedsf.skin.cancer.file01.txt.gz    
 └── tables-and-figures.Rmd       
 
 At that point, use the command `make`. Depending on how much data you have, it may take a computer with 40GB or more to run. 
