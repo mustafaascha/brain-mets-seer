@@ -31,6 +31,7 @@ cancers$all_same_cancer <-
 
 #strategy: if greatest seqno is accounted for in that cancer dataframe, keep
 
+# See extra exclusions above
 # nobody had missing or unknown sex
 # nobody had missing or unknown date of death
 #   see: table(cancers$ser_dody, cancers$stat_rec)
@@ -41,7 +42,7 @@ vfe <- vars_for_exclusion <-
    #"hmocnt1991_2015", "age_dx_e", 
     "vrfydth_v", "payerdx_v", 
     "payerdx_v"
-    , "all_same_cancer"
+    #, "all_same_cancer"
     ) 
 
 vte <- values_to_exclude <- 
@@ -51,7 +52,7 @@ vte <- values_to_exclude <-
     #TRUE, TRUE, 
     "No", "Insurance status unknown", 
     "Not insured"
-    , "Unaccounted primary cancers present"
+    #, "Unaccounted primary cancers present"
     )
 
 exclude <- function(df, vr, value_to_exclude){
