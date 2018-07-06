@@ -16,7 +16,7 @@ Reproducing this work approximately follows two steps:
 
 If you are on a Mac or a Linux distribution, you can take these steps to see what will run without actually executing it:     
 - [Download and install R](https://cran.case.edu/)    
-- Download and unzip the project folder   
+- [Download](https://github.com/mustafaascha/brain-mets-seer/archive/master.zip) and unzip the project folder   
 - Open your terminal and change your working directory to the project folder (run the command `cd {project/folder/path}`, where `{project/folder/path}` is your project folder path. This will probably be something like `/Users/your-user-name/Downloads/brain-mets-seer-master/`)    
 - Run `make --just-print`.     
 
