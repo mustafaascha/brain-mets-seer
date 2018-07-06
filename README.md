@@ -10,10 +10,14 @@ This project will take several hours to run on a single-processor machine with 6
 
 ## Instructions 
 
-Reproducing this work approximately follows two steps: 
+### Reproduction
+
+Reproducing this work will require you to: 
 - Download and install dependencies (R, pandoc, and some R packages)
 - Put lung, breast, and skin cancers data in the correct folder (`seerm`)
 - Run `make` 
+
+### Dry-run
 
 If you are on a Mac or a Linux distribution, you can take these steps to see what will run without actually executing it:     
 - [Download](https://github.com/mustafaascha/brain-mets-seer/archive/master.zip) and unzip the project folder   
