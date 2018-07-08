@@ -63,7 +63,7 @@ Data is not provided, though data files may be placed in the `seerm` folder to b
 
 Manuscript tables and figures are output to the `tables-and-figures.html` file after completing `make`. A `cache` folder is created to hold intermediate products, namely, extracted data and PEDSF table transformations. 
 
-Four claims-based brain metastasis identification algorithms are implemented in this work. Identification criteria are presented here as a two-by-two table of synchronous and lifetime chronology against diagnosis code only versus diagnosis and brain imaging code requirement. 
+Four claims-based brain metastasis identification algorithms are implemented in this work. Identification criteria are presented here as a two-by-two table of synchronous and lifetime chronology against diagnosis code only versus diagnosis and brain imaging code requirements. 
 
 | Chronology      | Claims diagnosis code only        | Claims diagnosis and imaging codes |  
 | --------------- | --------------------------------- | ---------------------------------- | 
@@ -72,9 +72,9 @@ Four claims-based brain metastasis identification algorithms are implemented in 
 | **Lifetime**    | Least restrictive                 | 
 |                 |                                   | 
 
-For synchronous brain metastasis identification, diagnosis or imaging codes must have occurred within 60 days of primary cancer diagnosis. For lifetime brain metastasis identification, codes may have occurred at any time throughout claims history. When both diagnosis and imaging codes were used, the two must have occurred within 60 days of each other. 
+For synchronous brain metastasis identification, codes must have occurred within 60 days of primary cancer diagnosis. For lifetime brain metastasis identification, codes may have occurred at any time throughout claims history. When both diagnosis and imaging codes were used, the two must have occurred within 60 days of each other. 
 
-Tables describing sensitivity, specificity, positive predictive value, and Cohen's kappa concordance will be generated for each of the most frequent histology categories among lung, breast, and skin cancers. In addition, demographic and clinical characteristics tables are created for each of the listed cancer sites.    
+Tables describing sensitivity, specificity, positive predictive value, and Cohen's kappa concordance are generated for each of the most frequent histology categories among lung, breast, and skin cancers. In addition, demographic and clinical characteristics tables are created for each of the listed cancer sites.    
 
 Two figures, each composed of two bar graphs, are generated as part of the `tables-and-figures.html` output. These depict incidence proportions for each primary cancer site, stratified by race (for lung and breast cancers) and sex (for lung and skin cancers).     
 
