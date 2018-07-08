@@ -8,7 +8,7 @@ This is a repository enabling replication of results from a manuscript on brain 
 
 ### Manuscript results replication
 
-Reproducing this work will require you to:   
+Replication will require you to:   
 
 1. Download and install dependencies  
     - Manuscript analysis was run on Red Hat Enterprise Linux 7.4 (Maipo)
