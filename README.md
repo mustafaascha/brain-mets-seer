@@ -81,7 +81,7 @@ Two figures, each composed of two bar graphs, are generated as part of the `tabl
 
 ## Appendix: References
 
-- Karl Broman has done excellent work on [reproducibility in research](https://kbroman.org/steps2rr/), in particular [advocating the use of `make`](http://kbroman.org/minimal_make/). These two articles offer very useful guidelines to maximize reproducibility.  
+- Karl Broman has done excellent work on [reproducibility in research](https://kbroman.org/steps2rr/), in particular [advocating the use of `make`](http://kbroman.org/minimal_make/).   
 
 - [ROpenSci](http://ropensci.github.io/reproducibility-guide/) provides practical guidance on reproducibility.     
 
