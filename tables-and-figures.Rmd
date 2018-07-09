@@ -41,12 +41,12 @@ source("reports/abbreviations.R")
 \fontsize{11pt}{11pt}
 \selectfont
 
-Mustafa S Ascha^1^, Quinn T Ostrom^2^, Jeremy Bordeaux^3^, Andrew Sloan^4^, Frederick Schumacher^5^, Carol Kruchko^6^, Jill S Barnholtz-Sloan^5^
+Mustafa S Ascha^1^, Quinn T Ostrom^2^, James Wright^3^, Jeremy Bordeaux^4^, Andrew Sloan^3^, Frederick Schumacher^5^, Carol Kruchko^6^, Jill S Barnholtz-Sloan^5^
 
 1. 	Center for Clinical Investigation, Department of Population and Quantitative Health Sciences, Case Western Reserve University School of Medicine, Cleveland, Ohio
 2.	Baylor College of Medicine, Houston, Texas
-3.	University Hospitals Cleveland Medical Center, Department of Dermatology, Cleveland, Ohio
-4.	University Hospitals Cleveland Medical Center, Department of Neurosurgery, Cleveland, Ohio
+3.	University Hospitals Cleveland Medical Center, Department of Neurosurgery, Cleveland, Ohio
+4.	University Hospitals Cleveland Medical Center, Department of Dermatology, Cleveland, Ohio
 5.	Department of Population and Quantitative Health Sciences, Case Western Reserve University School of Medicine, Cleveland, Ohio
 6.  Central Brain Tumor Registry of the United States, Hinsdale, Illinois
 
