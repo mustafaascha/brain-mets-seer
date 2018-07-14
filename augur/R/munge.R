@@ -85,6 +85,10 @@ read_matches <- function(matches_path, ...) {
 #'         but with three extra columns for each of 
 #' 
 join_claims <- function(the_cancers, the_matches) {
+  #quiet check()
+  patient_id <- NULL
+  days_until_cd <- NULL
+  dte_cd <- NULL
   new_name <- quo_name(enquo(the_matches))
   mk_nm <- function(x) paste0(x, new_name)
   counts_nm <- mk_nm("counts_")
@@ -96,7 +100,8 @@ join_claims <- function(the_cancers, the_matches) {
   clms_days <- left_join(the_matches, the_cancers[,cancer_df_vars]) 
   clms_days[["dte_cd"]] <- with(clms_days, paste(from_dtd, from_dtm, from_dty))
   clms_days[["dx_date"]] <- with(clms_days, paste("15", dx_month, dx_year))
-  clms_days <- clms_days %>% select(-starts_with("from"), -dx_month, -dx_year)
+  clms_days <- 
+    clms_days %>% select(-starts_with("from"), -one_of("dx_month", "dx_year"))
   clms_days[,date_vars] <- lapply(clms_days[,date_vars], dmy)
   clms_days[["days_until_cd"]] <- 
     with(clms_days, as.numeric(difftime(dte_cd, dx_date, units = "days")))
@@ -113,7 +118,7 @@ join_claims <- function(the_cancers, the_matches) {
 }
 
 #joining for two things: code counts and date nearest to primary diagnosis
-
+#' 
 claims_dates_df <- function(filepath) {
   claims_df <- read_matches(filepath, progress = FALSE)
   names(claims_df) <- tolower(names(claims_df))
@@ -132,7 +137,15 @@ claims_dates_df <- function(filepath) {
 }
 
 #' accepts two dfs, each with only two columns 'patient_id' and 'from_dmy'
+#' 
+#' @param claims_df1 A dataframe, output from \code{claims_dates_df}
+#' @param claims_df2 A dataframe, output from \code{claims_dates_df}
+#' @param nm The name to use for variables representing differences in dates
+#' 
 days_between_claims <- function(claims_df1, claims_df2, nm){
+  patient_id <- NULL
+  dt_1 <- NULL
+  dt_2 <- NULL
   diff_nm <- paste("days_dx", nm, sep = "_")
   first_nm <- paste("date_dx", nm, sep = "_")
   names(claims_df1) <- c("patient_id", "dt_1")
@@ -169,6 +182,7 @@ apply_n_day_fn <- function(df, number){
   lapply(the_vars, function(x) n_day_fn(df, x, number)) 
 }
                                                                                
+
 
 
 
