@@ -20,7 +20,7 @@ all: dir-cache\
 
 R_OPTS=--vanilla
 
-VPATH = cache cache/dx-imaging cache/diagnoses extraction-scripts munge reports
+VPATH = cache cache/dx-imaging cache/diagnoses extraction munge reports
 DXDIR = cache/diagnoses/
 IMGDIR = cache/dx-imaging/
 
@@ -37,24 +37,24 @@ dir-dx-imaging:
 
 #extract data
 $(IMGDIR)nch-dx-imaging.csv.gz: cpt-img-nch.R
-	Rscript extraction-scripts/cpt-img-nch.R
+	Rscript extraction/cpt-img-nch.R
 $(IMGDIR)dme-dx-imaging.csv.gz: cpt-img-dme.R
-	Rscript extraction-scripts/cpt-img-dme.R
+	Rscript extraction/cpt-img-dme.R
 $(IMGDIR)outsaf-dx-imaging.csv.gz: cpt-img-out.R
-	Rscript extraction-scripts/cpt-img-out.R
+	Rscript extraction/cpt-img-out.R
 
 $(DXDIR)nch-icd-dx.csv.gz: icd-dx-nch.R 
-	Rscript extraction-scripts/icd-dx-nch.R
+	Rscript extraction/icd-dx-nch.R
 $(DXDIR)nch-icd-dx-p.csv.gz: icd-dx-nch-p.R
-	Rscript extraction-scripts/icd-dx-nch-p.R
+	Rscript extraction/icd-dx-nch-p.R
 $(DXDIR)dme-icd-dx.csv.gz: icd-dx-dme.R
-	Rscript extraction-scripts/icd-dx-dme.R
+	Rscript extraction/icd-dx-dme.R
 $(DXDIR)dme-icd-dx-p.csv.gz: icd-dx-dme-p.R
-	Rscript extraction-scripts/icd-dx-dme-p.R
+	Rscript extraction/icd-dx-dme-p.R
 $(DXDIR)medpar-icd-dx.csv.gz: icd-dx-mpr.R
-	Rscript extraction-scripts/icd-dx-mpr.R
+	Rscript extraction/icd-dx-mpr.R
 $(DXDIR)outsaf-icd-dx.csv.gz: icd-dx-out.R
-	Rscript extraction-scripts/icd-dx-out.R
+	Rscript extraction/icd-dx-out.R
 
 cache/cancers_prerecode.csv.gz: load-claims.R\
                                 cpt-img-nch.R   cpt-img-dme.R\

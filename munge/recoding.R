@@ -140,9 +140,9 @@ cancers$cs_mets[cancers$cs_mets == 98] <- NA
 cancers$cs_size[as.numeric(cancers$cs_size) >= 988] <- NA
 
 #histo_url <- "https://seer.cancer.gov/icd-o-3/sitetype.icdo3.d20150918.xls"
-#download.file(histo_url, "~/brain-metastases/documentation/seer_histo.xls")
+#download.file(histo_url, "~/brain-metastases/munge/seer_histo.xls")
 histocodes <-
-  readxl::read_xls("documentation/seer_histo.xls")
+  readxl::read_xls("munge/seer_histo.xls")
 names(histocodes) <-
   c("siterec", "sitedesc", "histo", "histodesc", "histobeh", "histobehdesc")
 split_stuff <- strsplit(histocodes$histobeh, "/")

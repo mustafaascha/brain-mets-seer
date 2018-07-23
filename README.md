@@ -43,13 +43,11 @@ Once you have installed `make`, you can take these steps to see what would run w
 
 - `augur` - This R package reads SEER-Medicare data and extracts relevant rows from the claims data.      
 
-- `documentation` - These tables are used to recode e.g. histology, diagnoses.     
-
 - `extraction-scripts` - This folder contains R scripts to extract relevant claims data.     
 
 - `frequencies` - This R package supports analysis and manuscript preparation.    
 
-- `munge` - These scripts convert the data to an analyzable format.     
+- `munge` - These scripts convert the data to an analyzable format. Additionally, it contains a histology code lookup table.      
 
 - `reports` - These scripts are the last step before results are presentable and can be easily used in RMarkdown.    
 
@@ -94,8 +92,6 @@ Noting that `seerm` is an empty directory where we will place the data, the stru
 (top level)   
 ├── augur    
 │   └── ...    
-├── documentation    
-│   └── ...    
 ├── extraction-scripts    
 │   └── ...    
 ├── frequencies    
@@ -115,8 +111,6 @@ After adding the data, the file structure will appear as follows:
 (top level)    
 ├── augur     
 │   └── ...     
-├── documentation    
-│   └── ...    
 ├── extraction-scripts    
 │   └── ...    
 ├── frequencies    
