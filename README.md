@@ -6,7 +6,7 @@ This is a repository enabling replication of results from a manuscript on brain 
 
 ## Instructions 
 
-### Manuscript results replication
+### Manuscript results replication (requires data)
 
 Replication will require you to:   
 
@@ -20,7 +20,7 @@ Replication will require you to:
 2. Download the project folder 
     - Download the project [here](https://github.com/mustafaascha/brain-mets-seer/archive/master.zip), or 
     - Use `git clone https://github.com/mustafaascha/brain-mets-seer` to clone this repository 
-3. Place data in the `seerm` folder 
+3. Place data in the `seerm` folder. **Note that data is not provided**     
 4. Run `make`  
 
 Note that this project takes several hours to run on a single-processor machine with 64GB of memory. You can run `make` with the `-jN` option (where N is some integer) to go through claims files in parallel, but that's not recommended because `make` will begin munging before all of the claims have been scanned/extracted (couldn't get those prerequisites to work right).     
