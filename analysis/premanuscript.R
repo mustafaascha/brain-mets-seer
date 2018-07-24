@@ -4,7 +4,7 @@ library(tableone)
 library(zeallot)
 library(devtools)
 devtools::load_all("augur")
-devtools::load_all("frequencies")
+devtools::load_all("manuscript")
 
 paper_products <- list()
 

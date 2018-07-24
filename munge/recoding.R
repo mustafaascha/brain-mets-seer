@@ -1,7 +1,7 @@
 
 library(tidyverse)
 devtools::load_all("augur")
-devtools::load_all("frequencies")
+devtools::load_all("manuscript")
 #load("cache/before_recode.RData")
 #library(tidyverse)
 cancers <- read_csv("cache/cancers_prerecode.csv.gz", progress = FALSE)

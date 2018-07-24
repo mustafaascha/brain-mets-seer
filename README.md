@@ -45,7 +45,7 @@ Once you have installed `make`, you can take these steps to see what would run w
 
 - `extraction` - This folder contains R scripts to extract relevant claims data.     
 
-- `frequencies` - This R package supports analysis and manuscript preparation.    
+- `manuscript` - This R package supports analysis and manuscript preparation.    
 
 - `munge` - These scripts convert the data to an analyzable format. Additionally, it contains a histology code lookup table.      
 
@@ -94,7 +94,7 @@ Noting that `seerm` is an empty directory where we will place the data, the stru
 │   └── ...    
 ├── extraction-scripts    
 │   └── ...    
-├── frequencies    
+├──manuscript 
 │   └── ...    
 ├── LICENSE    
 ├── Makefile    
@@ -113,7 +113,7 @@ After adding the data, the file structure will appear as follows:
 │   └── ...     
 ├── extraction-scripts    
 │   └── ...    
-├── frequencies    
+├──manuscript 
 │   └── ...    
 ├── LICENSE    
 ├── Makefile    
