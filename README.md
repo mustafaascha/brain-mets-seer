@@ -43,7 +43,7 @@ Once you have installed `make`, you can take these steps to see what would run w
 
 - `augur` - This R package reads SEER-Medicare data and extracts relevant rows from the claims data.      
 
-- `extraction-scripts` - This folder contains R scripts to extract relevant claims data.     
+- `extraction` - This folder contains R scripts to extract relevant claims data.     
 
 - `frequencies` - This R package supports analysis and manuscript preparation.    
 
