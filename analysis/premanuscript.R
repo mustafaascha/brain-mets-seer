@@ -8,7 +8,7 @@ devtools::load_all("frequencies")
 
 paper_products <- list()
 
-source("reports/load.R")
+source("analysis/load.R")
 
 #-------------------------------------------------
 

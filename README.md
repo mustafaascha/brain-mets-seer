@@ -49,7 +49,7 @@ Once you have installed `make`, you can take these steps to see what would run w
 
 - `munge` - These scripts convert the data to an analyzable format. Additionally, it contains a histology code lookup table.      
 
-- `reports` - These scripts are the last step before results are presentable and can be easily used in RMarkdown.    
+- `analysis` - These scripts are the last step before results are presentable and can be easily used in RMarkdown.    
 
 - `seerm` - This is the folder meant to hold data as provided by IMS. It is provided to demonstrate where data should be placed for study replication. 
 
@@ -101,7 +101,7 @@ Noting that `seerm` is an empty directory where we will place the data, the stru
 ├── munge    
 │   └── ...    
 ├── README.md    
-├── reports    
+├── analysis    
 │   └── ...    
 ├── seerm     
 └── tables-and-figures.Rmd      
@@ -120,7 +120,7 @@ After adding the data, the file structure will appear as follows:
 ├── munge    
 │   └── ...    
 ├── README.md    
-├── reports    
+├── analysis    
 │   └── ...    
 ├── seerm     
 │   ├── CCflag07.txt.gz    

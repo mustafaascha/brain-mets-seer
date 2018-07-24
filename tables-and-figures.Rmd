@@ -32,9 +32,9 @@ panderOptions("big.mark", ",")
 panderOptions("table.alignment.default", "left")
 set.caption(NULL)
 
-source("reports/manuscript.R")
-source("reports/figures.R")
-source("reports/abbreviations.R")
+source("analysis/manuscript.R")
+source("analysis/figures.R")
+source("analysis/abbreviations.R")
 ```  
 
 \linespread{1.5}
@@ -87,7 +87,7 @@ pander(condensed_ip)
 
 ```{r}
 #library(DiagrammeR)
-#mermaid("reports/data-diagram.mmd")
+#mermaid("analysis/data-diagram.mmd")
 ```
 
 \pagebreak

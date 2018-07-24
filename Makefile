@@ -20,7 +20,7 @@ all: dir-cache\
 
 R_OPTS=--vanilla
 
-VPATH = cache cache/dx-imaging cache/diagnoses extraction munge reports
+VPATH = cache cache/dx-imaging cache/diagnoses extraction munge analysis
 DXDIR = cache/diagnoses/
 IMGDIR = cache/dx-imaging/
 
@@ -71,7 +71,7 @@ cache/cancers.csv.gz: exclusion.R recoding.R
 	Rscript munge/exclusion.R
 
 paper_products.rds: exclusion.R load.R premanuscript.R
-	Rscript reports/premanuscript.R
+	Rscript analysis/premanuscript.R
 
 tables-and-figures.html: tables-and-figures.Rmd exclusion.R load.R recoding.R premanuscript.R manuscript.R
 	Rscript -e 'rmarkdown::render("tables-and-figures.Rmd", output_format = "html_document")'
