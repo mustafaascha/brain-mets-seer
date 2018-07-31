@@ -291,7 +291,8 @@ cancers <-
             df},
           .init = cancers)
 
-
+cancers[["imaging"]] <- 
+  ifelse(cancers[["counts_cpt_img"]] > 0, 1, 0)
 
 
 

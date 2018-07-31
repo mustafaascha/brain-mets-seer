@@ -161,7 +161,7 @@ paper_products[["histo_key"]] <-
   arrange(desc(Freq))
 
 paper_products[["age_sex_race_strat"]] <-
-  map(c("seer_bm_01", measure_vars),
+  map(c("seer_bm_01", measure_vars, "imaging"),
       function(msr) {
         if(msr == "seer_bm_01") {
           the_df <- cancers_1013
