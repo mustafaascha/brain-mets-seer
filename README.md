@@ -11,7 +11,6 @@ This is a repository enabling replication of results from a manuscript on brain 
 Replication will require you to:   
 
 1. Download and install dependencies  
-    - Manuscript analysis was run on Red Hat Enterprise Linux 7.4 (Maipo)
     - Depends on: 
         - R 3.4.2, a variety of R packages
         - GNU `make` 4.2.1
