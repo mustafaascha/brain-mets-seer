@@ -1,9 +1,9 @@
-all: dir-cache\
-     dir-dx-imaging\
+all: cache\
+     cache/dx-imaging\
      nch-dx-imaging.csv.gz\
      dme-dx-imaging.csv.gz\
      outsaf-dx-imaging.csv.gz\
-     dir-diagnoses\
+     cache/diagnoses\
      nch-icd-dx.csv.gz\
      nch-icd-dx-p.csv.gz\
      dme-icd-dx.csv.gz\
@@ -16,7 +16,7 @@ all: dir-cache\
      paper_products.rds\
      tables-and-figures.html
 
-.PHONY: doc rmobj dir-cache dir-diagnoses dir-dx-imaging
+.PHONY: doc rmobj 
 
 R_OPTS=--vanilla
 
@@ -24,13 +24,13 @@ VPATH = cache cache/dx-imaging cache/diagnoses extraction munge analysis
 DXDIR = cache/diagnoses/
 IMGDIR = cache/dx-imaging/
 
-dir-cache:
+cache:
 	if [ ! -e "cache" ]; then mkdir cache ; fi
-dir-diagnoses:
+cache/diagnoses:
 	cd cache;\
 	if [ ! -e "diagnoses" ]; then mkdir diagnoses ; fi;\
 	cd ..
-dir-dx-imaging:
+cache/dx-imaging:
 	cd cache;\
 	if [ ! -e "dx-imaging" ]; then mkdir dx-imaging; fi;\
 	cd ..

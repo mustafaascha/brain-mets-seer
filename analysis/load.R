@@ -70,7 +70,7 @@ vfe <- vars_for_exclusion <-
       "med_stcd", "race",  "srv_time_mon",
       "vrfydth", "payerdx_v",
       "payerdx_v"
-      #, "all_same_cancer"
+      , "all_same_cancer"
       )
 vte <- values_to_exclude <-
     c("Used HMO", "Under 65 years", "Before 2008",
@@ -79,7 +79,7 @@ vte <- values_to_exclude <-
       "Disabled with ESRD", "Unknown", "9999",
       "No", "Insurance status unknown",
       "Not insured"
-      #, "Unaccounted primaries present"
+      , "Unaccounted primaries present"
       )
 exclusion_df_vars <- 
   c("patient_id", "which_cancer", 
