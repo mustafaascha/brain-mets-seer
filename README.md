@@ -15,7 +15,6 @@ Replication will require you to:
         - R 3.4.2, a variety of R packages
         - GNU `make` 4.2.1
         - `pandoc` 1.19.2.1. 
-    - A Dockerfile is under development. 
 2. Download the project folder 
     - Download the project [here](https://github.com/mustafaascha/brain-mets-seer/archive/master.zip), or 
     - Use `git clone https://github.com/mustafaascha/brain-mets-seer` to clone this repository 
@@ -73,8 +72,7 @@ For synchronous brain metastasis identification, codes must have occurred within
 
 Tables describing sensitivity, specificity, positive predictive value, and Cohen's kappa concordance are generated for each of the most frequent histology categories among lung, breast, and skin cancers. In addition, demographic and clinical characteristics tables are created for each of the listed cancer sites.    
 
-Two figures, each composed of two bar graphs, are generated as part of the `tables-and-figures.html` output. These depict incidence proportions for each primary cancer site, stratified by race (for lung and breast cancers) and sex (for lung and skin cancers).     
-
+Two figures, each composed of two bar graphs, are generated as part of the `tables-and-figures.html` output. These depict incidence proportions for each primary cancer site, stratified by race (for lung and breast cancers) and sex (for lung and skin cancers).      
 
 ## Appendix: References
 
