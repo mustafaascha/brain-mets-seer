@@ -43,6 +43,8 @@ strat_ip <-
   select(which_cancer, algorithm, the_strata, group_total, show, algo_v) %>% 
   spread_rename_ip(histo = TRUE) %>% 
    bind_rows( 
+     # NOTE: this row is added due to insufficient population counts, 
+     #       which  is censored per SEER-Medicare policy
      data.frame(Primary = "Breast",
                 algorithm = "Seer Sync.",
                 Histology = c("Duct Carcinoma"#, "Adenoid Cystic & Cribriform Ca.", 
