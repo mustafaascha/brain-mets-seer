@@ -10,6 +10,6 @@ dx_codes <-
 dme_icd_dx <- 
   extract_slice_codes("seerm", "dme", augur::infiles[["dme"]], dx_codes, "dgn_cd") %>% 
   bind_rows
-write_csv(dme_icd_dx, "cache/diagnoses/dme-icd-dx.csv.gz")
+write_csv(dme_icd_dx, "cache/diagnoses/icd-dx-dme.csv.gz")
 
 

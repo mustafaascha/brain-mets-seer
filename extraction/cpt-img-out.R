@@ -12,7 +12,7 @@ px_codes <-
 out_cpt_img <- 
   extract_slice_codes("seerm", "outsaf", augur::infiles[["outpat"]], px_codes, "hcpcs") %>% 
   bind_rows
-write_csv(out_cpt_img, "cache/dx-imaging/outsaf-dx-imaging.csv.gz")
+write_csv(out_cpt_img, "cache/dx-imaging/cpt-img-out.csv.gz")
 
 
 

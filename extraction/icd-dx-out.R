@@ -10,7 +10,7 @@ dx_codes <-
 out_icd_dx <- 
   extract_slice_codes("seerm", "outsaf", augur::infiles[["outpat"]], dx_codes, "dgn_cd") %>% 
   bind_rows
-write_csv(out_icd_dx, "cache/diagnoses/outsaf-icd-dx.csv.gz")
+write_csv(out_icd_dx, "cache/diagnoses/icd-dx-out.csv.gz")
 
 
 

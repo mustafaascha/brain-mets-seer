@@ -11,7 +11,7 @@ dx_codes <-
 mpr_icd_dx <- 
   extract_slice_codes("seerm", "medpar", augur::infiles[["medpar"]], dx_codes, "DGN_CD") %>% 
   bind_rows
-write_csv(mpr_icd_dx, "cache/diagnoses/medpar-icd-dx.csv.gz")
+write_csv(mpr_icd_dx, "cache/diagnoses/icd-dx-mpr.csv.gz")
 
 
 

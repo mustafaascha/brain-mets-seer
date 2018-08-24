@@ -12,7 +12,7 @@ px_codes <-
 dme_cpt_img <- 
   extract_slice_codes("seerm", "dme", augur::infiles[["dme"]], px_codes, "hcpcs") %>% 
   bind_rows
-write_csv(dme_cpt_img, "cache/dx-imaging/dme-dx-imaging.csv.gz")
+write_csv(dme_cpt_img, "cache/dx-imaging/cpt-img-dme.csv.gz")
 
 
 
