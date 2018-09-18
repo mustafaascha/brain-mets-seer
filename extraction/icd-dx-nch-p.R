@@ -10,7 +10,7 @@ dx_codes <-
 nch_icd_dx <- 
   extract_slice_codes("seerm", "nch", augur::infiles[["nch"]], dx_codes, "pdgns_cd") %>% 
   bind_rows
-write_csv(nch_icd_dx, "cache/diagnoses/icd-nch-dx-p.csv.gz")
+write_csv(nch_icd_dx, "cache/diagnoses/icd-dx-nch-p.csv.gz")
 
 
 
