@@ -16,15 +16,8 @@ dirs : \
 
 ## claims      : Extract relevant records from claims
 claims :\
-     cpt-img-dme.csv.gz\
-     cpt-img-nch.csv.gz\
-     cpt-img-out.csv.gz\
-     icd-dx-nch.csv.gz\
-     icd-dx-nch-p.csv.gz\
-     icd-dx-dme.csv.gz\
-     icd-dx-dme-p.csv.gz\
-     icd-dx-mpr.csv.gz\
-     icd-dx-out.csv.gz
+		 img\
+		 dx
 
 ## cancers     : Assemble an analytic dataset
 cancers :\
@@ -39,6 +32,7 @@ analysis : paper_products.rds cancers
 ## manuscript  : Prepare/present results
 manuscript : tables-and-figures.html analysis
 
+# cache       : make temporary files directory
 cache :
 	if [ ! -e "cache" ]; then mkdir cache ; fi
 cache/diagnoses :
@@ -50,34 +44,37 @@ cache/dx-imaging :
 	if [ ! -e "dx-imaging" ]; then mkdir dx-imaging; fi;\
 	cd ..
 
-#extract data
-#$(patsub %.R, %.csv.gz, $<): $*.R
-#	Rscript $*.R
-cpt-img-dme.csv.gz : cpt-img-dme.R
-	Rscript $<
-cpt-img-nch.csv.gz : cpt-img-nch.R
-	Rscript $<
-cpt-img-out.csv.gz : cpt-img-out.R
-	Rscript $<
 
-icd-dx-nch.csv.gz : icd-dx-nch.R 
-	Rscript $<
-icd-dx-nch-p.csv.gz : icd-dx-nch-p.R
-	Rscript $<
-icd-dx-dme.csv.gz : icd-dx-dme.R
-	Rscript $<
-icd-dx-dme-p.csv.gz : icd-dx-dme-p.R
-	Rscript $<
-icd-dx-mpr.csv.gz : icd-dx-mpr.R
-	Rscript $<
-icd-dx-out.csv.gz : icd-dx-out.R
-	Rscript $<
+EXD = extraction/
+CD = cache/
+
+extract = $(wildcard $(EXD)*$1*.R)
+target = $(subst $(EXD),$(CD)$2,$(subst R,csv,$1))
+targets = $(foreach a,$1,$(call target,$(a),$2/))
+resource = $(EXD)$(subst csv,R,$(notdir $1))
+
+clm_types = img dx
+
+img_dir = dx-imaging
+dx_dir = diagnoses
+
+img_srcs = $(call extract,img)
+img_targets = $(call targets,$(img_srcs),$(img_dir))
+img : $(img_targets)
+$(img_targets) : $(img_srcs)
+	Rscript $(call resource,$@)
+
+dx_srcs = $(call extract,dx)
+dx_targets = $(call targets,$(dx_srcs),$(dx_dir))
+dx : $(dx_targets)
+$(dx_targets) : $(dx_srcs)
+	Rscript $(call resource,$@)
 
 cancers_prerecode.csv.gz : load-claims.R claims
 	Rscript $<
-cancers_postrecode.csv.gz : recoding.R load-claims.R
+cancers_postrecode.csv.gz : recoding.R cancers_prerecode.csv.gz
 	Rscript $<
-cancers.csv.gz : exclusion.R recoding.R load-claims.R
+cancers.csv.gz : exclusion.R cancers_postrecode.csv.gz
 	Rscript $<
 
 paper_products.rds : premanuscript.R exclusion.R load.R 
