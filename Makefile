@@ -9,15 +9,10 @@ DXDIR = cache/diagnoses/
 IMGDIR = cache/dx-imaging/
 
 ## dirs        : Create cache directories
-dirs : \
-      cache\
-      cache/dx-imaging\
-      cache/diagnoses
+dirs : cache cache/dx-imaging cache/diagnoses
 
 ## claims      : Extract relevant records from claims
-claims :\
-		 img\
-		 dx
+claims : img dx
 
 ## cancers     : Assemble an analytic dataset
 cancers :\
@@ -43,7 +38,6 @@ cache/dx-imaging :
 	cd cache;\
 	if [ ! -e "dx-imaging" ]; then mkdir dx-imaging; fi;\
 	cd ..
-
 
 EXD = extraction/
 CD = cache/
@@ -79,7 +73,6 @@ cancers.csv.gz : exclusion.R cancers_postrecode.csv.gz
 
 paper_products.rds : premanuscript.R exclusion.R load.R 
 	Rscript analysis/$<
-
 tables-and-figures.html : tables-and-figures.Rmd dirs claims cancers analysis
 	Rscript -e 'rmarkdown::render("$<", output_format = "html_document")'
 
@@ -87,7 +80,4 @@ clean: rm -f *.aux *.bbl *.blg *.log *.bak *~ *.Rout */*~ */*.Rout */*.aux */*.l
 
 help : Makefile
 	@sed -n 's/^##//p' $<
-
-
-
 
