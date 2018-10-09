@@ -6,6 +6,20 @@ This is a repository enabling replication of results from a manuscript on brain 
 
 ## Instructions 
 
+### Replication dry-run (no data required)   
+
+If you use a Mac, you can obtain `make` by installing the command-line tools that come as part of XCode (see [here](https://stackoverflow.com/questions/10265742/how-to-install-make-and-gcc-on-a-mac), [here](http://railsapps.github.io/xcode-command-line-tools.html), or [here](https://gist.github.com/rtrouton/f92f263414aaeb946e54) for more).
+
+If you use a Linux distribution, you almost certainly already have `make` installed.
+        
+Once you have installed `make`, you can take these steps to see what would run without actually executing any scripts. 
+
+1. [Download](https://github.com/mustafaascha/brain-mets-seer/archive/master.zip) and unzip the project folder   
+2. Open your terminal and change your working directory to the project folder
+    - To do this, run the command `cd {project/folder/path}`, where `{project/folder/path}` is your project folder path. Your project folder path will probably be something like `/Users/your-user-name/Downloads/brain-mets-seer-master/`
+3. Run `make --just-print`.     
+
+
 ### Manuscript results replication (requires data)
 
 Replication will require you to:   
@@ -23,19 +37,6 @@ Replication will require you to:
 
 Note that this project takes several hours to run on a single-processor machine with 64GB of memory. You can run `make` with the `-jN` option (where N is some integer) to go through claims files in parallel, but that's not recommended because `make` will begin munging before all of the claims have been scanned/extracted (couldn't get those prerequisites to work right).     
 
-
-### Replication dry-run (no data required)   
-
-If you use a Mac, you can obtain `make` by installing the command-line tools that come as part of XCode (see [here](https://stackoverflow.com/questions/10265742/how-to-install-make-and-gcc-on-a-mac), [here](http://railsapps.github.io/xcode-command-line-tools.html), or [here](https://gist.github.com/rtrouton/f92f263414aaeb946e54) for more).
-
-If you use a Linux distribution, you almost certainly already have `make` installed.
-        
-Once you have installed `make`, you can take these steps to see what would run without actually executing any scripts. 
-
-1. [Download](https://github.com/mustafaascha/brain-mets-seer/archive/master.zip) and unzip the project folder   
-2. Open your terminal and change your working directory to the project folder
-    - To do this, run the command `cd {project/folder/path}`, where `{project/folder/path}` is your project folder path. Your project folder path will probably be something like `/Users/your-user-name/Downloads/brain-mets-seer-master/`
-3. Run `make --just-print`.     
 
 ## Project folder contents
 
