@@ -1,4 +1,5 @@
 
+library(zeallot)
 library(tidyverse)
 devtools::load_all("augur")
 devtools::load_all("manuscript")
@@ -103,11 +104,8 @@ cancers <-
 
 
 pedsf_keygen <- pryr::partial(keygen, kdf = unique_recodes)
-key_dfs <- map2(df_vars_to_recode, key_vars_to_recode, pedsf_keygen)
-
-library(zeallot)
-
-cancers <- reduce(key_dfs, lj_coerce, .init = cancers)
+key_dfs      <- map2(df_vars_to_recode, key_vars_to_recode, pedsf_keygen)
+cancers      <- reduce(key_dfs, lj_coerce, .init = cancers)
 
 #more specific recoding=====================================
 
@@ -115,11 +113,11 @@ cancers <- reduce(key_dfs, lj_coerce, .init = cancers)
 cancers$insrec_pub <-
   factor(cancers$insrec_pub, levels = 1:4,
          labels = c("Uninsured", "Medicaid", "Insured", "Insured Nonspecific")) %>%
-  as.character
+  as.character()
 
 cancers$beh03v <-
   factor(cancers$beh03v, levels = 2:3, labels = c("Carcinoid", "Malignant")) %>%
-  as.character
+  as.character()
 
 ssg_labels <-
 cancers$d_ssg00 <-
@@ -141,8 +139,7 @@ cancers$cs_size[as.numeric(cancers$cs_size) >= 988] <- NA
 
 #histo_url <- "https://seer.cancer.gov/icd-o-3/sitetype.icdo3.d20150918.xls"
 #download.file(histo_url, "~/brain-metastases/munge/seer_histo.xls")
-histocodes <-
-  readxl::read_xls("munge/seer_histo.xls")
+histocodes <- readxl::read_xls("munge/seer_histo.xls")
 names(histocodes) <-
   c("siterec", "sitedesc", "histo", "histodesc", "histobeh", "histobehdesc")
 split_stuff <- strsplit(histocodes$histobeh, "/")
@@ -210,6 +207,6 @@ cancers$rac_recy_v <-
                       NA))
   ) 
 
-
+source("munge/tnm.R")
 
 write_csv(cancers, "cache/cancers_postrecode.csv.gz")

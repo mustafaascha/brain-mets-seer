@@ -508,8 +508,11 @@ munge_counts <- function(df) {
   names(tr) <- gsub("\\.", "", make.names(names(tr)))
   names(tr)[1] <- "pop"
   if ("X1" %in% names(tr)) {
-    tr[["total"]] <- apply(tr[, -1], 1, function(x)
-      sum(x, na.rm = TRUE))
+    tr[["total"]] <- apply(tr[, -1], 1, function(x) {
+      message(paste(x, collapse = ", "))
+      x <- ifelse(length(x) == 0, 0, as.numeric(x))
+      sum(x, na.rm = TRUE)
+    })
     tr[["rate"]] <- tr[["X1"]] / tr[["total"]]
     #tr <- tr[,c("pop", "X1", "rate")]
     names(tr)[grep("X1", names(tr))] <- "crude_count"
@@ -595,6 +598,7 @@ ageadj_munge_df <- function(df) {
     })
 
   age_adj <- function(rates, std_df) {
+    #if(nrow(rates) != nrow(std_df)) browser()
     stopifnot(nrow(rates) == nrow(std_df))
     ageadjust(rates[["crude_count"]], rates[["total"]], std_df[["count"]])
   }
@@ -603,11 +607,8 @@ ageadj_munge_df <- function(df) {
   
   list(adj_00 = wts$seer2000,
        adj_10 = wts$census2010) %>%                      
-    back_up(paste0(df_nm, "_aair_stds", collapse = "")) %>%
     map( ~ map(list_col_data, age_adj, std_df = .x)) %>%  
-    back_up(paste0(df_nm, "_aair_aa_init", collapse = "")) %>%
     map( ~ reduce(.x, bind_rows)) %>%                     
-    back_up(paste0(df_nm, "_aair_df", collapse = "")) %>%
     imap_dfc(function(df, df_nm) {
       names(df) <-
         paste(gsub("\\.", "_", names(df)),
@@ -638,7 +639,7 @@ aair_by <- function(unnested_df, which_algo, ...) {
     nest_df
   }
   nested_df <- nest_and_munge(unnested_df, dx_year,!!!gps)
-  fe <- ageadj_munge_df(nested_df) %>% back_up("aair_fe")
+  fe <- ageadj_munge_df(nested_df) 
   
   rename_df <- function(df, nms) {
     names(df) <- nms
@@ -647,7 +648,6 @@ aair_by <- function(unnested_df, which_algo, ...) {
   
   tr <-
     bind_cols(nested_df[, -grep("data", names(nested_df))], fe) %>%
-    back_up("aair_by_bound_fe") %>%
     select(-dx_year) %>%
     group_by(!!!gps) %>%
     #take the mean of all years' rates
@@ -1158,7 +1158,7 @@ ip_aair_names_fn <- function(vctr) {
           .init = vctr)
 }
 
-aair <- function(aair_df, nms, ...) {
+aair <- function(aair_df, gp_nms, ...) {
   dots_nms <- deparse(substitute(...))
   #browser()
   # if (rlang::dots_n(...) > 0) {
@@ -1166,6 +1166,13 @@ aair <- function(aair_df, nms, ...) {
     selector <- function(p_df) {
       select(p_df,
              Primary, Stratum, 
+             SEER_SBM = seer_bm_01, 
+             Medicare_LBM = which_algo_to_use)
+    }
+  } else if ("tnm6" %in% dots_nms) {
+    selector <- function(p_df) {
+      select(p_df,
+             Primary, Stratum, TNM6 = tnm6,
              SEER_SBM = seer_bm_01, 
              Medicare_LBM = which_algo_to_use)
     }
@@ -1180,7 +1187,7 @@ aair <- function(aair_df, nms, ...) {
   rtrn <- 
     filter(aair_df, !is.na(cnt)) %>% 
       aair_by(which_algo_to_use, algo, which_cancer, ...) %>% 
-      rates_fn(gp_nms = nms) %>% 
+      rates_fn(gp_nms = gp_nms) %>% 
       ungroup() %>% 
       select(-crude) %>% 
       spread(Algorithm, AAIR) %>% 

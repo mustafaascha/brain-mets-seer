@@ -6,8 +6,8 @@ R_OPTS = --vanilla
 VPATH  = extraction:munge:analysis:cache:cache/dx-imaging:cache/diagnoses
 EXD    = extraction/
 CD     = cache/
-DXDIR  = $(CD)diagnoses/
-IMGDIR = $(CD)dx-imaging/
+DXDIR  = $(CD)diagnoses
+IMGDIR = $(CD)dx-imaging
 
 ## dirs        : Create cache directories
 dirs : cache cache/dx-imaging cache/diagnoses
@@ -37,9 +37,9 @@ cache/dx-imaging :
 	if [ ! -e $(IMGDIR) ]; then mkdir $(IMGDIR); fi;
 
 extract  = $(wildcard $(EXD)*$1*.R)
-target   = $(subst $(EXD),$2,$(subst R,csv,$1))
+target   = $(subst $(EXD),$2,$(subst R,csv.gz,$1))
 targets  = $(foreach a,$1,$(call target,$(a),$2/))
-resource = $(EXD)$(subst csv,R,$(notdir $1))
+resource = $(EXD)$(subst csv.gz,R,$(notdir $1))
 
 img_srcs       = $(call extract,img)
 img_targets    = $(call targets,$(img_srcs),$(IMGDIR))
@@ -69,4 +69,11 @@ clean: rm -f *.aux *.bbl *.blg *.log *.bak *~ *.Rout */*~ */*.Rout */*.aux */*.l
 
 help : Makefile
 	@sed -n 's/^##//p' $<
+
+debug: 
+	@echo img targets: $(img_targets)
+	@echo
+	@echo dx targets: $(dx_targets)
+	@echo
+
 

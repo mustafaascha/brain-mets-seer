@@ -1,109 +1,114 @@
 
-library(tidyverse)
-library(tableone)
-library(zeallot)
-library(devtools)
-devtools::load_all("augur")
-devtools::load_all("manuscript")
 
-paper_products <- list()
+if (!exists("cancers")) {
+  library(tidyverse)
+  library(tableone)
+  library(zeallot)
+  library(devtools)
+  devtools::load_all("augur")
+  devtools::load_all("manuscript")
 
-source("analysis/load.R")
+  paper_products <- list()
 
-#-------------------------------------------------
+  source("analysis/load.R")
 
-cancers_1013 <- 
-  cancers %>% 
-  filter(dx_year >= 2010 & 
-        (which_cancer != "breast" | brst_sub_v != "Not 2010+ Breast"))
+  #-------------------------------------------------
 
-#these are from the "load-exclude" script
-paper_products[["exclusion"]] <- paper_stuff[[2]]
+  cancers_1013 <- 
+    cancers %>% 
+    filter(dx_year >= 2010 & 
+          (which_cancer != "breast" | brst_sub_v != "Not 2010+ Breast"))
 
-measure_vars <-  
-  c(
-    "medicare_60_prim_dx_matches",        
-    "medicare_60_prim_dx_img",
-    "medicare_60_dx_img",
-    "medicare_00_dx_dx"
-  ) 
+  #these are from the "load-exclude" script
+  paper_products[["exclusion"]] <- paper_stuff[[2]]
 
-measure_labels <- 
-  gsub("^medicare_", "", unlist(map(measure_vars, ~ rep_len(.x, 3))))
+  measure_vars <-  
+    c(
+      "medicare_60_prim_dx_matches",        
+      "medicare_60_prim_dx_img",
+      "medicare_60_dx_img",
+      "medicare_00_dx_dx"
+    ) 
 
-paper_products[["classifimetry"]] <- 
-  map_df(measure_vars,
-         partial(primary_classifimeter, df = cancers_1013)) %>% 
-  (function(df) {
-    ts <- mutate(df, msr = measure_labels)
-    ts <- bind_cols(ts[,c("which_cancer", "msr")], 
-                    bind_rows(ts[["classification_metrics"]]))
-    paper_products[["all_classifimetry"]] <<- ts
-    df 
-  }) %>% 
-  clean_paper_metrics(df_labels = measure_labels)
+  measure_labels <- 
+    gsub("^medicare_", "", unlist(map(measure_vars, ~ rep_len(.x, 3))))
 
-no_a_c <- 
-  filter(cancers_1013, 
-         !grepl("autopsy", radiatn_v))
+  paper_products[["classifimetry"]] <- 
+    map_df(measure_vars,
+           partial(primary_classifimeter, df = cancers_1013)) %>% 
+    (function(df) {
+      ts <- mutate(df, msr = measure_labels)
+      ts <- bind_cols(ts[,c("which_cancer", "msr")], 
+                      bind_rows(ts[["classification_metrics"]]))
+      paper_products[["all_classifimetry"]] <<- ts
+      df 
+    }) %>% 
+    clean_paper_metrics(df_labels = measure_labels)
 
-#by histo classification============================================
-paper_products[["histo_metrics"]] <- 
-  map(measure_vars, 
-    function(which_measure){
-      strat_dfs <- 
-        cancers_1013 %>% 
-          group_by(which_cancer, the_strata) %>% 
-          tidyr::nest()
-      strat_fns <- 
-          map(strat_dfs$data, 
-            ~ partial(strat_classifimeter, df = .x, gold_std = "seer_bm_01"))
-      strat_dfs <- 
-          bind_cols(strat_dfs, map_df(strat_fns, function(f) f(which_measure)))
-      strat_dfs <- strat_dfs %>% select(-data)
-      strat_dfs 
-    }
-  ) %>% 
-  map2_df(measure_vars, function(df, mv) mutate(df, measure = mv))
+  no_a_c <- 
+    filter(cancers_1013, 
+           !grepl("autopsy", radiatn_v))
 
-#annum counts=========================================
+  #by histo classification============================================
+  paper_products[["histo_metrics"]] <- 
+    map(measure_vars, 
+      function(which_measure){
+        strat_dfs <- 
+          cancers_1013 %>% 
+            group_by(which_cancer, the_strata) %>% 
+            tidyr::nest()
+        strat_fns <- 
+            map(strat_dfs$data, 
+              ~ partial(strat_classifimeter, df = .x, gold_std = "seer_bm_01"))
+        strat_dfs <- 
+            bind_cols(strat_dfs, map_df(strat_fns, function(f) f(which_measure)))
+        strat_dfs <- strat_dfs %>% select(-data)
+        strat_dfs 
+      }
+    ) %>% 
+    map2_df(measure_vars, function(df, mv) mutate(df, measure = mv))
 
-gp_count <- function(df, vr, ...){
-  if(vr == "seer_bm_01"){
-    df <- df %>% filter(dx_year >= 2010)
-  }
-  c(df[["algo_value"]], gps) %<-% list(df[[vr]], quos(...))
-  to_return <- 
-    df %>% group_by(algo_value, !!!gps) %>% summarise(cnt = n()) %>% 
-       mutate(algo = vr)
-  #to_return[["cnt"]][to_return$cnt <= 11 & to_return$cnt > 0] <- NA
-  to_return
+  #annum counts=========================================
+
+  class_vrs <- 
+    c("seer_bm_01", "medicare_60_prim_dx_matches", 
+      "medicare_60_dx_img", "medicare_00_dx_dx", 
+      "medicare_60_prim_dx_img")
+
+  cncrs_cnt <- partial(gp_count, df = cancers)
+
+  map_cv <- partial(map_dfr, .x = class_vrs)
+
 }
-
-class_vrs <- 
-  c("seer_bm_01", "medicare_60_prim_dx_matches", 
-    "medicare_60_dx_img", "medicare_00_dx_dx", 
-    "medicare_60_prim_dx_img")
+#cancers[["tnm"]] <- cancers[["d_ssg00"]]
 
 paper_products[["histo_annum"]] <- 
-  map_dfr(class_vrs, function(vr) {
-    gp_count(cancers, vr, which_cancer, dx_year, the_strata)
-  })
+  map_cv(~ cncrs_cnt(vr = .x, dx_year, the_strata))
+
+paper_products[["ss_primary"]] <- 
+  with(cancers, table(which_cancer, tnm6, medicare_60_dx_img)) %>% 
+  data.frame()
+
+paper_products[["ss_histo_annum"]] <- 
+  map_cv(~ cncrs_cnt(vr = .x, dx_year, the_strata, tnm6))
+
+paper_products[["ss_histo_age_over_time"]] <- 
+  map_cv(~ cncrs_cnt(vr = .x, age_cut, dx_year, the_strata, tnm6))
+
+paper_products[["d_ss_histo_annum"]] <- 
+  map_cv(~ cncrs_cnt(vr = .x, dx_year, the_strata, d_ssg00))
+
+paper_products[["d_ss_histo_age_over_time"]] <- 
+  map_cv(~ cncrs_cnt(vr = .x, age_cut, dx_year, the_strata, d_ssg00))
 
 paper_products[["age_over_time"]] <- 
-  map_dfr(class_vrs, function(vr) {
-    gp_count(cancers, vr, which_cancer, age_cut, dx_year)
-  })
+  map_cv(~ cncrs_cnt(vr = .x, age_cut, dx_year))
 
 paper_products[["histo_age_over_time"]] <- 
-  map_dfr(class_vrs, function(vr) {
-    gp_count(cancers, vr, which_cancer, age_cut, the_strata, dx_year)
-  })
+  map_cv(~ cncrs_cnt(vr = .x, age_cut, the_strata, dx_year))
 
 paper_products[["strata_only"]] <- 
-  map_dfr(class_vrs, function(vr) {
-    gp_count(cancers, vr, which_cancer, the_strata)
-  })
+  map_cv(~ cncrs_cnt(vr = .x, the_strata))
 
 #table ones===============================================
 

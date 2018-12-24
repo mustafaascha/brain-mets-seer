@@ -33,3 +33,18 @@ keep_top_n <- function(fctr, n){
 
 
 
+
+
+gp_count <- function(df, vr, ...){
+  if(vr == "seer_bm_01"){
+    df <- df %>% filter(dx_year >= 2010)
+  }
+  c(df[["algo_value"]], gps) %<-% list(df[[vr]], quos(...))
+  to_return <-
+    df %>% group_by(algo_value, which_cancer, !!!gps) %>% summarise(cnt = n()) %>%
+       mutate(algo = vr)
+  #to_return[["cnt"]][to_return$cnt <= 11 & to_return$cnt > 0] <- NA
+  to_return
+}
+                                                                    
+
