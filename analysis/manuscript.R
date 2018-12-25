@@ -1,9 +1,10 @@
 
-source("analysis/premanuscript.R")
+#source("analysis/premanuscript.R")
 
 library(tidyverse) 
 library(zeallot)
 library(Hmisc)
+library(magrittr)
 
 
 if (!exists("papes") | exists("dont_rerun")) {
@@ -165,27 +166,15 @@ if (!exists("papes") | exists("dont_rerun")) {
 
 }
 
-# Stage-specific incidence proportions
-# These also work as negative controls, which was nice
-ss_ip_fn <- function(ss_df, ...) {
-  ss_df %>% 
-  do_ip(which_algo = which_algo_to_use, ...) %>% 
-  spread(algo_v, group_cnt) %>% 
-  select(-algo, -synchronous) %>% 
-  mutate(total = Negative + Positive + `<NA>`)
-}
+
 
 ss_ip   <- ss_ip_fn(papes$ss_histo_annum, tnm6)
 ss_ip_h <- ss_ip_fn(papes$ss_histo_annum, the_strata, tnm6)
 ss_ip_a <- ss_ip_fn(papes$ss_histo_age_over_time, the_strata, tnm6, age_cut)
 
-aair_strat <- 
-  aair(papes$ss_histo_age_over_time, 
-       c("Algorithm", "Primary", "Stratum", "TNM"), 
-       the_strata)
+a <- stage_specific_aair(papes$d_ss_histo_age_over_time, d_ssg00)
 
-ex <- read_csv("example-ageadj.csv")
-wts <- prep_weights()
+
 
 
 #classification ===================================

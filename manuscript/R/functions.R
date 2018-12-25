@@ -142,4 +142,58 @@ img_dx_test <- function(df, n_days){
   as.numeric(((df[[dx_nm]] + df[[img_nm]]) == 2))
 }                                                                     
 
+# Stage-specific incidence proportions
+# These also work as negative controls, which was nice
+ss_ip_fn <- function(ss_df, ...) {
+  ss_df %>% 
+    do_ip(which_algo = which_algo_to_use, ...) %>% 
+    select(-algo, -synchronous) 
+}
 
+stage_specific_aair <- function(counts_df, ...) {
+  wts <- prep_weights()
+  
+  age_adj <- function(rates, std_df) {
+    std_df <- std_df[std_df[["pop"]] %in% as.character(rates[["age_cut"]]),]
+    ageadjust(rates[["crude"]], rates[["total"]], std_df[["count"]])
+  }
+  
+  ss_ip_fn(counts_df, age_cut, ...) %>%
+    rename(crude_count = group_cnt, total = group_total) %>% 
+    group_by(which_cancer, algorithm, ...) %>% 
+    nest() %>% 
+    mutate(
+      aair_dfs = map(data, function(a_df) {
+        a_df %>% 
+          filter(algo_value == 1) %>% 
+          group_by(age_cut) %>% 
+          summarise(
+            crude = sum(crude_count, na.rm = T), 
+            total = sum(total, na.rm = T)
+          )
+      })
+    ) %>% 
+    mutate(
+      aair = 
+        map(aair_dfs, function(aair_df) {
+          tryCatch({
+            a <- 
+              data.frame(
+                t(
+                  data.frame(
+                    age_adj(aair_df, wts$census2010)
+                  )
+                )
+              )
+            rownames(a) <- NULL
+            a
+          }, 
+          error = function(e) manuscript::empty_aair
+          )
+        })
+    ) %>%
+    select(-data) %>% 
+    mutate(aair_dfs = map(aair_dfs, ~ summarise_all(.x[,2:3], sum, na.rm = T))) %>% 
+    unnest() %>% 
+    mutate(ip = crude / total)
+}

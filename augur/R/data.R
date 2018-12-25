@@ -220,6 +220,9 @@
 #'
 "all_filetypes_varnames"
 
-
+#' Census 2011 data
+#' 
+#' @format Data.frame
+"census2011"
 
 
