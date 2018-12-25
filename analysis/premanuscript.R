@@ -98,6 +98,13 @@ paper_products[["ss_histo_age_over_time"]] <-
 paper_products[["d_ss_histo_annum"]] <- 
   map_cv(~ cncrs_cnt(vr = .x, dx_year, the_strata, d_ssg00))
 
+paper_products[["d_ss"]] <- 
+  map_cv(~ cncrs_cnt(vr = .x, d_ssg00))
+
+paper_products[["d_ss_table"]] <- 
+  with(cancers, table(which_cancer, d_ssg00, medicare_60_dx_img)) %>% 
+  data.frame()
+
 paper_products[["d_ss_histo_age_over_time"]] <- 
   map_cv(~ cncrs_cnt(vr = .x, age_cut, dx_year, the_strata, d_ssg00))
 

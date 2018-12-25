@@ -1,5 +1,5 @@
 
-#source("analysis/premanuscript.R")
+source("analysis/premanuscript.R")
 
 library(tidyverse) 
 library(zeallot)
@@ -165,8 +165,6 @@ if (!exists("papes") | exists("dont_rerun")) {
   names(ip$s) <- gsub_reduce(names(ip$s), c("\\.", "\\&_"), c("", ""))
 
 }
-
-
 
 ss_ip   <- ss_ip_fn(papes$ss_histo_annum, tnm6)
 ss_ip_h <- ss_ip_fn(papes$ss_histo_annum, the_strata, tnm6)

@@ -509,7 +509,7 @@ munge_counts <- function(df) {
   names(tr)[1] <- "pop"
   if ("X1" %in% names(tr)) {
     tr[["total"]] <- apply(tr[, -1], 1, function(x) {
-      message(paste(x, collapse = ", "))
+      #message(paste(x, collapse = ", "))
       x <- ifelse(length(x) == 0, 0, as.numeric(x))
       sum(x, na.rm = TRUE)
     })
