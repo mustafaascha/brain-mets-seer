@@ -4,6 +4,8 @@ title: "Lifetime lung, breast, and skin cancer \n| brain metastases incidence:\n
 author: ''
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
+  word_document: default
+  pdf_document: default
   html_document: default
 header-includes:
 - \usepackage[fontsize=12pt]{scrextend}
@@ -145,5 +147,16 @@ pander(supplementary_classification)
 
 \pagebreak
 
+## Supplementary Table 5: Stage-specific incidence proportions   
+
+```{r}
+ss_aair %>% 
+  select(which_cancer, d_ssg00, inc_p) %>% 
+  spread(which_cancer, inc_p) %>% 
+  rename(Stage = d_ssg00) %>% 
+  pander(split.table = Inf)
+```
+
+\pagebreak
 
 
