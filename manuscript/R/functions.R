@@ -194,6 +194,21 @@ stage_specific_aair <- function(counts_df, ...) {
     ) %>%
     select(-data) %>% 
     mutate(aair_dfs = map(aair_dfs, ~ summarise_all(.x[,2:3], sum, na.rm = T))) %>% 
-    unnest() %>% 
-    mutate(ip = crude / total)
+    unnest() %>%
+    rename(ip = crude.rate)
+}
+
+summarise_medicare_aair <- function(the_tbl, ...) {
+  stage_specific_aair(the_tbl, ...) %>% 
+    filter(algorithm != "SEER Synchronous Brain") %>% 
+    select(-algorithm) %>% 
+    modify_at(c("adj.rate", "lci", "uci"), ~ prettyNum(1e5 * .x, big.mark = ",", digits = 1)) %>% 
+    modify_at(c("crude", "total"), ~ prettyNum(.x, big.mark = ",", digits = 1)) %>% 
+    modify_at("ip", ~ sprintf("%.1f", 100 * .x)) %>% 
+    mutate(
+      inc_p = paste(ip, " (", crude, " / ", total, ")", sep = ""), 
+      aair = paste(adj.rate, " (", lci, "-", uci, ")", sep = ""), 
+    ) #%>%
+    #select(-crude, -total, -ip, -adj.rate, -lci, -uci) %>% 
+    #spread(which_cancer, aair)
 }

@@ -1,5 +1,5 @@
 
-source("analysis/premanuscript.R")
+#source("analysis/premanuscript.R")
 
 library(tidyverse) 
 library(zeallot)
@@ -166,14 +166,12 @@ if (!exists("papes") | exists("dont_rerun")) {
 
 }
 
-ss_ip   <- ss_ip_fn(papes$ss_histo_annum, tnm6)
-ss_ip_h <- ss_ip_fn(papes$ss_histo_annum, the_strata, tnm6)
-ss_ip_a <- ss_ip_fn(papes$ss_histo_age_over_time, the_strata, tnm6, age_cut)
+# ss_ip   <- ss_ip_fn(papes$ss_histo_annum, tnm6)
+# ss_ip_h <- ss_ip_fn(papes$ss_histo_annum, the_strata, tnm6)
+# ss_ip_a <- ss_ip_fn(papes$ss_histo_age_over_time, the_strata, tnm6, age_cut)
+# 
 
-a <- stage_specific_aair(papes$d_ss_histo_age_over_time, d_ssg00)
-
-
-
+ss_aair <- summarise_medicare_aair(papes$d_ss_histo_age_over_time, d_ssg00)
 
 #classification ===================================
 show_class_freq <- pryr::partial(primary_classification, df = papes$classifimetry)
