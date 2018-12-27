@@ -116,7 +116,8 @@ if (!exists("papes") | exists("dont_rerun")) {
   ip_aair[-1,single_digits] <- 
     lapply(ip_aair[-1,single_digits], 
            compose(function(x) sprintf("%.1f", x), as.double))
-
+  ip_aair_backup <- ip_aair
+  
   #crude ========================
   crude_df <- 
     clean_crude_sbm(papes$strata_only) %>% 
@@ -231,5 +232,40 @@ supplementary_classification <-
 # Function for methods reference to histology codes =============================
 
 hst_c <- histo_key_fn_fctry(papes$histo_key)
+
+# Check that values are concordant
+
+these <- list()
+
+these[["ss"]] <- 
+  ss_aair %>% 
+  group_by(which_cancer) %>% 
+  summarise(
+    total = sum(as.numeric(gsub(",", "", total)), na.rm = T), 
+    present = sum(as.numeric(gsub(",", "", crude)), na.rm = T)
+    ) %>% 
+  mutate(ip = as.numeric(sprintf("%.1f", 100 * present / total)) / 100) %>%
+  mutate(medicare_n = round(total / 100)) %>% 
+  select(which_cancer, ip, medicare_n) %>% 
+  mutate_all(as.character)
+
+these[["ip"]] <-
+  ip_aair_backup %>% 
+  slice(-1) %>% 
+  filter(Histology == "Overall") %>% 
+  select(which_cancer = Site, total = Total1, ip = Present1) %>% 
+  modify_at("ip", ~ as.numeric(.x) / 100) %>% 
+  modify_at("total", ~ round(as.numeric(.x) / 100)) %>% 
+  select(which_cancer, ip, medicare_n = total) %>%
+  mutate_all(as.character)
+
+for (i in seq_along(these$ss)) {
+  if (!(all(these$ss[[i]] %in% these$ip[[i]]))) {
+    stop("Values don't appear concordant!")
+  }
+}
+
+
+
 
 

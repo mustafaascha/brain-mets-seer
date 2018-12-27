@@ -169,7 +169,7 @@ plot_breast_df <- function(a_df, seer_pos, medi_pos) {
     modify_at("present", censor_few)
 }
 
-bp_this <- function(df, the_fill, sz = 4) {
+bp_this <- function(df, the_fill, sz = 4, ...) {
   the_fill <- enquo(the_fill)
   ggplot(df, aes(x = the_strata, y = IP * 100, 
                  fill = eval_tidy(the_fill, data = df))) + 
@@ -177,4 +177,9 @@ bp_this <- function(df, the_fill, sz = 4) {
     geom_bar(stat = "identity", position = position_dodge(), color = "black")
 }
 
+lines_df <- function(df, xs, y) {
+  df[["ws"]] <- 
+    map2(df[[y]], seq(nrow(df)) + 3, ~ seq(0, max(.x), length.out = .y / 5))
+  unnest(df) %>% distinct()
+}
 

@@ -15,10 +15,6 @@ plot_df <-
       ) %>% 
   bind_relevel_filter_pdf()
 
-#gp_map_div_by_years <- . %>% 
-#  gp_cncr() %>% 
-#  map(ip_by_num_years)
-
 #summarize by measures of interest, get crude per annum
 c(by_sex, by_race)  %<-% 
   map(list(make_by_sex, make_by_race), ~ gp_cncr(.x(plot_df)))
@@ -35,12 +31,21 @@ c(ty_slant, tx_slant, race_size) %<-%
        theme(axis.text.x = element_text(angle = 45, color = "black", hjust = 1)),
        3)
 
+library(ggtextures)
+
+images <- paste("http://mustafa.fyi/assets/s", c(1, 3:4), ".jpeg", sep = "")
+
 the_plots[["breast_race"]] <-
   plot_breast_df(by_race$breast, 0.8, 4.7) %>% 
-  bp_this(race_v, sz = race_size) + 
-  scale_fill_grey(start = 0, end = 0.8) + 
+  #bp_this(race_v, sz = race_size) + 
+  ggplot(aes(x = the_strata, y = IP * 100, image = race_v)) + 
+  facet_wrap(~ measure) + #, scales = "free_x") + 
+  geom_textured_bar(stat = "identity", aes(), position = position_dodge()) + 
+  scale_image_manual(values = images) + 
+  # scale_fill_grey(start = 1, end = 1) + 
   bp_theme + 
   label_this("Breast", "") + 
+  labs(image = "") +
   tx_slant
 
 the_plots[["lung_race"]] <-
@@ -65,7 +70,11 @@ the_plots[["lung_sex"]] <-
 
 the_plots[["skin_sex"]] <-
   plot_skin_df(by_sex$skin, 2.25, 5.5) %>% 
-  bp_this(s_sex_v, sz = sex_size) + 
-  scale_fill_grey(start = 0.2, end = 0.6) +
+  ggplot(aes(x = the_strata, y = IP * 100, image = s_sex_v)) + 
+  facet_wrap(~ measure) + #, scales = "free_x") + 
+  geom_textured_bar(stat = "identity", aes(), position = position_dodge()) + 
+  scale_image_manual(values = images) + 
+  # bp_this(s_sex_v, sz = sex_size) + 
+  # scale_fill_grey(start = 0.2, end = 0.6) +
   bp_theme + 
   label_this("Skin", "")
