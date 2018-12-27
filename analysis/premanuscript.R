@@ -75,47 +75,38 @@ if (!exists("cancers")) {
       "medicare_60_dx_img", "medicare_00_dx_dx", 
       "medicare_60_prim_dx_img")
 
-  cncrs_cnt <- partial(gp_count, df = cancers)
-
-  map_cv <- partial(map_dfr, .x = class_vrs)
+  cncrs_cnt <- function(...) function(v) gp_count(cancers, v, ...)
+  map_cv    <- partial(map_dfr, .x = class_vrs)
 
 }
-#cancers[["tnm"]] <- cancers[["d_ssg00"]]
 
-paper_products[["histo_annum"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, dx_year, the_strata))
+add_to_pp <- 
+  list(
+    histo_annum              =  cncrs_cnt(dx_year, the_strata),
+    ss_histo_annum           =  cncrs_cnt(dx_year, the_strata, tnm6),
+    ss_histo_age_over_time   =  cncrs_cnt(age_cut, dx_year, the_strata, tnm6),
+    d_ss_histo_annum         =  cncrs_cnt(dx_year, the_strata, d_ssg00),
+    d_ss                     =  cncrs_cnt(d_ssg00),
+    d_ss_histo_age_over_time =  cncrs_cnt(age_cut, dx_year, the_strata, d_ssg00),
+    age_over_time            =  cncrs_cnt(age_cut, dx_year),
+    histo_age_over_time      =  cncrs_cnt(age_cut, the_strata, dx_year),
+    strata_only              =  cncrs_cnt(the_strata)
+  ) %>% 
+  map(map_cv)
+
+paper_products[names(add_to_pp)] <- add_to_pp
 
 paper_products[["ss_primary"]] <- 
   with(cancers, table(which_cancer, tnm6, medicare_60_dx_img)) %>% 
   data.frame()
 
-paper_products[["ss_histo_annum"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, dx_year, the_strata, tnm6))
-
-paper_products[["ss_histo_age_over_time"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, age_cut, dx_year, the_strata, tnm6))
-
-paper_products[["d_ss_histo_annum"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, dx_year, the_strata, d_ssg00))
-
-paper_products[["d_ss"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, d_ssg00))
-
 paper_products[["d_ss_table"]] <- 
   with(cancers, table(which_cancer, d_ssg00, medicare_60_dx_img)) %>% 
   data.frame()
 
-paper_products[["d_ss_histo_age_over_time"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, age_cut, dx_year, the_strata, d_ssg00))
-
-paper_products[["age_over_time"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, age_cut, dx_year))
-
-paper_products[["histo_age_over_time"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, age_cut, the_strata, dx_year))
-
-paper_products[["strata_only"]] <- 
-  map_cv(~ cncrs_cnt(vr = .x, the_strata))
+paper_products[["d_ss_s_table"]] <- 
+  with(cancers, table(which_cancer, d_ssg00, the_strata, medicare_60_dx_img)) %>% 
+  data.frame()
 
 #table ones===============================================
 
