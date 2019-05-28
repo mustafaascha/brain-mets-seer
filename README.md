@@ -4,6 +4,11 @@
 
 This is a repository enabling replication of results from a manuscript on brain metastases. The manuscript examines frequencies (incidence proportions) of brain metastasis and the classification accuracy of Medicare claims for identifying brain metastasis at primary cancer staging workup. 
 
+The study itself is available here: 
+
+Lifetime Occurrence of Brain Metastases Arising from Lung, Breast, and Skin Cancers in the Elderly: A SEER-Medicare Study
+Mustafa S. Ascha, Quinn T. Ostrom, James Wright, Priya Kumthekar, Jeremy S. Bordeaux, Andrew E. Sloan, Fredrick R. Schumacher, Carol Kruchko and Jill S. Barnholtz-Sloan. Cancer Epidemiol Biomarkers Prev May 1 2019 (28) (5) 917-925; DOI: 10.1158/1055-9965.EPI-18-1116
+
 ## Instructions 
 
 ### Replication dry-run (no data required)   
